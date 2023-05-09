@@ -1,0 +1,62 @@
+.width100 {
+  width: 100%;
+}
+
+.BaseNumber, .BaseDateRange {
+  width: 100%;
+  :global(.ep-input-number) {
+    width: 100%;
+  }
+  :global(.ep-input-number .ep-input__wrapper) {
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+  }
+  :global(.textLeft .ep-input__inner) {
+    text-align: left;
+  }
+}
+
+.BaseNumberRange {
+  width: 100%;
+  display: flex;
+  .inputNumber {
+    flex: 1;
+  }
+  .noControls {
+    :global(.ep-input__inner) {
+      text-align: left;
+    }
+  }
+}
+
+.BaseUpload {
+  .imgwrap {
+    .btn {
+      transform: scale(0.5);
+      display: none;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    &:hover {
+      .btn {
+        display: block;
+      }
+    }
+  }
+  .fileItem {
+    &:hover {
+      background: rgba(0,0,0, 0.1);
+    }
+  }
+  .elIconUploadDis {
+    width: 100%;
+    cursor: not-allowed;
+    :global(.ep-upload),
+    :global(.ep-upload--picture-card),
+    :global(.ep-upload-dragger) {
+      width: 100%;
+      cursor: not-allowed;
+    }
+  }
+}

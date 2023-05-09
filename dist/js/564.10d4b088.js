@@ -1,0 +1,1 @@
+"use strict";(self["webpackChunkease_form"]=self["webpackChunkease_form"]||[]).push([[564],{564:function(e,t,r){r.r(t);var u=r(3396);t["default"]=(0,u.aZ)({inheritAttrs:!1,props:{modelValue:{type:[Number,String,Array,Object,Boolean],default:void 0},config:{type:Object,default(){return{}}}},setup(e){return()=>e.modelValue??e.config.defaultText}})}}]);
