@@ -60,10 +60,10 @@ export function $download(params: {filetype?: string, title: string, data: any, 
 
 // 获取字典
 export function getDicByKey(key: string):any {
-  // const dic = session('sysCodeList')?.find((item: any) => item.bizTypeCode === key)
-  // if (dic) {
-  //   return dic.codeValues
-  // }
+  const dic = session('sysCodeList')?.find((item: any) => item.bizTypeCode === key)
+  if (dic) {
+    return dic.codeValues
+  }
   return []
 }
 
