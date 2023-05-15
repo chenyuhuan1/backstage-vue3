@@ -11,7 +11,8 @@ import BaseCascader from '../src/components/BaseForm/components/BaseCascader'
 import BaseSwitch from '../src/components/BaseForm/components/BaseSwitch'
 import BaseText from '../src/components/BaseForm/components/BaseText'
 import BaseTable from '../src/components/BaseTable/index'
-const components = [BaseForm, BaseTable, BaseInput, BaseNumber, BaseSelect, BaseRadio, BaseCheckbox, BaseDate, BaseDateRange, BaseNumberRange, BaseCascader, BaseSwitch, BaseText] // 组件集合
+import BaseButtons from '../src/components/BaseButtons/index'
+const components = [BaseForm, BaseTable, BaseButtons, BaseInput, BaseNumber, BaseSelect, BaseRadio, BaseCheckbox, BaseDate, BaseDateRange, BaseNumberRange, BaseCascader, BaseSwitch, BaseText] // 组件集合
 // const components = [BaseForm, BaseInput] // 组件集合
 const install = function(Vue) {
   // 注册所有的组件
@@ -25,17 +26,18 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 export default { install } // 必须要有导出
 export {
-  BaseForm as CForm,
-  BaseTable as CTable,
-  BaseInput as CInput,
-  BaseNumber as CNumber,
-  BaseSelect as CSelect,
-  BaseRadio as CRadio,
-  BaseCheckbox as CCheckbox,
-  BaseDate as CDate,
-  BaseDateRange as CDateRange,
-  BaseNumberRange as CNumberRange,
-  BaseCascader as CCascader,
-  BaseSwitch as CSwitch,
-  BaseText as CText,
+  BaseForm as EaseForm,
+  BaseTable as EaseTable,
+  BaseInput as EaseInput,
+  BaseNumber as EaseNumber,
+  BaseSelect as EaseSelect,
+  BaseRadio as EaseRadio,
+  BaseCheckbox as EaseCheckbox,
+  BaseDate as EaseDate,
+  BaseDateRange as EaseDateRange,
+  BaseNumberRange as EaseNumberRange,
+  BaseCascader as EaseCascader,
+  BaseSwitch as EaseSwitch,
+  BaseText as EaseText,
+  BaseButtons as EaseButtons,
 }

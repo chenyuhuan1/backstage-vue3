@@ -11,7 +11,7 @@ import { cascaderProps } from '../interface/index'
 import styles from '@/components/BaseForm/style.module.scss'
 
 export default defineComponent({
-  name: 'CCascader',
+  name: 'EaseCascader',
   props: {
     modelValue: {
       type: [Number, String, Array, Object, Boolean],

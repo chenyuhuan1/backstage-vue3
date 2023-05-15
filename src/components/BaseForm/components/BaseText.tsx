@@ -9,7 +9,7 @@
 import { defineComponent, PropType } from 'vue'
 import { textProps } from '../interface/index'
 export default defineComponent({
-  name: 'CText',
+  name: 'EaseText',
   inheritAttrs: false,
   props: {
     modelValue: {

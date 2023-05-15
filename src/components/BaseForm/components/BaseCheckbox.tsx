@@ -12,7 +12,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 
 
 export default defineComponent({
-  name: 'CCheckbox',
+  name: 'EaseCheckbox',
   props: {
     modelValue: {
       type: Array,

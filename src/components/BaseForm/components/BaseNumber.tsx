@@ -11,7 +11,7 @@ import { numberProps } from '../interface/index'
 
 
 export default defineComponent({
-  name: 'CNumber',
+  name: 'EaseNumber',
   props: {
     modelValue: {
       type: [String, Number],

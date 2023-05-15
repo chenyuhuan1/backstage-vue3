@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-05-08 11:52:15
- * @LastEditors: tanpeng
+ * @LastEditTime: 2023-05-12 17:07:56
+ * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, toRefs, reactive, ref, onMounted, PropType, watch } from 'vue'
@@ -12,7 +12,7 @@ import { theadItemConfig, loadDataFace, pagingConfigFace, tableConfigFace } from
 import styles from  '@/components/BaseTable/style.module.scss'
 
 export default defineComponent({
-  name: 'CTable',
+  name: 'EaseTable',
   props: {
     tableConfig: {
       type: Object as PropType<tableConfigFace>,

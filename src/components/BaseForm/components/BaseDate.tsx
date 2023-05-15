@@ -11,7 +11,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 
 
 export default defineComponent({
-  name: 'CDate',
+  name: 'EaseDate',
   props: {
     modelValue: {
       type: String,

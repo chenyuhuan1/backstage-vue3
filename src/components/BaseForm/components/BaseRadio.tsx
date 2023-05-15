@@ -12,7 +12,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 
 
 export default defineComponent({
-  name: 'CRadio',
+  name: 'EaseRadio',
   props: {
     modelValue: {
       type: [Number, String, Boolean],

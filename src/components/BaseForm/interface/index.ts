@@ -1,11 +1,10 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-05-09 14:45:47
- * @LastEditors: tanpeng
- * @Description:
+ * @LastEditTime: 2023-05-15 10:13:09
+ * @LastEditors: 陈宇环
+ * @Description: form表单相关接口定义
  */
-
 
 /** 表单组件config配置接口 */
 export interface formConfig {
@@ -47,17 +46,29 @@ export interface formConfig {
 
 /** 所有表单控件的联合类型 */
 export type columnsBase =
+  /** 输入框控件 */
   | inputProps
+  /** 下拉选择控件 */
   | selectProps
+  /** 单选控件 */
   | radioProps
+  /** 多选控件 */
   | checkboxProps
+  /** 数字输入控件 */
   | numberProps
-  | dateProps
-  | dateRangeProps
+  /** 数字范围输入控件 */
   | numberRangeProps
+  /** 年月日-日期输入控件 */
+  | dateProps
+  /** 年月日-日期范围输入控件 */
+  | dateRangeProps
+  /** 级联选项控件 */
   | cascaderProps
+  /** 开关控件 */
   | switchProps
+  /** 出文本控件 */
   | textProps
+  /** 自定义render函数 */
   | renderProps
 
 
@@ -115,11 +126,16 @@ export type format = (item: any) => any
 
 /** 输入框控件props */
 export interface inputProps extends defaultProps {
-  type: 'input' | 'textarea' | 'password'  // 这里还能添加很多类型 参考：https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
-  showPassword?: boolean  // 是否需要密码*号 显示隐藏开关
+  /** 这里还能添加很多类型 参考：https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types */
+  type: 'input' | 'textarea' | 'password'
+  /** 是否需要密码*号 显示隐藏开关 */
+  showPassword?: boolean
+  /** 最大输出长度 */
   minlength?: number
+  /** 最小输出长度 */
   maxlength?: number
-  rows?: number // textarea 行数
+  /** textarea 行数 */
+  rows?: number
 }
 
 /** 数字输入控件props **/
@@ -131,6 +147,7 @@ export interface numberProps extends defaultProps {
   max?: number
   /** 变化值步骤 */
   step?: number
+  /** 精确度 */
   precision?: number
   /** 是否需要调整大小控件 */
   controls?: boolean
@@ -140,8 +157,11 @@ export interface numberProps extends defaultProps {
 export interface selectProps extends defaultProps {
   type: 'select'
   prop2?: string
+  /** 是否根据输入字符过滤 */
   filterable?: boolean
+  /** 是否远程搜索 */
   remote?: boolean
+  /** 远程搜索函数 */
   remoteMethod?: (query: string) => Promise<{ [label: string]: any }[]>
   /** 多选开关 */
   multiple?: boolean
@@ -159,32 +179,41 @@ export interface selectProps extends defaultProps {
   reserveKeyword?: boolean
   /** 格式化函数 */
   format?: format
+  /** 下拉选项 */
   options?: optionsType
 }
 
 /** 单选控件props */
 export interface radioProps extends defaultProps {
   type: 'radio'
+  /** 选项中label字段对应的key */
   labelKey?: string
+  /** 选项中value字段对应的key */
   valueKey?: string
+  /** 是否是带边框的radio */
   border?: boolean
   /** 用按钮的形式展示 button */
   showType?: 'button' | undefined
-  /** 格式化函数 */
+  /** label格式化函数 */
   format?: format
+  /** 选项options对象 */
   options?: optionsType
 }
 
 /** 多选控件props */
 export interface checkboxProps extends defaultProps {
   type: 'checkbox'
+  /** 选项中label字段对应的key */
   labelKey?: string
+  /** 选项中value字段对应的key */
   valueKey?: string
+  /** 是否是带边框的radio */
   border?: boolean
   /** 用按钮的形式展示 button */
   showType?: 'button' | undefined
   /** 格式化函数 */
   format?: format
+  /** 选项options对象 */
   options?: optionsType
 }
 
@@ -200,9 +229,9 @@ export interface dateRangeProps extends defaultProps {
   type: 'yearRange' | 'monthRange' | 'dateRange' | 'weekRange' | 'datetimeRange'
   /** 范围选择控件(dateRange、numberRange)结束key */
   propEnd?: string
-  /** 禁止选择的日期 */
+  /** 开始日期-禁止选择的日期 */
   disabledDate?: (date: any) => boolean
-  /** 禁止选择的日期 */
+  /** 结束日期-禁止选择的日期 */
   disabledEndDate?: (date: any) => boolean
 }
 
@@ -215,8 +244,9 @@ export interface numberRangeProps extends defaultProps {
   min?: number
   /** 最大 */
   max?: number
-  /** 步骤条 */
+  /** 每次加减对应的跨度 */
   step?: number
+  /** 精度 */
   precision?: number
   /** 是否需要调整大小控件 */
   controls?: boolean
@@ -225,15 +255,21 @@ export interface numberRangeProps extends defaultProps {
 /** 级联控件props */
 export interface cascaderProps extends defaultProps {
   type: 'cascader'
+  /** 是否多选 */
   multiple?: boolean
-  labelKey?: string,
-  valueKey?: string,
+  /** 选项中label字段对应的key */
+  labelKey?: string
+  /** 选项中value字段对应的key */
+  valueKey?: string
   /** 子节点children取数参数 */
   childrenKey?: string,
+  /** 是否返回由该节点所在的各级菜单的值所组成的数组，若设置 false，则只返回该节点的值 */
   emitPath?: boolean,
+  /** element-ui props属性 */
   props?: any,
-  /** 格式化函数 */
+  /** label格式化函数 */
   format?: (node: any, data: any) => any
+  /** 选项获取 */
   options?: optionsType
 }
 
@@ -249,13 +285,14 @@ export interface switchProps extends defaultProps {
 /** 文本控件props */
 export interface textProps extends defaultProps {
   type: 'text',
+  /** 默认展示文本 */
   defaultText?: string | number,
 }
 
 /** 自定义render函数（只替换form-item-conent部分，label不会被render）*/
 export interface renderProps extends defaultProps {
   type: 'render'
-  /** 自定义组件render */
+  /** 自定义组件render函数 */
   render: () => any
 }
 

@@ -10,7 +10,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 import { inputProps } from '../interface/index'
 
 export default defineComponent({
-  name: 'CInput',
+  name: 'EaseInput',
   props: {
     modelValue: {
       type: [String, Number],

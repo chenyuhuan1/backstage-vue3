@@ -12,7 +12,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 
 
 export default defineComponent({
-  name: 'CSelect',
+  name: 'EaseSelect',
   props: {
     modelValue: {
       type: [Number, String, Array, Object, Boolean],

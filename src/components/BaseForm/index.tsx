@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-05-06 11:59:30
- * @LastEditors: tanpeng
+ * @LastEditTime: 2023-05-12 17:06:47
+ * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
 
@@ -12,7 +12,7 @@ import { formConfig, columnsBase } from './interface/index'
 // 导入所有自定义form控件组件
 import * as widget from './components/index'
 export default defineComponent({
-  name: 'CForm',
+  name: 'EaseForm',
   props: {
     modelValue: {
       type: Object,

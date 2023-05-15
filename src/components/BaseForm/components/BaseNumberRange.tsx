@@ -11,7 +11,7 @@ import { numberRangeProps } from '../interface/index'
 
 
 export default defineComponent({
-  name: 'CNumberRange',
+  name: 'EaseNumberRange',
   props: {
     modelValue: {
       type: [String, Number],

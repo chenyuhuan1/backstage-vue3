@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-28 15:34:56
- * @LastEditTime: 2023-05-08 11:50:15
- * @LastEditors: tanpeng
+ * @LastEditTime: 2023-05-12 17:07:11
+ * @LastEditors: 陈宇环
  * @Description: 'yearRange' | 'monthRange' | 'dateRange' | 'datetimeRange'组件
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
@@ -12,7 +12,7 @@ import styles from '@/components/BaseForm/style.module.scss'
 
 
 export default defineComponent({
-  name: 'CDateRange',
+  name: 'EaseDateRange',
   props: {
     modelValue: {
       type: [String, Number],

@@ -10,7 +10,7 @@ import { switchProps } from '../interface/index'
 import styles from '@/components/BaseForm/style.module.scss'
 
 export default defineComponent({
-  name: 'CSwitch',
+  name: 'EaseSwitch',
   props: {
     modelValue: {
       type: [String, Number, Boolean],
