@@ -71,7 +71,7 @@ import { ElButton, ElInput } from 'element-plus'
 import BsButtons from './components/BsButtons'
 
 const opFn = () => {
-  console.log(123123)
+  console.log(333)
 }
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
@@ -140,11 +140,11 @@ const config = reactive<formConfig>({
             setTimeout(() => {
               resolve([
                 {
-                  name: '男12312ss',
+                  name: '男',
                   value: 1,
                 },
                 {
-                  name: '女55454333dd1',
+                  name: '女',
                   value: 2,
                 },
               ])
