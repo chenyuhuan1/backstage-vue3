@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-07-27 15:11:25
+ * @LastEditTime: 2023-07-06 10:20:19
  * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
@@ -71,7 +71,7 @@ import { ElButton, ElInput } from 'element-plus'
 import BsButtons from './components/BsButtons'
 
 const opFn = () => {
-  console.log(333)
+  console.log(123123)
 }
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
@@ -140,11 +140,11 @@ const config = reactive<formConfig>({
             setTimeout(() => {
               resolve([
                 {
-                  name: '男',
+                  name: '男12312ss',
                   value: 1,
                 },
                 {
-                  name: '女',
+                  name: '女55454333dd1',
                   value: 2,
                 },
               ])

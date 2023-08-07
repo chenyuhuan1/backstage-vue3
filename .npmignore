@@ -1,4 +1,5 @@
 .DS_Store
+.vscode
 buildConfig/
 node_modules/
 packages/
@@ -6,7 +7,7 @@ public/
 src/
 tests/
 dist/
-lib/
+types/
 package-lock.json
 .browserslistrc
 .editorconfig
@@ -17,3 +18,4 @@ vue.config.js
 tsconfig.json
 .env.npm
 ts-shim.d.ts
+rollup.config.js
