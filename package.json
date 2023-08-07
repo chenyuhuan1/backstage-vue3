@@ -1,0 +1,53 @@
+{
+  "name": "backstage-vue3",
+  "version": "0.1.7",
+  "private": false,
+  "main": "lib/index/index.js",
+  "types": "types/packages/index.d.ts",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "docs": "typedoc --out docs ./src/components/BsForm/interface/index.ts ./src/components/BsTable/interface/index.ts ./src/components/BsButtons/interface/index.ts",
+    "lib": "tsc && vue-cli-service build --mode npm"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "element-plus": "^2.3.5",
+    "ant-design-vue": "^3.2.16",
+    "register-service-worker": "^1.7.2",
+    "vue": "^3.2.13"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-plugin-unit-jest": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "@vue/vue3-jest": "^27.0.0-alpha.1",
+    "babel-jest": "^27.0.6",
+    "babel-plugin-component": "^1.1.1",
+    "dayjs": "^1.11.7",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "jest": "^27.0.5",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-jest": "^27.0.4",
+    "typedoc": "^0.22.18",
+    "typescript": "~4.5.5"
+  }
+}

@@ -1,32 +1,37 @@
-## 项目名称
-> 请介绍一下你的项目吧  
+# backstage-vue3
 
+一款基于Vue3，JSON配置化UI组件库，同时兼容element-ui、ant-design-vue
 
+## Project setup
 
-## 运行条件
-> 列出运行该项目所必须的条件和相关依赖  
-* 条件一
-* 条件二
-* 条件三
+```
+npm install
+```
 
+### Compiles and hot-reloads for development
 
+```
+npm run serve
+```
 
-## 运行说明
-> 说明如何运行和使用你的项目，建议给出具体的步骤说明
-* 操作一
-* 操作二
-* 操作三  
+### Compiles and minifies for production
 
+```
+npm run build
+```
 
+### Run your unit tests
 
-## 测试说明
-> 如果有测试相关内容需要说明，请填写在这里  
+```
+npm run test:unit
+```
 
+### Lints and fixes files
 
+```
+npm run lint
+```
 
-## 技术架构
-> 使用的技术框架或系统架构图等相关说明，请填写在这里  
+### Customize configuration
 
-
-## 协作者
-> 高效的协作会激发无尽的创造力，将他们的名字记录在这里吧
+See [Configuration Reference](https://cli.vuejs.org/config/).
