@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-08 15:29:02
+ * @LastEditTime: 2023-08-08 19:18:08
  * @LastEditors: chenql
  * @Description: form表单相关接口定义
  */
@@ -75,6 +75,8 @@ export type columnsBase =
   | textProps
   /** 自定义render函数 */
   | renderProps
+  /** 折叠面板 */
+  | collapseProps
 
 
 /** 基础属性接口 */
@@ -325,7 +327,15 @@ export interface renderProps extends defaultProps {
   /** 自定义组件render函数 */
   render: () => any
 }
-
+// Collapse 折叠面板props
+export interface collapseProps extends defaultProps {
+  type: 'collapse'
+  dataConfig?: collapseData[]
+}
+export interface collapseData {
+  title: string,
+  list:  string[],
+}
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }
 
 // 实例是否是columnsOtherBase类型

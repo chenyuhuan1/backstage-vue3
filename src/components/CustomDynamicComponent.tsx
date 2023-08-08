@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-06-05 15:12:47
- * @LastEditTime: 2023-08-08 15:33:42
+ * @LastEditTime: 2023-08-08 19:54:46
  * @LastEditors: chenql
  * @Description:
  */
@@ -49,6 +49,8 @@ export class CustomDynamicComponent {
         rangePicker: <a-range-picker/>,
         checkBoxButton: <div/>,
         popconfirm: <a-popconfirm/>,
+        collapse: <a-collapse/>,
+        collapseItem: <a-collapse-panel/>,
       }
     },
     ele: () => {
@@ -78,6 +80,8 @@ export class CustomDynamicComponent {
         rangePicker: <el-date-picker />,
         checkBoxButton: <el-checkbox-button />,
         popconfirm: <el-popconfirm/>,
+        collapse: <el-collapse/>,
+        collapseItem: <el-collapse-item/>,
       }
     },
   }
@@ -87,7 +91,7 @@ export class CustomDynamicComponent {
       const str1 = str[0].toUpperCase() + str.slice(1)
       return str1
     }
-    const components:string[] = ['row', 'col', 'form', 'formItem', 'button', 'table', 'tableColumn', 'radio', 'pagination', 'input', 'password', 'textarea', 'number', 'radioGroup', 'radioButton', 'select', 'selectOption', 'switch', 'cascader', 'checkBox', 'checkBoxGroup', 'datePicker', 'checkBoxButton', 'popconfirm', 'rangePicker']
+    const components:string[] = ['row', 'col', 'form', 'formItem', 'button', 'table', 'tableColumn', 'radio', 'pagination', 'input', 'password', 'textarea', 'number', 'radioGroup', 'radioButton', 'select', 'selectOption', 'switch', 'cascader', 'checkBox', 'checkBoxGroup', 'datePicker', 'checkBoxButton', 'popconfirm', 'rangePicker', 'collapse', 'collapseItem']
     components.forEach((item) => {
       // 根据组件名称自动注册组件
       this['dynamic' + ucFirst(item)] = this.getComponent(item)

@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-08 15:28:36
+ * @LastEditTime: 2023-08-08 19:59:33
  * @LastEditors: chenql
  * @Description: 组件示例页面
 -->
@@ -86,6 +86,29 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 const config = reactive<formConfig>({
   // colNum: 6,
   columns: [
+    {
+      prop: 'guideActive',
+      type: 'collapse',
+      labelWidth: '0px',
+      colNum: 24,
+      dataConfig: [
+        {
+          title: '操作好资源',
+          list: [
+            '1. 直接转移（调动后社保帐户增员）的社保信息，全部来源于调动环节，无法修改',
+            '2. 如果转移（调动后社保帐户增员）的社保信息与调动环节不一致，需走特殊转移申请。',
+          ],
+        },
+        // {
+        //   title: '操作好资源12',
+        //   list: [
+        //     '1. 直接转移（调动后社保帐户增员）的社保信息，全部来源于调动环节，无法修改',
+        //     '2. 如果转移（调动后社保帐户增员）的社保信息与调动环节不一致，需走特殊转移申请。',
+        //   ],
+        // },
+      ],
+
+    },
     {
       label: '姓名1',
       prop: 'name',
@@ -309,7 +332,9 @@ const config = reactive<formConfig>({
   disabled: false,
   loading: false,
 })
-const form = ref<any>({})
+const form = ref<any>({
+  // guideActive: 1
+})
 
 const set = () => {
   // config.columns[3].options = [

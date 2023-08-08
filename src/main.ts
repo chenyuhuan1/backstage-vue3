@@ -9,4 +9,5 @@ import 'ant-design-vue/dist/antd.css'
 // window.uiLanguage = 'ant'
 createApp(App).use(ElementPlus, {
   locale: zhCn,
+  // namespace: 'ep',
 }).use(AntDesignVue).mount('#app')
