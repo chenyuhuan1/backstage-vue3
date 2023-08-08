@@ -1,7 +1,7 @@
-import { n as number } from '../chunkFile/BsNumber-edeabb48.js';
+import { n as number } from '../chunkFile/BsNumber-bfc26fec.js';
 import 'vue';
-import '../chunkFile/style.module-bc378eba.js';
-import '../chunkFile/CustomDynamicComponent-410630ef.js';
+import '../chunkFile/style.module-083148c8.js';
+import '../chunkFile/CustomDynamicComponent-a59fbdbf.js';
 
 number.install = function (Vue) {
   Vue.component(number.name, number);

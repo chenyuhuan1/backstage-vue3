@@ -1,7 +1,7 @@
-import { s as switchC } from '../chunkFile/BsSwitch-1d57aec2.js';
+import { s as switchC } from '../chunkFile/BsSwitch-85eab238.js';
 import 'vue';
-import '../chunkFile/style.module-bc378eba.js';
-import '../chunkFile/CustomDynamicComponent-410630ef.js';
+import '../chunkFile/style.module-083148c8.js';
+import '../chunkFile/CustomDynamicComponent-a59fbdbf.js';
 
 switchC.install = function (Vue) {
   Vue.component(switchC.name, switchC);
