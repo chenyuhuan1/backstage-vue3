@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-06-26 14:53:57
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-08 14:45:25
+ * @LastEditors: chenql
  * @Description: 表单组件
  */
 
@@ -245,6 +245,8 @@ export default defineComponent({
           [initForm.value[item.prop]],
           [initForm.value[(item as {propEnd?: any}).propEnd], 'propEnd'],
           [initForm.value[(item as {files?: any}).files], 'fileList'],
+          [initForm.value[(item as {propSecond?: any}).propSecond], 'propSecond'],
+          [initForm.value[(item as {propThird?: any}).propThird], 'propThird'],
         ]}
         config={item}
         onChange={(params: any) => {

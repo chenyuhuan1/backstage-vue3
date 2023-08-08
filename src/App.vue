@@ -1,8 +1,8 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-07-06 10:20:19
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-08 15:28:36
+ * @LastEditors: chenql
  * @Description: 组件示例页面
 -->
 <template>
@@ -204,6 +204,15 @@ const config = reactive<formConfig>({
       required: true,
     },
     {
+      label: '日期范围组件',
+      prop: 'date11',
+      propSecond: 'date22',
+      propThird: 'date33',
+      type: 'monthrange',
+      required: true,
+      placeholder: ['开始时间', '结束时间'],
+    },
+    {
       label: '日期范围',
       prop: 'date2',
       propEnd: 'date3',
@@ -284,7 +293,8 @@ const config = reactive<formConfig>({
       prop: 'test',
       type: 'render',
       render: () => {
-        return <ElInput v-model={form.value.test}></ElInput>
+        return ''
+        // return <ElInput v-model={form.value.test}></ElInput>
       },
       placeholder: '请输入',
     },
