@@ -1,6 +1,6 @@
-import { _ as _asyncToGenerator, a as _regeneratorRuntime } from '../chunkFile/asyncToGenerator-f5c1778f.js';
+import { _ as _asyncToGenerator, a as _regeneratorRuntime } from '../chunkFile/asyncToGenerator-abb93505.js';
 import { defineComponent, ref, createVNode, mergeProps } from 'vue';
-import { C as CustomDynamicComponent } from '../chunkFile/CustomDynamicComponent-a59fbdbf.js';
+import { C as CustomDynamicComponent } from '../chunkFile/CustomDynamicComponent-410630ef.js';
 
 var button = defineComponent({
   name: 'BsButtons',

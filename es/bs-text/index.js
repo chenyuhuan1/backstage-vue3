@@ -1,4 +1,4 @@
-import { t as text } from '../chunkFile/BsText-1fecfb46.js';
+import { t as text } from '../chunkFile/BsText-605d2b81.js';
 import 'vue';
 
 text.install = function (Vue) {

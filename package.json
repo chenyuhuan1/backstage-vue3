@@ -11,9 +11,8 @@
     "lint": "vue-cli-service lint",
     "docs": "typedoc --out docs ./src/components/BsForm/interface/index.ts ./src/components/BsTable/interface/index.ts ./src/components/BsButtons/interface/index.ts",
     "lib": "tsc && vue-cli-service build --mode npm",
-    "lib:es": "FORMAT=es rollup -c --bundleConfigAsCjs",
-    "lib:iife": "FORMAT=iife rollup -c --bundleConfigAsCjs",
-    "lib:cjs": "FORMAT=cjs rollup -c --bundleConfigAsCjs"
+    "lib:rollup": "rollup -c --bundleConfigAsCjs",
+    "lib:iife": "FORMAT=iife rollup -c --bundleConfigAsCjs"
   },
   "dependencies": {
     "ant-design-vue": "^3.2.16",

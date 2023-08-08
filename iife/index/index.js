@@ -1,4 +1,4 @@
-(function (exports, vue) {
+var backstageVue3 = (function (exports, vue) {
   'use strict';
 
   function _arrayLikeToArray(arr, len) {
