@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-06-05 15:12:47
- * @LastEditTime: 2023-08-08 19:54:46
+ * @LastEditTime: 2023-08-08 20:44:53
  * @LastEditors: chenql
  * @Description:
  */
@@ -91,11 +91,10 @@ export class CustomDynamicComponent {
       const str1 = str[0].toUpperCase() + str.slice(1)
       return str1
     }
-    const components:string[] = ['row', 'col', 'form', 'formItem', 'button', 'table', 'tableColumn', 'radio', 'pagination', 'input', 'password', 'textarea', 'number', 'radioGroup', 'radioButton', 'select', 'selectOption', 'switch', 'cascader', 'checkBox', 'checkBoxGroup', 'datePicker', 'checkBoxButton', 'popconfirm', 'rangePicker', 'collapse', 'collapseItem']
-    components.forEach((item) => {
-      // 根据组件名称自动注册组件
-      this['dynamic' + ucFirst(item)] = this.getComponent(item)
-    })
+    const map = CustomDynamicComponent.dicts[window?.uiLanguage ?? 'ele']()
+    for (const key in map) {
+      this['dynamic' + ucFirst(key)] = map[key]
+    }
   }
   // 获取动态组件函数
   getComponent(type: string): JSX.Element {
