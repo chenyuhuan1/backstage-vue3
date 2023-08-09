@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-08 19:18:08
+ * @LastEditTime: 2023-08-09 10:06:34
  * @LastEditors: chenql
  * @Description: form表单相关接口定义
  */
@@ -334,7 +334,7 @@ export interface collapseProps extends defaultProps {
 }
 export interface collapseData {
   title: string,
-  list:  string[],
+  desc: string[] | string,
 }
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }
 

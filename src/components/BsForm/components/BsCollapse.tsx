@@ -41,14 +41,18 @@ export default defineComponent({
               <dynamicCollapseItem
                 title={item.title} // ele 特有属性
                 name={index} // ele 特有属性
-                key={index} // antd 特有属性
+                key={index}
                 header={item.title}// antd 特有属性
               >
                 {
-                  item.list?.map((str: any, index1: number) =>
-                    <p key={index1} style={{ color: '#999', margin: 0 }}>
-                      {str}
-                    </p>)
+                  Array.isArray(item.desc) ?
+                    (item.desc?.map((str: any, index1: number) =>
+                      <p key={index1} style={{ color: '#999', margin: 0 }}>
+                        {str}
+                      </p>)) :
+                    <p style={{ color: '#999', margin: 0 }}>
+                      {item.desc}
+                    </p>
                 }
               </dynamicCollapseItem>,
             )}

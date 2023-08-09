@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-08 19:59:33
+ * @LastEditTime: 2023-08-09 10:10:49
  * @LastEditors: chenql
  * @Description: 组件示例页面
 -->
@@ -94,10 +94,9 @@ const config = reactive<formConfig>({
       dataConfig: [
         {
           title: '操作好资源',
-          list: [
+          desc:
             '1. 直接转移（调动后社保帐户增员）的社保信息，全部来源于调动环节，无法修改',
-            '2. 如果转移（调动后社保帐户增员）的社保信息与调动环节不一致，需走特殊转移申请。',
-          ],
+
         },
         // {
         //   title: '操作好资源12',
