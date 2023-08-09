@@ -7,6 +7,7 @@
  *               文本内容取值为  绑定formData的值
  */
 import { defineComponent, PropType } from 'vue'
+import styles from '@/components/BsForm/style.module.scss'
 import { textProps } from '../interface/index'
 export default defineComponent({
   name: 'BsText',
@@ -24,9 +25,7 @@ export default defineComponent({
     },
   },
   setup(props: any) {
-    return () => {
-      return props.modelValue ?? props.config.defaultText
-    }
+    return () => <div class={['BsRadio', styles.width100]}>{props.modelValue ?? props.config.defaultText}</div>
   },
 })
 

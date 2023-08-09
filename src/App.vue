@@ -50,7 +50,7 @@
         :row-selection="rowSelection"
         :table-config="{
           nativeProps: {
-            bordered: true,
+            border: true,
           }
         }"
       />
@@ -358,52 +358,52 @@ const thead = ref<columnsConfigFace>([
       'show-overflow-tooltip': true,
     },
   },
-  {
-    prop: 'info',
-    label: '统计',
-    children: [
-      {
-        prop: 'infoData22',
-        label: '统计数目22',
-        width: 160,
-        children: [
-          {
-            prop: 'infoData221',
-            label: '统计数目221',
-            width: 160,
-            // render: (scope) => (
-            //   <div>
-            //     {scope.row.infoData221} <ElButton size="small">slot</ElButton>
-            //   </div>
-            // ),
-          },
-          {
-            prop: 'infoData222',
-            label: '统计数目212',
-            width: 160,
-          },
-        ],
-      },
-      {
-        prop: 'infoData21',
-        label: '统计数目21',
-        width: 160,
-        children: [
-          {
-            prop: 'infoData211',
-            label: '统计数目211',
-            width: 160,
-          },
-          {
-            prop: 'infoData212',
-            label: '统计数目212',
-            width: 160,
-            render: (scope: any) => <div>{scope.row.infoData211} render测试</div>,
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   prop: 'info',
+  //   label: '统计',
+  //   children: [
+  //     {
+  //       prop: 'infoData22',
+  //       label: '统计数目22',
+  //       width: 160,
+  //       children: [
+  //         {
+  //           prop: 'infoData221',
+  //           label: '统计数目221',
+  //           width: 160,
+  //           // render: (scope) => (
+  //           //   <div>
+  //           //     {scope.row.infoData221} <ElButton size="small">slot</ElButton>
+  //           //   </div>
+  //           // ),
+  //         },
+  //         {
+  //           prop: 'infoData222',
+  //           label: '统计数目212',
+  //           width: 160,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       prop: 'infoData21',
+  //       label: '统计数目21',
+  //       width: 160,
+  //       children: [
+  //         {
+  //           prop: 'infoData211',
+  //           label: '统计数目211',
+  //           width: 160,
+  //         },
+  //         {
+  //           prop: 'infoData212',
+  //           label: '统计数目212',
+  //           width: 160,
+  //           render: (scope: any) => <div>{scope.row.infoData211} render测试</div>,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ])
 const selectList = ref([])
 const handleSelectionChange = (selection: any) => {

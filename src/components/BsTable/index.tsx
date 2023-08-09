@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-07-05 14:44:49
+ * @LastEditTime: 2023-07-28 15:11:16
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -10,6 +10,7 @@ import BsTableItem from './BsTableItem'
 import { columnsConfigFace, columnsItemConfig, loadDataFace, pagingConfigFace, tableConfigFace } from './interface/index'
 import styles from '@/components/BsTable/style.module.scss'
 import { CustomDynamicComponent } from '../CustomDynamicComponent'
+import merge from 'lodash/merge'
 
 export default defineComponent({
   name: 'BsTable',
@@ -58,8 +59,10 @@ export default defineComponent({
     const defaultTableConfig: tableConfigFace = {
       ifInitLoadData: true,
       rowKey: 'id',
-      border: true,
-      stripe: true,
+      nativeProps: {
+        border: true,
+        stripe: true,
+      },
     }
     /**
      * 当ui切换为ant-Design-vue时，转为columns为ant-Design-vue的columns格式 start
@@ -84,15 +87,12 @@ export default defineComponent({
      * @param data columns数据
      */
 
-    const cloneTableConfig: tableConfigFace = reactive<tableConfigFace>({
-      ...defaultTableConfig,
-      ...props.tableConfig,
-    })
+    const cloneTableConfig: tableConfigFace = reactive<tableConfigFace>(merge(defaultTableConfig, props.tableConfig))
 
     watch(
       () => props.tableConfig,
       () => {
-        Object.assign(cloneTableConfig, defaultTableConfig, props.tableConfig)
+        merge(cloneTableConfig, defaultTableConfig, props.tableConfig)
       },
       { immediate: true, deep: true },
     )
@@ -102,21 +102,20 @@ export default defineComponent({
       pageIndex: 1,
       pageSize: 10,
       total: 0,
-      layout: 'total, sizes, prev, pager, next',
+      nativeProps: {
+        layout: 'total, sizes, prev, pager, next',
 
-      // ant-ui相关
-      showTotal: (total: number) => `共 ${total} 条`,
-      showSizeChanger: true,
+        // ant-ui相关
+        showTotal: (total: number) => `共 ${total} 条`,
+        showSizeChanger: true,
+      },
     }
-    const clonePagingConfig: pagingConfigFace = reactive<pagingConfigFace>({
-      ...defaultPagingConfig,
-      ...props.pagingConfig,
-    })
+    const clonePagingConfig: pagingConfigFace = reactive<pagingConfigFace>(merge(defaultPagingConfig, props.pagingConfig))
 
     watch(
       () => props.pagingConfig,
       () => {
-        Object.assign(clonePagingConfig, defaultPagingConfig, props.pagingConfig)
+        merge(clonePagingConfig, defaultPagingConfig, props.pagingConfig)
       },
       { immediate: true, deep: true },
     )
@@ -132,7 +131,7 @@ export default defineComponent({
       total: clonePagingConfig.total,
     })
     const list = ref([])
-    const getList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
+    const reloadList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
       try {
         loading.value = true
         const result = await loadData.value({
@@ -150,12 +149,9 @@ export default defineComponent({
         console.log(error)
       }
     }
-    expose({
-      getList,
-    })
     onMounted(function() {
       if (cloneTableConfig.ifInitLoadData) {
-        getList()
+        reloadList()
       }
     })
 
@@ -165,23 +161,36 @@ export default defineComponent({
       pageInfo.pageIndex = 1
       pageInfo.pageSize = val
       clonePagingConfig.pageSizeChange && clonePagingConfig.pageSizeChange(val)
-      getList()
+      reloadList()
     }
     // 当前页变化
     const handleCurrentChange = (val: number) => {
       console.log(`current page: ${val}`)
       pageInfo.pageIndex = val
       clonePagingConfig.pageIndexChange && clonePagingConfig.pageIndexChange(val)
-      getList()
+      reloadList()
     }
 
     // 勾选事件
+    const selectedRow = ref<any>([])
     const handleSelectionChange = (selection: any) => {
       console.log('table-handleSelectionChange', selection)
+      selectedRow.value = selection
       if (cloneTableConfig.rowSelection && cloneTableConfig.rowSelection.onChange) {
         cloneTableConfig.rowSelection.onChange(selection)
       }
     }
+    // 动态改变表格数据
+    const setList = (data: []) => {
+      list.value = data
+    }
+    // 获取当前表格数据
+    const getList = () => {
+      return list.value
+    }
+    expose({
+      selectedRow, reloadList, setList, getList, tableDom, list,
+    })
 
     return () => {
       const dynamicComponent = new CustomDynamicComponent()
