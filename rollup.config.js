@@ -52,56 +52,67 @@ function getComponentEntries(path) {
   }, {})
   return componentEntries
 }
-
-export default {
-  input: {
-    index: resolve('packages/index.ts'),
-    ...process.env.FORMAT !== 'iife' ? getComponentEntries('packages/components') : {},
-  },
-  output:
-      {
-        dir: process.env.FORMAT === 'cjs' ? 'lib' : process.env.FORMAT,
-        format: process.env.FORMAT,
-        // name: 'backstage-vue3', // umd才用到
-        sourcemap: true,
-        entryFileNames: '[name]/index.js', // 该选项用于指定 chunks 的入口文件模式 eg: bs-input/index.js
-        chunkFileNames: 'chunkFile/[name]-[hash].js', // 该选项用于对代码分割中产生的 chunk 自定义命名
-      },
-  plugins: [
-    alias({
-      resolve: ['.jsx', '.js', '.tsx', '.ts', '.scss'],
-      entries: [{
-        find: '@', // 组件库用到的@替换为绝对路径
-        replacement: resolve('src'),
-      }],
-    }),
-    nodeResolve(),
-    commonjs(),
-    typescript({
-      sourceMap: false,
-      declaration: process.env.FORMAT !== 'iife', // iife不要 d.ts文件
-      declarationDir: `${process.env.FORMAT === 'cjs' ? 'lib' : process.env.FORMAT}/types`,
-    }),
-    babel({
-      babelHelpers: 'runtime',
-      exclude: 'node_modules/**',
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    }),
-    postcss({
-      plugins: [
-        autoprefixer(),
-        cssnano(),
-      ],
-      extract: 'css/index.css',
-    }),
-    strip(), // 用于从代码中删除 debugger 语句和函数。包括 assert.equal、console.log
-    // terser(), // 代码压缩
-  ],
-  external: [
-    'vue',
-    'element-plus',
-    'ant-design-vue',
-  ],
+function getConfig(format) {
+  return {
+    input: {
+      index: resolve('packages/index.ts'),
+      ...format !== 'iife' ? getComponentEntries('packages/components') : {},
+    },
+    output:
+        {
+          dir: format === 'cjs' ? 'lib' : format,
+          format,
+          // name该选项用于，在想要使用全局变量名来表示你的 bundle 时，输出格式必须指定为 iife 或 umd。同一个页面上的其他脚本可以通过这个变量名来访问你的 bundle 导出
+          ...format === 'iife' ? { name: 'backstageVue3' } : {},
+          sourcemap: true,
+          entryFileNames: '[name]/index.js', // 该选项用于指定 chunks 的入口文件模式 eg: bs-input/index.js
+          chunkFileNames: 'chunkFile/[name]-[hash].js', // 该选项用于对代码分割中产生的 chunk 自定义命名
+        },
+    plugins: [
+      alias({
+        resolve: ['.jsx', '.js', '.tsx', '.ts', '.scss'],
+        entries: [{
+          find: '@', // 组件库用到的@替换为绝对路径
+          replacement: resolve('src'),
+        }],
+      }),
+      nodeResolve(),
+      commonjs(),
+      typescript({
+        sourceMap: false,
+        declaration: format !== 'iife', // iife不要 d.ts文件
+        declarationDir: `${format === 'cjs' ? 'lib' : format}/types`,
+        // outDir: `${format === 'cjs' ? 'lib' : format}`, //默认情况下，ts编译后的js文件，与源文件都在同一个目录下。使用outDir选项可以指定编译后的文件所在的目录。清理之前编译生成的js文件。
+      }),
+      babel({
+        babelHelpers: 'runtime',
+        exclude: 'node_modules/**',
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      }),
+      postcss({
+        plugins: [
+          autoprefixer(),
+          cssnano(),
+        ],
+        extract: 'css/index.css',
+      }),
+      strip(), // 用于从代码中删除 debugger 语句和函数。包括 assert.equal、console.log
+      format === 'iife' && terser(), // 代码压缩
+    ],
+    external: [
+      'vue',
+      'element-plus',
+      'ant-design-vue',
+    ],
+  }
 }
+export default [
+  ...process.env.FORMAT === 'iife' ? [
+    getConfig('iife'),
+  ] : [
+    getConfig('cjs'),
+    getConfig('es'),
+  ],
+]
 
 

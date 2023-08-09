@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-07-03 15:41:01
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-09 10:06:34
+ * @LastEditors: chenql
  * @Description: form表单相关接口定义
  */
 import { rulesIn } from '@/utils/validator'
@@ -75,6 +75,8 @@ export type columnsBase =
   | textProps
   /** 自定义render函数 */
   | renderProps
+  /** 折叠面板 */
+  | collapseProps
 
 
 /** 基础属性接口 */
@@ -94,7 +96,7 @@ interface defaultProps {
   /** 是否必填 */
   required?: boolean
   /** 描述字符 */
-  placeholder?: string
+  placeholder?: string | string[]
   /** 是否需要清除按钮 */
   clearable?: boolean
   /** 该字段展开收起默认值 */
@@ -110,7 +112,9 @@ interface defaultProps {
   /** ui框架原生属性 */
   nativeProps?: {
     [key: string]: any
-  }
+  },
+  propSecond?: string,  // 第2个表单 key值
+  propThird?: string, // 第3个表单 key值
 }
 
 /** options选项 select、radio、checkbox、cascader（可能包含children）选项接口 */
@@ -244,7 +248,11 @@ export interface checkboxProps extends defaultProps {
 /** 日期控件props */
 export interface dateProps extends defaultProps {
   /** 控件类型选择 */
-  type: 'year' | 'month' | 'week' | 'date' | 'datetime' | 'dates'
+  type: 'year' | 'month' | 'week' | 'date' | 'datetime' | 'dates' | 'datetimerange' | 'daterange' | 'monthrange',
+  disabledDate?: (date: any)=>boolean,
+  valueFormat?: string,
+  startPlaceholder?: string, // 范围选择时开始日期的占位内容
+  endPlaceholder?: string // 范围选择时结束日期的占位内容
 }
 
 /** 日期控件范围props */
@@ -319,7 +327,15 @@ export interface renderProps extends defaultProps {
   /** 自定义组件render函数 */
   render: () => any
 }
-
+// Collapse 折叠面板props
+export interface collapseProps extends defaultProps {
+  type: 'collapse'
+  dataConfig?: collapseData[]
+}
+export interface collapseData {
+  title: string,
+  desc: string[] | string,
+}
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }
 
 // 实例是否是columnsOtherBase类型

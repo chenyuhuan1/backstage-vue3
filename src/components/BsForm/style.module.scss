@@ -67,3 +67,14 @@
     }
   }
 }
+.BaseCollapse {
+  :global{
+    .el-collapse-item__header, .el-collapse-item__wrap {
+      background-color: #f1f1f1;
+    }
+    .el-collapse-item__content, .el-collapse-item__header {
+      padding: 0;
+      padding-left: 10px;
+    }
+  }
+}

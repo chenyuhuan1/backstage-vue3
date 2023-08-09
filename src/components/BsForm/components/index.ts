@@ -14,6 +14,7 @@ import BsNumberRange from './BsNumberRange'
 import BsCascader from './BsCascader'
 import BsSwitch from './BsSwitch'
 import BsText from './BsText'
+import BsCollapse from './BsCollapse'
 
 // 组件注册
 export const getComponentByType = (type: columnsBase['type']): any => {
@@ -38,6 +39,9 @@ export const getComponentByType = (type: columnsBase['type']): any => {
     case 'date':
     case 'datetime':
     case 'dates':
+    case 'datetimerange':
+    case 'daterange':
+    case 'monthrange':
       return BsDate
     case 'yearRange':
     case 'monthRange':
@@ -53,6 +57,8 @@ export const getComponentByType = (type: columnsBase['type']): any => {
       return BsSwitch
     case 'text':
       return BsText
+    case 'collapse':
+      return BsCollapse
     default:
       return BsInput
       // throw new Error('配置项控件${col.type}不存在')
