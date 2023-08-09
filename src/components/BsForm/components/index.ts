@@ -16,8 +16,8 @@ import BsSwitch from './BsSwitch'
 import BsText from './BsText'
 
 // 组件注册
-export const getComponentByType = (item: columnsBase): any => {
-  switch (item.type) {
+export const getComponentByType = (type: columnsBase['type']): any => {
+  switch (type) {
     case 'input':
       return BsInput
     case 'textarea':

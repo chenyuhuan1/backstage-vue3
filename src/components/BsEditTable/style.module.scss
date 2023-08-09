@@ -7,7 +7,7 @@
   } 
 }
 
-.BsTable {
+.BsEditTable {
   width: 100%;
   height: 100%;
   display: flex;
@@ -19,5 +19,11 @@
   .table {
     flex: 1;
     margin-top: 15px;
+  }
+  :global(.el-form-item) {
+    margin-bottom: 0;
+  }
+  :global(.el-form-item__content) {
+    flex-wrap: inherit;
   }
 }

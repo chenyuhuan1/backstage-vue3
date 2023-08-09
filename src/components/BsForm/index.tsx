@@ -239,7 +239,7 @@ export default defineComponent({
 
     // 根据item：columnsFormBase获取返回对应的src/components里的组件
     const componentRender = (item: columnsBase) => {
-      const componentInstance = widget.getComponentByType(item)
+      const componentInstance = widget.getComponentByType(item.type)
       return <componentInstance
         v-models={[
           [initForm.value[item.prop]],

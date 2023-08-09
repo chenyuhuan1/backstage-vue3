@@ -21,11 +21,6 @@
           />
         </template>
       </BsForm>
-      <el-button
-        type="primary"
-        size="default"
-        @click="set"
-      />
       <BsButtons
         :buttons="[
           {
@@ -44,11 +39,14 @@
       />
     </template>
     <template #flex1>
-      <BsTable
+      <BsEditTable
+        ref="BsTableDom"
         :columns="thead"
         :load-data="loadData2"
         :row-selection="rowSelection"
         :table-config="{
+          editing: true,
+          // rowEditingKey: 'editing2',
           nativeProps: {
             border: true,
           }
@@ -61,17 +59,41 @@
 <script lang="tsx" setup>
 import { reactive, ref } from 'vue'
 import BsForm, { formConfig } from '@/components/BsForm/index'
-import BsTable, {
-  columnsConfigFace,
+import BsEditTable, {
+  editTableColumnsConfigFace,
   loadDataFace,
   rowSelectionFace,
-} from '@/components/BsTable/index' // @ is an alias to /src
+} from '@/components/BsEditTable/index' // @ is an alias to /src
 import FullPageLayout from '@/layout/FullPageLayout.vue'
-import { ElButton, ElInput } from 'element-plus'
+import { ElInput, ElMessage } from 'element-plus'
 import BsButtons from './components/BsButtons'
 
-const opFn = () => {
-  console.log(123123)
+const opFn = async() => {
+  const val = await BsTableDom.value.validate()
+  if (val) {
+    console.log(BsTableDom.value.getList())
+  } else {
+    ElMessage({
+      type: 'warning',
+      message: '请检查填写！',
+    })
+  }
+  
+  // config.columns[3].options = [
+  //   {
+  //     name: '男11123',
+  //     value: 444,
+  //   },
+  //   {
+  //     name: '女123123',
+  //     value: 555,
+  //   },
+  // ]
+  // config.columns[0].disabled = true
+  // config.columns[0].required = false
+  // config.columns[0].placeholder = '54444'
+  // form.value.name = 'cyh'
+  // form.value.date2 = '2020-08-08 09:15:15'
 }
 
 const validatePass2 = (rule: any, value: any, callback: any) => {
@@ -300,86 +322,52 @@ const config = reactive<formConfig>({
   loading: false,
 })
 const form = ref<any>({})
-
-const set = () => {
-  // config.columns[3].options = [
-  //   {
-  //     name: '男11123',
-  //     value: 444,
-  //   },
-  //   {
-  //     name: '女123123',
-  //     value: 555,
-  //   },
-  // ]
-  // config.columns[0].disabled = true
-  // config.columns[0].required = false
-  // config.columns[0].placeholder = '54444'
-  // form.value.name = 'cyh'
-  // form.value.date2 = '2020-08-08 09:15:15'
-}
-
-const thead = ref<columnsConfigFace>([
+const BsTableDom = ref()
+const thead = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
   { prop: 'id', label: 'id', width: 100, align: 'left', fixed: 'left' },
-  { prop: 'createTime', label: '创建时间', width: 100 },
+  {
+    prop: 'createTimeStart',
+    propEnd: 'createTimeEnd',
+    label: '创建时间',
+    width: 500,
+    formConfig: { type: 'monthRange', required: true },
+  },
   { prop: 'loanCount', label: '笔数', width: 80 },
-  { prop: 'effectiveDays', label: '下载有效期(天)' },
+  {
+    prop: 'effectiveDays',
+    label: '下载有效期(天)',
+    formConfig: {
+      type: 'input',
+      required: true,
+      // rules: [{ min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }],
+    },
+  },
   { prop: 'statusDesc', label: '状态' },
   {
-    prop: 'infoData1',
-    label: '数目1',
+    prop: 'amount',
+    label: '数目',
     width: 160,
     nativeProps: {
       'show-overflow-tooltip': true,
     },
   },
-  // {
-  //   prop: 'info',
-  //   label: '统计',
-  //   children: [
-  //     {
-  //       prop: 'infoData22',
-  //       label: '统计数目22',
-  //       width: 160,
-  //       children: [
-  //         {
-  //           prop: 'infoData221',
-  //           label: '统计数目221',
-  //           width: 160,
-  //           // render: (scope) => (
-  //           //   <div>
-  //           //     {scope.row.infoData221} <ElButton size="small">slot</ElButton>
-  //           //   </div>
-  //           // ),
-  //         },
-  //         {
-  //           prop: 'infoData222',
-  //           label: '统计数目212',
-  //           width: 160,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       prop: 'infoData21',
-  //       label: '统计数目21',
-  //       width: 160,
-  //       children: [
-  //         {
-  //           prop: 'infoData211',
-  //           label: '统计数目211',
-  //           width: 160,
-  //         },
-  //         {
-  //           prop: 'infoData212',
-  //           label: '统计数目212',
-  //           width: 160,
-  //           render: (scope: any) => <div>{scope.row.infoData211} render测试</div>,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    prop: 'info',
+    label: '统计',
+    children: [
+      {
+        prop: 'infosubject',
+        label: '统计科目',
+        width: 160,
+      },
+      {
+        prop: 'infoamount',
+        label: '统计数目',
+        width: 160,
+      },
+    ],
+  },
 ])
 const selectList = ref([])
 const handleSelectionChange = (selection: any) => {
@@ -406,174 +394,139 @@ const loadData2: loadDataFace = async({
           pageIndex === 1
             ? [
               {
+                editing2: true,
                 id: 1,
-                createTime: '2021-01',
+                createTimeStart: '2021-01',
+                createTimeEnd: '2021-02',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 2,
-                createTime: '2021-02',
+                createTimeStart: '2021-02',
+                createTimeEnd: '2021-03',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 3,
-                createTime: '2021-03',
+                createTimeStart: '2021-03',
+                createTimeEnd: '2021-04',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 4,
-                createTime: '2021-04',
+                createTimeStart: '2021-04',
+                createTimeEnd: '2021-05',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 5,
-                createTime: '2021-05',
+                createTimeStart: '2021-05',
+                createTimeEnd: '2021-06',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 6,
-                createTime: '2021-06',
+                createTimeStart: '2021-06',
+                createTimeEnd: '2021-07',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 7,
-                createTime: '2021-07',
+                createTimeStart: '2021-07',
+                createTimeEnd: '2021-08',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 8,
-                createTime: '2021-08',
+                createTimeStart: '2021-08',
+                createTimeEnd: '2021-09',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 9,
-                createTime: '2021-09',
+                createTimeStart: '2021-09',
+                createTimeEnd: '2021-10',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 10,
-                createTime: '2021-10',
+                createTimeStart: '2021-10',
+                createTimeEnd: '2021-11',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
             ]
             : [
               {
                 id: 11,
-                createTime: '2021-11',
+                createTimeStart: '2021-11',
+                createTimeEnd: '2021-12',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
               {
                 id: 12,
-                createTime: '2021-12',
+                createTimeStart: '2021-12',
+                createTimeEnd: '2022-01',
                 loanCount: 5,
                 effectiveDays: 5,
                 statusDesc: '成功',
-                infoData1: 1,
-                infoData21: 21,
-                infoData22: 22,
-                infoData211: 211,
-                infoData212: 212,
-                infoData221: 221,
-                infoData222: 222,
+                amount: 1,
+                infosubject: 21,
+                infoamount: 22,
               },
             ],
         total: 12,

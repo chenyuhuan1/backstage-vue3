@@ -72,6 +72,8 @@ export type columnsConfigFace = columnsItemConfig[]
 export interface columnsItemConfig {
   /** key */
   prop?: string,
+  /** 返回值时结束值的key */
+  propEnd?: string
   /** 中文名称 */
   label?: string,
   /** 类型 */

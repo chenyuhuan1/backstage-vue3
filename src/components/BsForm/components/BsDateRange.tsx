@@ -72,13 +72,13 @@ export default defineComponent({
     function disabledDate(date: any): boolean {
       if (clonePropEnd.value) {
         // 这里format为了解决element默认08:00:00
-        return +new Date(dayjs(date).format('yyyy-MM-DD HH:mm:ss')) > +new Date(dayjs(clonePropEnd.value).format('yyyy-MM-DD HH:mm:ss'))
+        return +new Date(dayjs(date).format('YYYY-MM-DD HH:mm:ss')) > +new Date(dayjs(clonePropEnd.value).format('YYYY-MM-DD HH:mm:ss'))
       }
       return false
     }
     function disabledDateEnd(date: any): boolean {
       if (cloneModelValue.value) {
-        return +new Date(dayjs(date).format('yyyy-MM-DD HH:mm:ss')) < +new Date(dayjs(cloneModelValue.value).format('yyyy-MM-DD HH:mm:ss'))
+        return +new Date(dayjs(date).format('YYYY-MM-DD HH:mm:ss')) < +new Date(dayjs(cloneModelValue.value).format('YYYY-MM-DD HH:mm:ss'))
       }
       return false
     }

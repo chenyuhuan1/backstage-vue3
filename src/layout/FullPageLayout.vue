@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
   .flex1 {
     flex: 1;
     overflow: hidden;
