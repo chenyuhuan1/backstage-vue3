@@ -97,7 +97,7 @@ function getConfig(format) {
         extract: 'css/index.css',
       }),
       strip(), // 用于从代码中删除 debugger 语句和函数。包括 assert.equal、console.log
-      // terser(), // 代码压缩
+      format === 'iife' && terser(), // 代码压缩
     ],
     external: [
       'vue',
