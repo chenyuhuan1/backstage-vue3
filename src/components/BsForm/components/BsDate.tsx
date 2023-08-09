@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 11:33:03
- * @LastEditTime: 2023-07-03 15:35:48
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-08 15:24:46
+ * @LastEditors: chenql
  * @Description:
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
@@ -15,7 +15,15 @@ export default defineComponent({
   name: 'BsDate',
   props: {
     modelValue: {
-      type: String,
+      type: [String, Array],
+      default: '',
+    },
+    propSecond: {
+      type: [String],
+      default: '',
+    },
+    propThird: {
+      type: [String],
       default: '',
     },
     config: {
@@ -25,13 +33,13 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'update:propSecond', 'update:propThird'],
   setup(props: any, { emit }) {
     function getFormat(type: string, formatType: 'format' | 'valueFormat'): string {
-      if (type === 'date') {
+      if (['date', 'daterange'].includes(type)) {
         return 'YYYY-MM-DD'
       }
-      if (type === 'month') {
+      if (['month', 'monthrange'].includes(type)) {
         return 'YYYY-MM'
       }
       if (type === 'year') {
@@ -44,7 +52,7 @@ export default defineComponent({
           return ''
         }
       }
-      if (type === 'datetime') {
+      if (['datetime', 'datetimerange'].includes(type)) {
         return 'YYYY-MM-DD HH:mm:ss'
       }
       return 'YYYY-MM-DD'
@@ -62,6 +70,16 @@ export default defineComponent({
     function updateValue(value: Dayjs) {
       console.log(value, 'value')
       emit('update:modelValue', value)
+      // 当是范围时间选择器时，开始和结束时间处理
+      if (Array.isArray(value) && value?.length === 2) {
+        props.config.propSecond && emit('update:propSecond', value[0])
+        props.config.propThird && emit('update:propThird', value[1])
+      }
+      // 时间选择器被清空时，重置propSecond和prop2
+      if (!value) {
+        props.config.propSecond && emit('update:propSecond', null)
+        props.config.propThird && emit('update:propThird', null)
+      }
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
@@ -70,9 +88,16 @@ export default defineComponent({
 
     return () => {
       const dynamicComponent = new CustomDynamicComponent()
-      const { dynamicDatePicker } = dynamicComponent
+      const { dynamicDatePicker, dynamicRangePicker } = dynamicComponent
+      let dateComp =  dynamicDatePicker
+      let customProps = {}
+      // antd 的时间范围组件特殊处理
+      if (CustomDynamicComponent.language === CustomDynamicComponent.antLanguage && props.config.type?.indexOf('range') > -1) {
+        dateComp = dynamicRangePicker
+        customProps = { picker: props.config.type.replace('range', '') }
+      }
       return <div class={['BsDate', styles.width100]}>
-        <dynamicDatePicker
+        <dateComp
           class={['date', styles.width100]}
           v-model={cloneModelValue.value}
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
@@ -86,8 +111,10 @@ export default defineComponent({
           clearable={props.config.clearable !== false} // ele 特有属性
           allowClear={props.config.allowClear ?? props.config.clearable !== false} // ant-design-vue特有属性
           /** ant-design-vue && ele 统一封装 - end */
-
+          start-placeholder={props.config.startPlaceholder || '开始时间'} // ele
+          end-placeholder={props.config.endPlaceholder || '结束时间'} // ele
           {...props.config.nativeProps}
+          {...customProps}
           onChange={updateValue}
         />
       </div>

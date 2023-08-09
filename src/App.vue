@@ -1,8 +1,8 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-07-06 10:20:19
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-09 11:09:21
+ * @LastEditors: chenql
  * @Description: 组件示例页面
 -->
 <template>
@@ -86,6 +86,18 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 const config = reactive<formConfig>({
   // colNum: 6,
   columns: [
+    {
+      prop: 'guide',
+      type: 'collapse',
+      labelWidth: '0px',
+      colNum: 24,
+      dataConfig: [
+        {
+          title: '操作指引',
+          desc: '1. 直接转移（调动后社保帐户增员）的社保信息，全部来源于调动环节，无法修改',
+        },
+      ],
+    },
     {
       label: '姓名1',
       prop: 'name',
@@ -204,6 +216,15 @@ const config = reactive<formConfig>({
       required: true,
     },
     {
+      label: '日期范围组件',
+      prop: 'date11',
+      propSecond: 'date22',
+      propThird: 'date33',
+      type: 'monthrange',
+      required: true,
+      placeholder: ['开始时间', '结束时间'],
+    },
+    {
       label: '日期范围',
       prop: 'date2',
       propEnd: 'date3',
@@ -284,7 +305,8 @@ const config = reactive<formConfig>({
       prop: 'test',
       type: 'render',
       render: () => {
-        return <ElInput v-model={form.value.test}></ElInput>
+        return ''
+        // return <ElInput v-model={form.value.test}></ElInput>
       },
       placeholder: '请输入',
     },
@@ -299,7 +321,9 @@ const config = reactive<formConfig>({
   disabled: false,
   loading: false,
 })
-const form = ref<any>({})
+const form = ref<any>({
+  // guideActive: 1
+})
 
 const set = () => {
   // config.columns[3].options = [

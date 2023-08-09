@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-06-05 15:12:47
- * @LastEditTime: 2023-06-21 10:51:09
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-08 20:44:53
+ * @LastEditors: chenql
  * @Description:
  */
 // window.uiLanguage = 'ant'
@@ -46,8 +46,11 @@ export class CustomDynamicComponent {
         checkBox: <a-checkbox/>,
         checkBoxGroup: <a-checkbox-group/>,
         datePicker: <a-date-picker/>,
+        rangePicker: <a-range-picker/>,
         checkBoxButton: <div/>,
         popconfirm: <a-popconfirm/>,
+        collapse: <a-collapse/>,
+        collapseItem: <a-collapse-panel/>,
       }
     },
     ele: () => {
@@ -74,8 +77,11 @@ export class CustomDynamicComponent {
         checkBox: <el-checkbox />,
         checkBoxGroup: <el-checkbox-group />,
         datePicker: <el-date-picker />,
+        rangePicker: <el-date-picker />,
         checkBoxButton: <el-checkbox-button />,
         popconfirm: <el-popconfirm/>,
+        collapse: <el-collapse/>,
+        collapseItem: <el-collapse-item/>,
       }
     },
   }
@@ -85,11 +91,10 @@ export class CustomDynamicComponent {
       const str1 = str[0].toUpperCase() + str.slice(1)
       return str1
     }
-    const components:string[] = ['row', 'col', 'form', 'formItem', 'button', 'table', 'tableColumn', 'radio', 'pagination', 'input', 'password', 'textarea', 'number', 'radioGroup', 'radioButton', 'select', 'selectOption', 'switch', 'cascader', 'checkBox', 'checkBoxGroup', 'datePicker', 'checkBoxButton', 'popconfirm']
-    components.forEach((item) => {
-      // 根据组件名称自动注册组件
-      this['dynamic' + ucFirst(item)] = this.getComponent(item)
-    })
+    const map = CustomDynamicComponent.dicts[window?.uiLanguage ?? 'ele']()
+    for (const key in map) {
+      this['dynamic' + ucFirst(key)] = map[key]
+    }
   }
   // 获取动态组件函数
   getComponent(type: string): JSX.Element {
