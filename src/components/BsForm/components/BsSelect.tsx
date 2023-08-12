@@ -25,7 +25,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change', 'setProp2'],
+  emits: ['update:modelValue', 'update:value', 'change', 'setProp2'],
   setup(props: any, { emit }) {
     const { dynamicSelect, dynamicSelectOption } = new CustomDynamicComponent()
     const options = ref<any>([])
@@ -60,8 +60,10 @@ export default defineComponent({
     function updateValue(value: number | string | number|string[]) {
       if (value === '') {
         emit('update:modelValue', null)
+        emit('update:value', null)
       } else {
         emit('update:modelValue', value)
+        emit('update:value', value)
       }
       emit('change', {
         prop: props.config?.prop ?? '',
@@ -116,7 +118,12 @@ export default defineComponent({
         <dynamicSelect
           loading={optionsLoading.value}
           class={['select', styles.width100]}
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
 

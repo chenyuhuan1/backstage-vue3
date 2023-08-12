@@ -24,7 +24,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const options = ref<{[label: string]: any}[]>([])
     const optionsLoading = ref<boolean>(false)
@@ -60,6 +60,7 @@ export default defineComponent({
 
     const handleChange = (value: any) => {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
@@ -75,18 +76,18 @@ export default defineComponent({
         <dynamicCascader
           // loading={optionsLoading}
           class={[styles.width100]}
-          model-value={props.modelValue}
           options={options.value}
 
-          /** ant-design-vue && ele 统一封装 - start */
+          /** ant&& ele 统一封装 - start */
           clearable={props.config.clearable !== false} // ele 特有属性
-          allowClear={props.config.allowClear ?? props.config.clearable !== false} // ant-design-vue特有属性
+          allowClear={props.config.allowClear ?? props.config.clearable !== false} // ant 特有属性
           filterable={props.config.filterable !== false}  // ele 特有属性
-          showSearch={props.config.showSearch ?? props.config.filterable !== false}  // ant-design-vue特有属性
-          multiple={props.config.multiple === true}  // ant-design-vue 特有属性
-          /** ant-design-vue && ele 统一封装 - end */
+          showSearch={props.config.showSearch ?? props.config.filterable !== false}  // ant 特有属性
+          multiple={props.config.multiple === true}  // ant 特有属性
+          /** ant && ele 统一封装 - end */
 
-          /** ant-design-vue 特有属性-start */
+          /** ant 特有属性-start */
+          value={props.modelValue}
           fieldNames={
             props.config.fieldNames ?? {
               label: props.config.labelKey ?? 'label',
@@ -94,9 +95,10 @@ export default defineComponent({
               children: props.config.childrenKey ?? 'children',
             }
           }
-          /** ant-design-vue 特有属性-start */
+          /** ant 特有属性-start */
 
           /** ele 特有属性-start */
+          model-value={props.modelValue}
           props={Object.assign({
             emitPath: (props.config.emitPath === true), // ===true时才会返回true
             label: props.config.labelKey ?? 'label',

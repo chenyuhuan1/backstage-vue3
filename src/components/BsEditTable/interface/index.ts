@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
- * @Date: 2023-01-03 10:56:12
- * @LastEditTime: 2023-06-30 16:35:28
+ * @Date: 2023-08-03 10:56:12
+ * @LastEditTime: 2023-08-10 16:35:28
  * @LastEditors: 陈宇环
  * @Description: table+paging 接口定义
  */
@@ -34,13 +34,18 @@ export interface editTableConfigFace extends tableConfigFace {
   rowEditingKey?: string,
 }
 
+// 将columnsBase联合类型中的prop属性去掉
+type formConfigType<T, U> = T extends U ? string : Omit<T, 'prop'>
+
+export type widgetConfigFace = formConfigType<columnsBase, string>
 /** 编辑table列配置 */
 export interface editTableColumnsItemConfig extends columnsItemConfig {
   /** 当前列是否正在编辑状态 */
   editing?: boolean,
   /** 编辑状态下表单项配置 */
-  formConfig?: Omit<columnsBase, 'prop'>
+  widgetConfig?: widgetConfigFace,
 }
+
 
 /** 编辑table列配置项item */
 export type editTableColumnsConfigFace = editTableColumnsItemConfig[]

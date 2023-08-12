@@ -25,7 +25,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change', 'setProp2'],
+  emits: ['update:modelValue', 'update:value', 'change', 'setProp2'],
   setup(props: any, { emit }) {
     const { dynamicRadio, dynamicRadioGroup, dynamicRadioButton } = new CustomDynamicComponent()
     const options = ref<any>([])
@@ -63,6 +63,7 @@ export default defineComponent({
       }
 
       emit('update:modelValue', cloneValue)
+      emit('update:value', cloneValue)
       emit('change', {
         prop: props.config?.prop ?? '',
         value: cloneValue,
@@ -77,8 +78,12 @@ export default defineComponent({
         <dynamicRadioGroup
           loading={optionsLoading.value}
           class="radio"
+          /** ele 特有属性-start */
           model-value={props.modelValue}
-          value={props.modelValue}  /** ant-design-vue特有属性 */
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           disabled={!!props.config.disabled}
           {...props.config.nativeProps}
           onChange={updateValue}

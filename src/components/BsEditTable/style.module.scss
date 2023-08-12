@@ -9,7 +9,7 @@
 
 .BsEditTable {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,10 +20,19 @@
     flex: 1;
     margin-top: 15px;
   }
-  :global(.el-form-item) {
+  :global(.el-form-item), :global(.ant-form-item) {
     margin-bottom: 0;
   }
   :global(.el-form-item__content) {
     flex-wrap: inherit;
+  }
+  :global(.ant-form-item-control) {
+    position: relative;
+  }
+  :global(.ant-form-item-explain-connected) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
   }
 }

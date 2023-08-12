@@ -30,7 +30,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'update:propEnd', 'change'],
+  emits: ['update:modelValue', 'update:value', 'update:propEnd', 'change'],
   setup(props: any, { emit }) {
     
     const cloneModelValue = ref<any>('')
@@ -45,6 +45,7 @@ export default defineComponent({
 
     function updateValue(value: number | string) {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         type: 'start',
         prop: props.config?.prop ?? '',
@@ -119,7 +120,14 @@ export default defineComponent({
       return <div class={['BsDateRange', styles.width100]} style={{ display: 'flex' }}>
         <dynamicDatePicker
           style={{ flex: 1 }}
-          v-model={cloneModelValue.value}
+          v-models={[
+            /** ant 特有属性 - start */
+            [cloneModelValue.value],
+            /** ant 特有属性 - end */
+            /** ele 特有属性 - start */
+            [cloneModelValue.value, 'value'],
+            /** ele 特有属性 - end */
+          ]}
           class="date"
           placeholder={props.config.placeholderStart || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
@@ -141,7 +149,14 @@ export default defineComponent({
         <formItem style="margin: 0;flex: 1;display: flex;">
           <dynamicDatePicker
             style={{ flex: 1 }}
-            v-model={clonePropEnd.value}
+            v-models={[
+              /** ant 特有属性 - start */
+              [clonePropEnd.value],
+              /** ant 特有属性 - end */
+              /** ele 特有属性 - start */
+              [clonePropEnd.value, 'value'],
+              /** ele 特有属性 - end */
+            ]}
             class="date"
             placeholder={props.config.placeholderEnd || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
             disabled={!!props.config.disabled}

@@ -113,8 +113,10 @@ interface defaultProps {
   nativeProps?: {
     [key: string]: any
   },
-  propSecond?: string,  // 第2个表单 key值
-  propThird?: string, // 第3个表单 key值
+  /** 第2个表单 key值 */
+  propSecond?: string,
+  /** 第3个表单 key值 */
+  propThird?: string,
 }
 
 /** options选项 select、radio、checkbox、cascader（可能包含children）选项接口 */

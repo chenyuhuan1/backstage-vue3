@@ -28,7 +28,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const options = ref<any>([])
     const optionsLoading = ref<boolean>(false)
@@ -59,6 +59,7 @@ export default defineComponent({
 
     function updateValue(value: any): void {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
@@ -75,7 +76,12 @@ export default defineComponent({
         <dynamicCheckBoxGroup
           loading={optionsLoading.value}
           class="checkbox"
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           clearable={props.config.clearable !== false}

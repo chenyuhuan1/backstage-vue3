@@ -10,7 +10,6 @@ import {
   toRefs,
   reactive,
   ref,
-  onMounted,
   PropType,
   watch,
   nextTick,
@@ -19,28 +18,27 @@ import BsEditTableItem from './BsEditTableItem'
 import {
   editTableColumnsConfigFace,
   editTableColumnsItemConfig,
-  loadDataFace,
-  pagingConfigFace,
   editTableConfigFace,
 } from './interface/index'
 import styles from './style.module.scss'
 import { CustomDynamicComponent } from '../CustomDynamicComponent'
 import merge from 'lodash/merge'
+import { contentRender, getAllLeaf } from './toolFn'
 
 export default defineComponent({
   name: 'BsEditTable',
   components: {},
   props: {
+    modelValue: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
     tableConfig: {
       type: Object as PropType<editTableConfigFace>,
       default() {
         return {} // 默认值请看defaultTableConfig
-      },
-    },
-    pagingConfig: {
-      type: Object as PropType<pagingConfigFace>,
-      default() {
-        return {} // 默认值请看defaultPagingConfig
       },
     },
     columns: {
@@ -50,26 +48,26 @@ export default defineComponent({
         return []
       },
     },
-    loadData: {
-      type: Function as PropType<loadDataFace>,
-      required: true,
-      default() {
-        return () => {
-          return new Promise((resolve) => {
-            resolve({
-              list: [],
-              total: 0,
-            })
-          })
-        }
-      },
-    },
   },
-  setup(props: any, { expose }) {
-    const { loadData, columns } = toRefs(props)
+  emits: ['update:modelValue'],
+  setup(props: any, { expose, emit }) {
+    const { columns } = toRefs(props)
+    // table数据
+    const list = ref([])
+
+    watch(
+      () => props.modelValue,
+      () => {
+        list.value = props.modelValue
+      },
+      { immediate: true, deep: true },
+    )
+
+    const editItemChange = () => {
+      emit('update:modelValue', list.value)
+    }
 
     const defaultTableConfig: editTableConfigFace = {
-      ifInitLoadData: true,
       rowKey: 'id',
       rowEditingKey: 'editing',
       nativeProps: {
@@ -114,71 +112,16 @@ export default defineComponent({
       { immediate: true, deep: true },
     )
 
-    const defaultPagingConfig: pagingConfigFace = {
-      open: true,
-      pageIndex: 1,
-      pageSize: 10,
-      total: 0,
-      nativeProps: {
-        layout: 'total, sizes, prev, pager, next',
-
-        // ant-ui相关
-        showTotal: (total: number) => `共 ${total} 条`,
-        showSizeChanger: true,
-      },
-    }
-    const clonePagingConfig: pagingConfigFace = reactive<pagingConfigFace>(
-      merge(defaultPagingConfig, props.pagingConfig),
-    )
-
-    watch(
-      () => props.pagingConfig,
-      () => {
-        merge(clonePagingConfig, defaultPagingConfig, props.pagingConfig)
-      },
-      { immediate: true, deep: true },
-    )
-
     const tableDom = ref(null)
     const radio = ref(undefined)
     const loading = ref(false)
-    const pageInfo = reactive({
-      pageIndex: clonePagingConfig.pageIndex,
-      pageSize: clonePagingConfig.pageSize,
-      total: clonePagingConfig.total,
-    })
-
-    // table数据
-    const list = ref([])
-    const reloadList = async({
-      pageIndex = pageInfo.pageIndex,
-      pageSize = pageInfo.pageSize,
-    }: { pageIndex?: number; pageSize?: number } = {}) => {
-      try {
-        loading.value = true
-        const result = await loadData.value({
-          pageIndex,
-          pageSize,
-        })
-        loading.value = false
-        if (result.success) {
-          list.value = result.list
-          pageInfo.total = result.total
-        }
-        pageInfo.pageIndex = pageIndex
-        pageInfo.pageSize = pageSize
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
 
     const ruleFormRef = ref()
-    // 表单整体校验方法-已暴露
+    // 整体校验方法-已暴露
     const validate = async() => {
       return new Promise(async(resolve) => {
         await nextTick()
-        ruleFormRef.value.validate().then(() => {
+        ruleFormRef.value && ruleFormRef.value.validate().then(() => {
           resolve(true)
         })
           .catch((err:any) => {
@@ -187,11 +130,29 @@ export default defineComponent({
           })
       })
     }
+
+    // 检验单行 - rowIndex 行索引(从0开始)
+    const validateRow = async(rowIndex: number) => {
+      if (typeof rowIndex !== 'number') {
+        throw new Error('请传入行号，类型要求为：number')
+      }
+      if (rowIndex >= props.modelValue?.length) {
+        console.error('校验行索引不存在')
+        return false
+      }
+      console.log(getAllLeaf(columns.value))
+      const needValidteKey = columns.value?.filter((column: editTableColumnsItemConfig) => {
+        return column.widgetConfig
+      })?.map((column: editTableColumnsItemConfig) => CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? [`${rowIndex}`, `${column.prop}`] : `[${rowIndex}].${column.prop}`) ?? []
+      return await validateField(needValidteKey)
+    }
+
     // 验证表单具体的某个字段方法-已暴露
     const validateField = async(prop?: string | string[]) => {
       return new Promise(async(resolve) => {
         await nextTick()
-        ruleFormRef.value.validateFields(prop).then(() => {
+        const fn:any = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? ruleFormRef.value?.validateFields(prop) : ruleFormRef.value?.validateField(prop)
+        fn?.then(() => {
           resolve(true)
         })
           .catch((err:any) => {
@@ -204,7 +165,6 @@ export default defineComponent({
     const resetFields = async(prop?: string | string[]) => {
       await nextTick()
       ruleFormRef.value?.resetFields(prop)
-      // updateModelValue() // todo
     }
 
     // 清理表单验证信息-已暴露
@@ -216,29 +176,6 @@ export default defineComponent({
     const scrollToField = async(field: string) => {
       await nextTick()
       ruleFormRef.value?.scrollToField(field)
-    }
-    
-    onMounted(function() {
-      if (cloneTableConfig.ifInitLoadData) {
-        reloadList()
-      }
-    })
-
-    // 分页size变化
-    const handleSizeChange = (val: number) => {
-      console.log(`${val} items per page`)
-      pageInfo.pageIndex = 1
-      pageInfo.pageSize = val
-      clonePagingConfig.pageSizeChange && clonePagingConfig.pageSizeChange(val)
-      reloadList()
-    }
-    // 当前页变化
-    const handleCurrentChange = (val: number) => {
-      console.log(`current page: ${val}`)
-      pageInfo.pageIndex = val
-      clonePagingConfig.pageIndexChange &&
-        clonePagingConfig.pageIndexChange(val)
-      reloadList()
     }
 
     // 勾选事件
@@ -263,12 +200,12 @@ export default defineComponent({
     }
     expose({
       selectedRow,
-      reloadList,
       setList,
       getList,
       tableDom,
       list,
       validate,
+      validateRow,
       validateField,
       resetFields,
       clearValidate,
@@ -282,7 +219,6 @@ export default defineComponent({
         dynamicTable,
         dynamicTableColumn,
         dynamicRadio,
-        dynamicPagination,
       } = dynamicComponent
       return (
         <div class={[styles.BsEditTable]}>
@@ -304,10 +240,16 @@ export default defineComponent({
               style={{ maxWidth: '100%', height: '100%' }}
               row-key={cloneTableConfig.rowKey}
               pagination={false} // ant 特有属性，关闭table自带分页
+              v-slots={CustomDynamicComponent.language ===
+                CustomDynamicComponent.antLanguage ? {
+                  bodyCell: (scope: any) => {
+                    return contentRender(cloneTableConfig, scope.column, { $index: scope.index, row: scope.record  }, editItemChange)
+                  },
+                } : undefined}
               {...cloneTableConfig.nativeProps}
               onSelectionChange={(val: any) => handleSelectionChange(val)}
             >
-              {/* 只有el-ui走这段渲染逻辑，ant-Design-vue是通过columns直接生成的 */}
+              {/* 只有el-ui走这段渲染逻辑 */}
               {CustomDynamicComponent.language ===
             CustomDynamicComponent.eleLanguage ? (
                   <>
@@ -372,6 +314,9 @@ export default defineComponent({
                           key={item.prop ? item.prop : '' + index}
                           item-data={item}
                           clone-table-config={cloneTableConfig}
+                          onChange={() => {
+                            editItemChange()
+                          }}
                         ></BsEditTableItem>
                       )
                     })}
@@ -380,32 +325,6 @@ export default defineComponent({
                 ) : null}
             </dynamicTable>
           </dynamicForm>
-          {clonePagingConfig.open && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                padding: '15px 0',
-              }}
-            >
-              <dynamicPagination  // todo
-                current-page={pageInfo.pageIndex}
-                page-size={pageInfo.pageSize}
-                layout={defaultPagingConfig.layout}
-                total={pageInfo.total}
-                background
-                {...clonePagingConfig.nativeProps}
-                onSizeChange={(val: any) => handleSizeChange(val)}
-                onCurrentChange={(val: any) => handleCurrentChange(val)}
-                // ant-ui相关属性
-                current={pageInfo.pageIndex}
-                onShowSizeChange={(current: number, size: number) =>
-                  handleSizeChange(size)
-                }
-                onChange={(page: number) => handleCurrentChange(page)}
-              />
-            </div>
-          )}
         </div>
       )
     }

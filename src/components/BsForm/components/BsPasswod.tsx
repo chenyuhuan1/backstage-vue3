@@ -24,7 +24,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const { dynamicPassword } = new CustomDynamicComponent()
     function updateValue(value: number | string | InputEvent) {
@@ -36,6 +36,7 @@ export default defineComponent({
       }
 
       emit('update:modelValue', cloneValue)
+      emit('update:value', cloneValue)
       emit('change', {
         prop: props.config?.prop ?? '',
         value: cloneValue,
@@ -46,7 +47,12 @@ export default defineComponent({
         <dynamicPassword
           class="password"
           type='password'
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请输入${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           autocomplete="on"
