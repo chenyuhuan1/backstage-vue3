@@ -471,40 +471,6 @@ const colVerify = async() => {
 const BsFormDom = ref()
 const BsEditTableDom4 = ref()
 const form = ref<any>({})
-setTimeout(() => {
-  form.value.tableList = [
-    {
-      id: 1,
-      createTime: '2021-01',
-      loanCount: 5,
-      effectiveDays: 5,
-      statusDesc: 'success',
-      ohter: 1,
-      amount: 12,
-      category: 'aaa',
-    },
-    {
-      id: 2,
-      createTime: '2021-02',
-      loanCount: 5,
-      effectiveDays: 5,
-      statusDesc: 'success',
-      ohter: 1,
-      amount: 12,
-      category: 'aaa',
-    },
-    {
-      id: 3,
-      createTime: '2021-03',
-      loanCount: 5,
-      effectiveDays: 5,
-      statusDesc: 'fail',
-      ohter: 1,
-      amount: 12,
-      category: 'aaa',
-    },
-  ]
-}, 1000)
 const formThead = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
   { prop: 'id', label: 'id', width: 100, align: 'left', fixed: 'left' },
@@ -577,6 +543,41 @@ const config = reactive<formConfig>({
       type: 'input',
       placeholder: '请输入姓名1',
       required: true,
+      change: () => {
+        console.log(125353)
+        form.value.tableList = [
+          {
+            id: 1,
+            createTime: '2021-01',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'success',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+          {
+            id: 2,
+            createTime: '2021-02',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'success',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+          {
+            id: 3,
+            createTime: '2021-03',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'fail',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+        ]
+      },
     },
     {
       label: '列表',

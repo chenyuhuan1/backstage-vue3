@@ -250,8 +250,8 @@ export default defineComponent({
         ]}
         config={item}
         onChange={(params: any) => {
-          item?.change && item?.change(params)
           updateModelValue()
+          item?.change && item?.change(params)
         }}
         onSetProp2={(value: any) => {
           item.prop2 && setProp2(item.prop2, value)

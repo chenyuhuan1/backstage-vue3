@@ -1,5 +1,6 @@
 import { commonRules, rulesIn } from '@/utils/validator'
-import { inlayRuleType, widgetConfigFace, editTableConfigFace, editTableColumnsItemConfig } from './interface/index'
+import { widgetConfigFace, editTableConfigFace, editTableColumnsItemConfig } from './interface/index'
+import { inlayRuleType } from '@/components/BsForm/interface/index'
 // 导入所有自定义form控件组件
 import * as widget from '@/components/BsForm/components/index'
 import styles from './style.module.scss'
@@ -14,7 +15,7 @@ export const getItemRules = (widgetConfig: widgetConfigFace) => {
     {
       required: widgetConfig?.required,
       message: `${
-        widgetConfig?.type && ['input', 'textarea'].includes(widgetConfig?.type) ? '请输入' : '请选择'
+        widgetConfig?.type && ['input', 'textarea', 'number', 'numberRange'].includes(widgetConfig?.type) ? '请输入' : '请选择'
       }`,
       trigger: 'change',
     },

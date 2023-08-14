@@ -103,6 +103,7 @@ function getConfig(format) {
       'vue',
       'element-plus',
       'ant-design-vue',
+      'ant-router',
     ],
   }
 }

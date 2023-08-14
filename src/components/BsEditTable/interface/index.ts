@@ -6,25 +6,8 @@
  * @Description: table+paging 接口定义
  */
 
-import { columnsBase } from '@/components/BsForm/interface/index'
-
-
-import { tableConfigFace, columnsItemConfig  } from '@/components/BsTable/interface/index'
-
-// eslint-disable-next-line no-duplicate-imports
-export type { inlayRuleType } from '@/components/BsForm/interface/index'
-
-// eslint-disable-next-line no-duplicate-imports
-export type {
-  /** table多选配置项 */
-  rowSelectionFace,
-  /** 分页配置参数 */
-  pagingConfigFace,
-  /** table数据获取函数接口 */
-  loadDataFace,
-  /** table数据获取函数返回值校验 */
-  resultInt,
-} from '@/components/BsTable/interface/index'
+import type { columnsBase } from '../../BsForm/interface/index'
+import type { tableConfigFace, columnsItemConfig  } from '../../BsTable/interface/index'
 
 /** 编辑table配置参数 */
 export interface editTableConfigFace extends tableConfigFace {
