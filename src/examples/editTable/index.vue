@@ -93,6 +93,28 @@
       校验&提交
     </el-button>
   </el-card>
+  <el-card
+    shadow="always"
+    style="margin-top: 15px;"
+    :body-style="{ padding: '15px' }"
+  >
+    <template #header>
+      <span>表单中使用-render方式</span>
+    </template>
+    <BsForm
+      ref="BsFormDom2"
+      v-model="form2"
+      class="BsForm"
+      :config="config2"
+    />
+    <el-button
+      type="primary"
+      size="default"
+      @click="sub2"
+    >
+      校验&提交
+    </el-button>
+  </el-card>
 </template>
 
 <script lang="tsx" setup>
@@ -203,7 +225,6 @@ const overallVerify = async() => {
   const vali = await BsEditTableDom.value.validate()
   if (vali) {
     ElMessage({ type: 'success', message: '校验成功，数据请查看控制台打印！' })
-    console.log('overallTableList', overallTableList.value)
     overallTableConfig.value.editing = false
   } else {
     ElMessage({ type: 'error', message: '校验失败' })
@@ -333,7 +354,6 @@ const rowThead = ref<editTableColumnsConfigFace>([
                 if (vali) {
                   ElMessage({ type: 'success', message: '行校验成功，数据请查看控制台打印！' })
                   scope.row.editing = false
-                  console.log('overallTableList', overallTableList.value, scope.row)
                 } else {
                   ElMessage({ type: 'error', message: '行校验失败' })
                 }
@@ -350,7 +370,6 @@ const rowVerify = async() => {
   const vali = await BsEditTableDom2.value.validate()
   if (vali) {
     ElMessage({ type: 'success', message: '校验成功，数据请查看控制台打印！' })
-    console.log('rowTableList', rowTableList.value)
   } else {
     ElMessage({ type: 'error', message: '校验失败' })
   }
@@ -459,7 +478,6 @@ const colVerify = async() => {
   const vali = await BsEditTableDom3.value.validate()
   if (vali) {
     ElMessage({ type: 'success', message: '校验成功，数据请查看控制台打印！' })
-    console.log('colTableList', colTableList.value)
     colTableConfig.value.editing = false
   } else {
     ElMessage({ type: 'error', message: '校验失败' })
@@ -469,7 +487,6 @@ const colVerify = async() => {
 
 /** 表单中使用 start */
 const BsFormDom = ref()
-const BsEditTableDom4 = ref()
 const form = ref<any>({})
 const formThead = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
@@ -544,8 +561,162 @@ const config = reactive<formConfig>({
       placeholder: '请输入姓名1',
       required: true,
       change: () => {
-        console.log(125353)
         form.value.tableList = [
+          {
+            id: 1,
+            createTime: '2021-01',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'success',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+          {
+            id: 2,
+            createTime: '2021-02',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'success',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+          {
+            id: 3,
+            createTime: '2021-03',
+            loanCount: 5,
+            effectiveDays: 5,
+            statusDesc: 'fail',
+            ohter: 1,
+            amount: 12,
+            category: 'aaa',
+          },
+        ]
+      },
+    },
+    {
+      label: '列表',
+      prop: 'tableList',
+      type: 'editTable',
+      colNum: 24,
+      columns: formThead.value,
+      tableConfig: formTableConfig.value,
+      // render: () => {
+      //   return <BsEditTable
+      //     ref={BsEditTableDom4}
+      //     v-model={form.value.tableList}
+      //     columns={formThead.value}
+      //     table-config={formTableConfig.value}
+      //   />
+      // },
+    },
+    // {
+    //   label: '列表',
+    //   prop: 'tableList',
+    //   type: 'render',
+    //   colNum: 24,
+    //   render: () => {
+    //     return <BsEditTable
+    //       ref={BsEditTableDom4}
+    //       v-model={form.value.tableList}
+    //       columns={formThead.value}
+    //       table-config={formTableConfig.value}
+    //     />
+    //   },
+    // },
+  ],
+})
+const sub = async() => {
+  const formVali = await BsFormDom.value.validate()
+  // const tableVali = await BsEditTableDom4.value.validate()
+  if (formVali) {
+    ElMessage({ type: 'success', message: '校验成功，数据请查看控制台打印！' })
+    formTableConfig.value.editing = false
+  } else {
+    ElMessage({ type: 'error', message: '校验失败' })
+  }
+}
+/** 表单中使用 end */
+
+/** 表单中使用-render方式 start */
+const BsFormDom2 = ref()
+const BsEditTableDom4 = ref()
+const form2 = ref<any>({})
+const formThead2 = ref<editTableColumnsConfigFace>([
+  { type: 'index', fixed: 'left' },
+  { prop: 'id', label: 'id', width: 100, align: 'left', fixed: 'left' },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+    width: 150,
+    widgetConfig: { type: 'month' },
+  },
+  {
+    prop: 'loanCount',
+    label: '笔数',
+    width: 120,
+    widgetConfig: {
+      type: 'input',
+      required: true,
+      rules: [{ min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'change' }],
+    },
+  },
+  { prop: 'effectiveDays', label: '下载有效期(天)' },
+  {
+    prop: 'statusDesc',
+    label: '状态',
+    width: 200,
+    widgetConfig: {
+      type: 'select',
+      required: true,
+      options: [{ label: '成功', value: 'success' }, { label: '失败', value: 'fail' }],
+    },
+    render: (scope: any) => {
+      return scope.row.statusDesc === 'success' ? '成功' : '失败'
+    },
+  },
+  {
+    prop: 'ohter',
+    label: '其他',
+    width: 160,
+    nativeProps: {
+      'show-overflow-tooltip': true,
+    },
+  },
+  {
+    label: '统计',
+    children: [
+      {
+        prop: 'amount',
+        label: '数目',
+      },
+      {
+        prop: 'category',
+        label: '种类',
+        render: (scope: any) => <div>{scope.row.category} render测试</div>,
+      },
+    ],
+  },
+])
+const formTableConfig2 = ref<editTableConfigFace>({
+  editing: true,
+})
+const config2 = reactive<formConfig>({
+  // colNum: 6,
+  labelWidth: '120px',
+  disabled: false,
+  loading: false,
+  notOpBtn: true,
+  columns: [
+    {
+      label: '姓名1',
+      prop: 'name1',
+      type: 'input',
+      placeholder: '请输入姓名1',
+      required: true,
+      change: () => {
+        form2.value.tableList = [
           {
             id: 1,
             createTime: '2021-01',
@@ -587,26 +758,26 @@ const config = reactive<formConfig>({
       render: () => {
         return <BsEditTable
           ref={BsEditTableDom4}
-          v-model={form.value.tableList}
-          columns={formThead.value}
-          table-config={formTableConfig.value}
+          v-model={form2.value.tableList}
+          columns={formThead2.value}
+          table-config={formTableConfig2.value}
         />
       },
     },
   ],
 })
-const sub = async() => {
-  const formVali = await BsFormDom.value.validate()
+const sub2 = async() => {
+  const formVali = await BsFormDom2.value.validate()
   const tableVali = await BsEditTableDom4.value.validate()
   if (formVali && tableVali) {
     ElMessage({ type: 'success', message: '校验成功，数据请查看控制台打印！' })
-    console.log('form', form.value)
-    formTableConfig.value.editing = false
+    formTableConfig2.value.editing = false
   } else {
     ElMessage({ type: 'error', message: '校验失败' })
   }
 }
 /** 表单中使用 end */
+
 
 </script>
 <style lang="scss" scoped></style>

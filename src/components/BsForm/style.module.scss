@@ -3,6 +3,13 @@
   width: 100% !important;
 }
 
+.BsForm {
+  // 可编辑表格校验失败时，table内所有控件都会标红，这里排除校验成功的
+  :global(.bs-edit-table .el-form-item.is-success .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset;
+  }
+}
+
 .BsNumber, .BsDateRange {
   width: 100%;
   :global(.el-input-number) {

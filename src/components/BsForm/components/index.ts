@@ -15,6 +15,7 @@ import BsCascader from './BsCascader'
 import BsSwitch from './BsSwitch'
 import BsText from './BsText'
 import BsCollapse from './BsCollapse'
+import BsEditTable from '@/components/BsEditTable'
 
 // 组件注册
 export const getComponentByType = (type: columnsBase['type']): any => {
@@ -59,6 +60,8 @@ export const getComponentByType = (type: columnsBase['type']): any => {
       return BsText
     case 'collapse':
       return BsCollapse
+    case 'editTable':
+      return BsEditTable
     default:
       return BsInput
       // throw new Error('配置项控件${col.type}不存在')

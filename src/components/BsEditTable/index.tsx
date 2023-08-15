@@ -49,7 +49,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   setup(props: any, { expose, emit }) {
     const { columns } = toRefs(props)
     // table数据
@@ -65,6 +65,7 @@ export default defineComponent({
 
     const editItemChange = () => {
       emit('update:modelValue', list.value)
+      emit('change')
     }
 
     const defaultTableConfig: editTableConfigFace = {
@@ -140,7 +141,6 @@ export default defineComponent({
         console.error('校验行索引不存在')
         return false
       }
-      console.log(getAllLeaf(columns.value))
       const needValidteKey = columns.value?.filter((column: editTableColumnsItemConfig) => {
         return column.widgetConfig
       })?.map((column: editTableColumnsItemConfig) => CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? [`${rowIndex}`, `${column.prop}`] : `[${rowIndex}].${column.prop}`) ?? []
@@ -233,7 +233,7 @@ export default defineComponent({
               v-loading={loading.value}
               height="100%"
               ref={tableDom}
-              class={[styles.BsEditTable]}
+              class={['bs-edit-table', styles.BsEditTable]}
               data={list.value}
               columns={columns.value}
               data-source={list.value}

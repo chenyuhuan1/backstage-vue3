@@ -6,12 +6,14 @@
  * @Description: 表单组件
  */
 
-import { defineComponent, PropType, watch, ref, reactive, nextTick } from 'vue'
+import { defineComponent, PropType, watch, ref, reactive, nextTick, ComponentPublicInstance } from 'vue'
 import { formConfig, columnsBase, inlayRuleType } from './interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { commonRules, rulesIn } from '@/utils/validator'
+import styles from '@/components/BsForm/style.module.scss'
 // 导入所有自定义form控件组件
 import * as widget from './components/index'
+import { editTableColumnsConfigFace, editTableConfigFace } from '../BsEditTable'
 export default defineComponent({
   name: 'BsForm',
   props: {
@@ -30,6 +32,14 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'search', 'export', 'reset'],
   setup(props: any, { emit, expose }) {
+    type refItem = Element | ComponentPublicInstance | null
+    const refMap: Record<string, any> = {}
+    const setRefMap = (el: refItem, item: columnsBase) => {
+      if (el) {
+        refMap[`${item.prop}`] = el
+      }
+    }
+
     // 获取表单组件实例
     const ruleFormRef = ref()
 
@@ -90,7 +100,7 @@ export default defineComponent({
               }${item.label}`,
               trigger: 'change',
             },
-            ...(item.inlayRules ? item.inlayRules.map((item: inlayRuleType) => {
+            ...(item.inlayRules ? item.inlayRules.map((item: inlayRuleType) => { // 内置校验配置
               return {
                 validator: (rule: any, value: any) => {
                   if (!asyncValidator(value, item.validatorName)) {
@@ -101,7 +111,15 @@ export default defineComponent({
                 trigger: item.trigger ?? 'change',
               }
             }) : []),
-            ...(item.rules ? item.rules : []),
+            ...(item.rules ? item.rules : []), // 自定义rules
+            ...(item.type === 'editTable' ? [{ validator: async() => { // table行内编辑table
+              const res = await refMap[item.prop]?.validate()
+              if (res) {
+                return Promise.resolve(true)
+              } else {
+                return Promise.reject(false)
+              }
+            }, trigger: 'blur', message: '请检查数据填写！' }] : []),
           ]
         }
       })
@@ -112,8 +130,8 @@ export default defineComponent({
       () => props.config,
       () => {
         Object.assign(cloneConfig, defaultConfig, props.config)
-        initRulesFn()
         initFormFn()
+        initRulesFn()
       },
       { immediate: true, deep: true },
     )
@@ -159,7 +177,8 @@ export default defineComponent({
     const validateField = async(prop?: string | string[]) => {
       return new Promise(async(resolve) => {
         await nextTick()
-        ruleFormRef.value.validateFields(prop).then(() => {
+        const fn:any = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? ruleFormRef.value?.validateFields(prop) : ruleFormRef.value?.validateField(prop)
+        fn.then(() => {
           resolve(true)
         })
           .catch((err:any) => {
@@ -240,7 +259,24 @@ export default defineComponent({
     // 根据item：columnsFormBase获取返回对应的src/components里的组件
     const componentRender = (item: columnsBase) => {
       const componentInstance = widget.getComponentByType(item.type)
+      if (item.type === 'editTable') {
+        return <componentInstance
+          ref={(el: refItem) => setRefMap(el, item)}
+          v-models={[
+            [initForm.value[item.prop]],
+          ]}
+          columns={(item as {columns?: editTableColumnsConfigFace})?.columns ?? undefined} // 行编辑表格
+          tableConfig={(item as {tableConfig?: editTableConfigFace})?.tableConfig ?? undefined} // 行编辑表格
+          config={item}
+          onChange={(params: any) => {
+            updateModelValue()
+            validateField(item.prop)
+            item?.change && item?.change(params)
+          }}
+        />
+      }
       return <componentInstance
+        ref={(el: refItem) => setRefMap(el, item)}
         v-models={[
           [initForm.value[item.prop]],
           [initForm.value[(item as {propEnd?: any}).propEnd], 'propEnd'],
@@ -248,6 +284,8 @@ export default defineComponent({
           [initForm.value[(item as {propSecond?: any}).propSecond], 'propSecond'],
           [initForm.value[(item as {propThird?: any}).propThird], 'propThird'],
         ]}
+        columns={(item as {columns?: editTableColumnsConfigFace})?.columns ?? undefined} // 行编辑表格
+        tableConfig={(item as {tableConfig?: editTableConfigFace})?.tableConfig ?? undefined} // 行编辑表格
         config={item}
         onChange={(params: any) => {
           updateModelValue()
@@ -263,7 +301,7 @@ export default defineComponent({
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicForm, dynamicRow, dynamicCol,  dynamicFormItem, dynamicButton } = dynamicComponent
       return (
-        <div class="BsForm">
+        <div class={styles.BsForm}>
           <dynamicForm
             ref={ruleFormRef}
             v-loading={cloneConfig.loading}
