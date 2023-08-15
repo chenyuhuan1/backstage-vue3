@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-09 10:06:34
- * @LastEditors: chenql
+ * @LastEditTime: 2023-08-15 18:25:22
+ * @LastEditors: 陈宇环
  * @Description: form表单相关接口定义
  */
 import { rulesIn } from '@/utils/validator'
@@ -17,6 +17,8 @@ export interface formConfig {
   labelWidth?: string
   /** 是否禁用 */
   disabled?: boolean
+  /** 文本模式 */
+  textMode?: boolean
   /** 是否加载中 */
   loading?: boolean
   /** 不需要（搜索，重置，导出）操作按钮 */
@@ -95,6 +97,10 @@ interface defaultProps {
   hide?: boolean
   /** 是否禁用 */
   disabled?: boolean
+  /** 文本模式 */
+  textMode?: boolean,
+  /** 文本模式自定义render */
+  textModeRender?: (e: textModeRenderParamsFace) => any,
   /** 是否必填 */
   required?: boolean
   /** 描述字符 */
@@ -350,6 +356,8 @@ export interface editTableProps extends defaultProps {
 }
 
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }
+
+export type textModeRenderParamsFace = {value?: any, endValue?: any, curItem?: any, options?: optionsType}
 
 // 实例是否是columnsOtherBase类型
 // export const isColumnsOtherBase = (item: columnsBase): item is columnsOtherBase => {

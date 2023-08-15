@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-08-15 10:59:20
+ * @LastEditTime: 2023-08-15 17:16:07
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -9,7 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
 import { inputProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
-
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsInput',
@@ -23,6 +23,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change'],
@@ -43,8 +47,12 @@ export default defineComponent({
         value: cloneValue,
       })
     }
+
     return () => {
       return <div class={['bs-input', styles.width100]}>
+        {textModeFilter(props.textMode, props.modelValue, props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+        }),
         <dynamicInput
           type='text'
           /** ele 特有属性-start */
@@ -63,7 +71,8 @@ export default defineComponent({
 
           {...props.config.nativeProps}
           onInput={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

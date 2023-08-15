@@ -40,9 +40,9 @@ export const getComponentByType = (type: columnsBase['type']): any => {
     case 'date':
     case 'datetime':
     case 'dates':
-    case 'datetimerange':
-    case 'daterange':
     case 'monthrange':
+    case 'daterange':
+    case 'datetimerange':
       return BsDate
     case 'yearRange':
     case 'monthRange':

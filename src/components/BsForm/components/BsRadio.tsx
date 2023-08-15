@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-18 13:40:22
- * @LastEditTime: 2023-07-03 16:10:53
+ * @LastEditTime: 2023-08-15 17:24:08
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -10,6 +10,7 @@ import * as utils from '@/utils/common'
 import { radioProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter, getOptionsLabel } from '../toolFn'
 
 export default defineComponent({
   name: 'BsRadio',
@@ -23,6 +24,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change', 'setProp2'],
@@ -54,6 +59,16 @@ export default defineComponent({
       
     }, { immediate: true, deep: true })
 
+    /**
+     * @description: 获取选中得item
+     * @param {*} value 当前选择中得value
+     * @return any 选中得item
+     */
+    const getOption = (value: any) => {
+      const option = options.value.find((option: any) => option.value === value)
+      return option
+    }
+
     function updateValue(value: number | string | boolean | Event): any {
       let cloneValue = value
 
@@ -68,6 +83,7 @@ export default defineComponent({
         prop: props.config?.prop ?? '',
         value: cloneValue,
         options,
+        curItem: getOption(value),
       })
 
     }
@@ -75,6 +91,11 @@ export default defineComponent({
     return () => {
       const componentInstance = props.config.showType === 'button'  && CustomDynamicComponent.language === CustomDynamicComponent.eleLanguage  ? dynamicRadioButton : dynamicRadio
       return <div class={['bs-radio', styles.width100]}>
+        {textModeFilter(props.textMode, getOptionsLabel(getOption(props.modelValue)) ?? '', props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+          options,
+          curItem: getOption(props.modelValue),
+        }),
         <dynamicRadioGroup
           loading={optionsLoading.value}
           /** ele 特有属性-start */
@@ -104,7 +125,8 @@ export default defineComponent({
               </componentInstance>
             })
           }
-        </dynamicRadioGroup>
+        </dynamicRadioGroup>,
+        )}
       </div>
     }
   },

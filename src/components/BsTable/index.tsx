@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-15 11:03:39
+ * @LastEditTime: 2023-08-15 16:43:50
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -276,7 +276,11 @@ export default defineComponent({
                 // ant-ui相关属性
                 current={pageInfo.pageIndex}
                 onShowSizeChange={(current: number, size: number) => handleSizeChange(size)}
-                onChange={(page:number) => handleCurrentChange(page)}
+                {
+                  ...(CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? {  // onChange 在ele中会与onCurrentChange重复触发
+                    onChange: (page:number) => handleCurrentChange(page),
+                  } : {})
+                }
               />
             </div>
           }

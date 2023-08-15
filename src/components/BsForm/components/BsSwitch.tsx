@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:55:23
- * @LastEditTime: 2023-07-03 15:57:52
+ * @LastEditTime: 2023-08-15 17:25:10
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -9,6 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import { switchProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsSwitch',
@@ -22,6 +23,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change'],
@@ -37,6 +42,9 @@ export default defineComponent({
     }
     return () => {
       return <div class={['bs-switch', styles.width100]}>
+        {textModeFilter(props.textMode, props.modelValue !== undefined ? String(props.modelValue) : '', props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+        }),
         <dynamicSwitch
           /** ant-design-vue 特有属性-start */
           value={props.modelValue}
@@ -50,7 +58,8 @@ export default defineComponent({
           clearable={props.config.clearable !== false}
           {...props.config.nativeProps}
           onChange={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-08-15 11:02:20
+ * @LastEditTime: 2023-08-15 11:37:35
  * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
@@ -256,7 +256,7 @@ export default defineComponent({
     }
     expose({ validate, resetFields, clearValidate, scrollToField, validateField, resetFn })
 
-    // 根据item：columnsFormBase获取返回对应的src/components里的组件
+    // 根据item：columnsBase获取返回对应的src/components里的组件
     const componentRender = (item: columnsBase) => {
       const componentInstance = widget.getComponentByType(item.type)
       if (item.type === 'editTable') {
@@ -284,9 +284,8 @@ export default defineComponent({
           [initForm.value[(item as {propSecond?: any}).propSecond], 'propSecond'],
           [initForm.value[(item as {propThird?: any}).propThird], 'propThird'],
         ]}
-        columns={(item as {columns?: editTableColumnsConfigFace})?.columns ?? undefined} // 行编辑表格
-        tableConfig={(item as {tableConfig?: editTableConfigFace})?.tableConfig ?? undefined} // 行编辑表格
         config={item}
+        textMode={cloneConfig.textMode || item.textMode}
         onChange={(params: any) => {
           updateModelValue()
           item?.change && item?.change(params)

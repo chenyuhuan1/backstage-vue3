@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-15 17:30:23
- * @LastEditTime: 2023-08-15 10:55:41
+ * @LastEditTime: 2023-08-15 18:50:37
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -10,6 +10,7 @@ import * as utils from '@/utils/common'
 import { selectProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter, getOptionsLabel } from '../toolFn'
 
 export default defineComponent({
   name: 'BsSelect',
@@ -23,6 +24,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change', 'setProp2'],
@@ -95,8 +100,13 @@ export default defineComponent({
      * @return any 选中得item
      */
     const getOption = (value: any) => {
-      const option = options.value.find((option: any) => option.value === value)
-      return option
+      if (props.config.multiple) {
+        const optionArr = options.value.filter((option: any) => value?.includes(option.value)) ?? []
+        return optionArr
+      } else {
+        const option = options.value.find((option: any) => option.value === value)
+        return option
+      }
     }
 
     // 远程搜索方法，必须将filterable、remote设置成true
@@ -115,6 +125,11 @@ export default defineComponent({
 
     return () => {
       return <div class={['bs-select', styles.width100]}>
+        {textModeFilter(props.textMode, getOptionsLabel(getOption(props.modelValue)) ?? '', props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+          options,
+          curItem: getOption(props.modelValue),
+        }),
         <dynamicSelect
           loading={optionsLoading.value}
           class={[styles.width100]}
@@ -170,7 +185,8 @@ export default defineComponent({
               </dynamicSelectOption>
             })
           }
-        </dynamicSelect>
+        </dynamicSelect>,
+        )}
       </div>
     }
   },
