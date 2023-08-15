@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-07-03 15:40:49
+ * @LastEditTime: 2023-08-15 11:01:46
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -43,9 +43,8 @@ export default defineComponent({
       })
     }
     return () => {
-      return <div class={['BsTextarea', styles.width100]}>
+      return <div class={['bs-textarea', styles.width100]}>
         <dynamicTextarea
-          class="textarea"
           type='textarea'
           /** ele 特有属性-start */
           model-value={props.modelValue}

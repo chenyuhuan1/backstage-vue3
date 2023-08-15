@@ -23,6 +23,8 @@ type formConfigType<T, U> = T extends U ? string : Omit<T, 'prop'>
 export type widgetConfigFace = formConfigType<columnsBase, string>
 /** 编辑table列配置 */
 export interface editTableColumnsItemConfig extends columnsItemConfig {
+  /** 范围选择器结束值的key */
+  propEnd?: string
   /** 当前列是否正在编辑状态 */
   editing?: boolean,
   /** 编辑状态下表单项配置 */

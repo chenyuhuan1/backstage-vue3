@@ -100,9 +100,9 @@ export default defineComponent({
         }
         return type
       }
-      return <div class={['BsDate', styles.width100]}>
+      return <div class={['bs-date', styles.width100]}>
         <dateComp
-          class={['date', styles.width100]}
+          class={[styles.width100]}
           v-models={[
             /** ant 特有属性 - start */
             [cloneModelValue.value],

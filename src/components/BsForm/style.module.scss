@@ -30,9 +30,6 @@
 .BsNumberRange {
   width: 100%;
   display: flex;
-  .inputNumber {
-    flex: 1;
-  }
   .noControls {
     :global(.el-input__inner) {
       text-align: left;
@@ -43,37 +40,6 @@
   }
 }
 
-.BsUpload {
-  .imgwrap {
-    .btn {
-      transform: scale(0.5);
-      display: none;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
-    &:hover {
-      .btn {
-        display: block;
-      }
-    }
-  }
-  .fileItem {
-    &:hover {
-      background: rgba(0,0,0, 0.1);
-    }
-  }
-  .elIconUploadDis {
-    width: 100%;
-    cursor: not-allowed;
-    :global(.el-upload),
-    :global(.el-upload--picture-card),
-    :global(.el-upload-dragger) {
-      width: 100%;
-      cursor: not-allowed;
-    }
-  }
-}
 .BaseCollapse {
   :global{
     .el-collapse-item__header, .el-collapse-item__wrap {

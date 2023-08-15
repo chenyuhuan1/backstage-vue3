@@ -36,7 +36,7 @@ export default defineComponent({
       })
     }
     return () => {
-      return <div class={['BsNumber', styles.width100, styles.BsNumber]}>
+      return <div class={['bs-number', styles.width100, styles.BsNumber]}>
         <dynamicNumber
           style={{ width: '100%' }}
           class={{ number: true, textLeft: props.config.controls !== true }}

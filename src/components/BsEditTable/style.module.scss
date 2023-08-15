@@ -1,11 +1,4 @@
 
-.table {
-  .rowRadio {
-    :global(.el-radio__label) {
-      display: none;
-    }
-  } 
-}
 
 .BsEditTable {
   width: 100%;
@@ -18,7 +11,9 @@
   border-radius: 3px;
   .table {
     flex: 1;
-    margin-top: 15px;
+    :global(.el-radio__label) {
+      display: none;
+    }
   }
   :global(.el-form-item), :global(.ant-form-item) {
     margin-bottom: 0;

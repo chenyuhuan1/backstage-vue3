@@ -36,9 +36,8 @@ export default defineComponent({
       })
     }
     return () => {
-      return <div class={['BsSwitch', styles.width100]}>
+      return <div class={['bs-switch', styles.width100]}>
         <dynamicSwitch
-          class="switch"
           /** ant-design-vue 特有属性-start */
           value={props.modelValue}
           /** ant-design-vue 特有属性-end */

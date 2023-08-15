@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-07-03 15:42:18
+ * @LastEditTime: 2023-08-15 10:59:20
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -44,9 +44,8 @@ export default defineComponent({
       })
     }
     return () => {
-      return <div class={['BsInput', styles.width100]}>
+      return <div class={['bs-input', styles.width100]}>
         <dynamicInput
-          class="input"
           type='text'
           /** ele 特有属性-start */
           model-value={props.modelValue}

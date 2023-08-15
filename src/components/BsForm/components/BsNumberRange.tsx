@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 15:27:55
- * @LastEditTime: 2023-07-03 15:56:17
+ * @LastEditTime: 2023-08-15 10:55:26
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -60,7 +60,7 @@ export default defineComponent({
     return () => {
       // ant-design-vue formitem只允许一个form控件
       const formItem = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? <a-form-item /> : <template />
-      return <div class={['BsNumberRange', styles.width100, styles.BsNumberRange]}>
+      return <div class={['bs-number-range', styles.width100, styles.BsNumberRange]}>
         <dynamicNumber
           style={{ flex: 1 }}
           v-models={[
@@ -71,7 +71,7 @@ export default defineComponent({
             [cloneModelValue.value, 'value'],
             /** ele 特有属性 - end */
           ]}
-          class={['inputNumber', props.config.controls !== true ? styles.noControls : null]}
+          class={[props.config.controls !== true ? styles.noControls : null]}
           placeholder={props.config.placeholderStart || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           controls={props.config.controls === true}
@@ -90,7 +90,7 @@ export default defineComponent({
               [clonePropEnd.value, 'value'],
               /** ele 特有属性 - end */
             ]}
-            class={['inputNumber', props.config.controls !== true ? styles.noControls : null]}
+            class={[props.config.controls !== true ? styles.noControls : null]}
             placeholder={props.config.placeholderEnd || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
             disabled={!!props.config.disabled}
             controls={props.config.controls === true}

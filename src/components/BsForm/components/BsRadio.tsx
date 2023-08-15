@@ -74,10 +74,9 @@ export default defineComponent({
 
     return () => {
       const componentInstance = props.config.showType === 'button'  && CustomDynamicComponent.language === CustomDynamicComponent.eleLanguage  ? dynamicRadioButton : dynamicRadio
-      return <div class={['BsRadio', styles.width100]}>
+      return <div class={['bs-radio', styles.width100]}>
         <dynamicRadioGroup
           loading={optionsLoading.value}
-          class="radio"
           /** ele 特有属性-start */
           model-value={props.modelValue}
           /** ele 特有属性-end */

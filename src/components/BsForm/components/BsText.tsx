@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-18 10:35:57
- * @LastEditTime: 2023-06-14 10:36:42
+ * @LastEditTime: 2023-08-15 10:55:57
  * @LastEditors: 陈宇环
  * @Description: 普通文本节点
  *               文本内容取值为  绑定formData的值
@@ -25,7 +25,7 @@ export default defineComponent({
     },
   },
   setup(props: any) {
-    return () => <div class={['BsRadio', styles.width100]}>{props.modelValue ?? props.config.defaultText}</div>
+    return () => <div class={['bs-text', styles.width100]}>{props.modelValue ?? props.config.defaultText}</div>
   },
 })
 

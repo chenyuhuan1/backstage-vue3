@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-15 17:30:23
- * @LastEditTime: 2023-07-03 16:08:12
+ * @LastEditTime: 2023-08-15 10:55:41
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -114,10 +114,10 @@ export default defineComponent({
     }
 
     return () => {
-      return <div class={['BsSelect', styles.width100]}>
+      return <div class={['bs-select', styles.width100]}>
         <dynamicSelect
           loading={optionsLoading.value}
-          class={['select', styles.width100]}
+          class={[styles.width100]}
           /** ele 特有属性-start */
           model-value={props.modelValue}
           /** ele 特有属性-end */

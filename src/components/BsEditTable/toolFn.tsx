@@ -10,6 +10,7 @@ const asyncValidator = (val: string | number | any[], type: keyof rulesIn) => va
 // 错误消息打印
 const asyncMessage = (type: keyof rulesIn) => commonRules[type][1]
 
+// 根据table编辑项配置来获取单个项目的校验规则
 export const getItemRules = (widgetConfig: widgetConfigFace) => {
   return [
     {
@@ -34,6 +35,14 @@ export const getItemRules = (widgetConfig: widgetConfigFace) => {
   ]
 }
 
+/**
+ * @description: 单元格渲染函数
+ * @param {editTableConfigFace} cloneTableConfig  表格配置
+ * @param {editTableColumnsItemConfig} columnConfig  当前列配置
+ * @param {any} scope  当前行数组  ps: ele为原生插槽scope数据，ant是通过手动拼凑的
+ * @param {function} emitChange  // 编辑控件变化时会调用这个方法
+ * @return {*}
+ */
 export const contentRender = (cloneTableConfig: editTableConfigFace, columnConfig: editTableColumnsItemConfig, scope: any, emitChange:()=>void) => {
   const dynamicComponent = new CustomDynamicComponent()
   const { dynamicFormItem } = dynamicComponent

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-03-24 14:01:06
- * @LastEditTime: 2023-07-03 15:40:08
+ * @LastEditTime: 2023-08-15 11:01:10
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -43,9 +43,8 @@ export default defineComponent({
       })
     }
     return () => {
-      return <div class={['BsPassword', styles.width100]}>
+      return <div class={['bs-password', styles.width100]}>
         <dynamicPassword
-          class="password"
           type='password'
           /** ele 特有属性-start */
           model-value={props.modelValue}

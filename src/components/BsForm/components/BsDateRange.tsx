@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-28 15:34:56
- * @LastEditTime: 2023-07-03 15:56:56
+ * @LastEditTime: 2023-08-15 10:59:12
  * @LastEditors: 陈宇环
  * @Description: 'yearRange' | 'monthRange' | 'dateRange' | 'datetimeRange'组件
  */
@@ -117,7 +117,7 @@ export default defineComponent({
       const { dynamicDatePicker } = dynamicComponent
       // ant-design-vue formitem只允许一个form控件
       const formItem = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? <a-form-item /> : <template />
-      return <div class={['BsDateRange', styles.width100]} style={{ display: 'flex' }}>
+      return <div class={['bs-date-range', styles.width100]} style={{ display: 'flex' }}>
         <dynamicDatePicker
           style={{ flex: 1 }}
           v-models={[
@@ -128,7 +128,6 @@ export default defineComponent({
             [cloneModelValue.value, 'value'],
             /** ele 特有属性 - end */
           ]}
-          class="date"
           placeholder={props.config.placeholderStart || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           format={props.config.format || getFormat(props.config.type, 'format')}
@@ -148,7 +147,7 @@ export default defineComponent({
         <span style="padding: 0 5px;">~</span>
         <formItem style="margin: 0;flex: 1;display: flex;">
           <dynamicDatePicker
-            style={{ flex: 1 }}
+            style={{ flex: 1, width: '100%' }}
             v-models={[
               /** ant 特有属性 - start */
               [clonePropEnd.value],
@@ -157,7 +156,6 @@ export default defineComponent({
               [clonePropEnd.value, 'value'],
               /** ele 特有属性 - end */
             ]}
-            class="date"
             placeholder={props.config.placeholderEnd || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
             disabled={!!props.config.disabled}
             format={props.config.format || getFormat(props.config.type, 'format')}

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-07-28 15:11:16
+ * @LastEditTime: 2023-08-15 10:52:38
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -23,7 +23,7 @@ import {
 import styles from './style.module.scss'
 import { CustomDynamicComponent } from '../CustomDynamicComponent'
 import merge from 'lodash/merge'
-import { contentRender, getAllLeaf } from './toolFn'
+import { contentRender } from './toolFn'
 
 export default defineComponent({
   name: 'BsEditTable',
@@ -221,7 +221,7 @@ export default defineComponent({
         dynamicRadio,
       } = dynamicComponent
       return (
-        <div class={[styles.BsEditTable]}>
+        <div class={['bs-edit-table', styles.BsEditTable]}>
           <dynamicForm
             height="100%"
             style={{ height: '100%' }}
@@ -233,7 +233,7 @@ export default defineComponent({
               v-loading={loading.value}
               height="100%"
               ref={tableDom}
-              class={['bs-edit-table', styles.BsEditTable]}
+              class={['bs-edit-table-table', styles.table]}
               data={list.value}
               columns={columns.value}
               data-source={list.value}

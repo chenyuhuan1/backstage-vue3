@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-08-08 14:45:25
- * @LastEditors: chenql
+ * @LastEditTime: 2023-08-15 11:02:20
+ * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
 
@@ -301,7 +301,7 @@ export default defineComponent({
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicForm, dynamicRow, dynamicCol,  dynamicFormItem, dynamicButton } = dynamicComponent
       return (
-        <div class={styles.BsForm}>
+        <div class={['bs-form', styles.BsForm]}>
           <dynamicForm
             ref={ruleFormRef}
             v-loading={cloneConfig.loading}
@@ -309,7 +309,6 @@ export default defineComponent({
             model={initForm.value}
             rules={rules}
             validate-on-rule-change={false}
-            class="ruleForm"
             disabled={cloneConfig.disabled}
             {...cloneConfig.nativeProps}
           >
@@ -357,7 +356,7 @@ export default defineComponent({
                 )
               })}
               {!cloneConfig.notOpBtn && cloneConfig.columns?.length > 0 && (
-                <dynamicCol span={cloneConfig.opBtnCol} class="btn-wrap">
+                <dynamicCol span={cloneConfig.opBtnCol}>
                   <div style="display: flex;align-items: center;height: 100%;padding-bottom: 18px;box-sizing: border-box;">
                     {cloneConfig.isSearch && (
                       <dynamicButton

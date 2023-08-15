@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-09-07 16:37:21
- * @LastEditTime: 2023-07-03 16:01:55
+ * @LastEditTime: 2023-08-15 10:53:35
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -72,7 +72,7 @@ export default defineComponent({
     return () => {
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicCascader } = dynamicComponent
-      return <div class={['BsCascader', styles.width100]}>
+      return <div class={['bs-cascader', styles.width100]}>
         <dynamicCascader
           // loading={optionsLoading}
           class={[styles.width100]}

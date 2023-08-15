@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-05-10 16:10:11
- * @LastEditTime: 2023-06-14 11:02:45
+ * @LastEditTime: 2023-08-15 10:47:27
  * @LastEditors: 陈宇环
  * @Description: 按钮组件
  */
@@ -44,7 +44,7 @@ export default defineComponent({
         )
       }
       return (
-        <div class={[styles.BsTable]} style="display: flex">
+        <div class={[styles.BsTable, 'bs-buttons']} style="display: flex">
           {props.buttons.map((button: buttonFace) => {
             if (button.show === false) {
               return null
