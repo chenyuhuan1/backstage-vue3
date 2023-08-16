@@ -6,53 +6,53 @@
  * @Description: 按钮组件
  */
 
-import { defineComponent, PropType, ref } from "vue";
-import { buttonFace } from "./interface/index";
-import styles from "@/components/BsButtons/style.module.scss";
-import { CustomDynamicComponent } from "@/components/CustomDynamicComponent";
+import { defineComponent, PropType, ref } from 'vue'
+import { buttonFace } from './interface/index'
+import styles from '@/components/BsButtons/style.module.scss'
+import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 export default defineComponent({
-  name: "BsButtons",
+  name: 'BsButtons',
   props: {
     buttons: {
       type: Array as PropType<buttonFace[]>,
       default() {
-        return [];
+        return []
       },
     },
   },
   setup(props: any) {
-    const loading = ref(false);
-    const dynamicComponent = new CustomDynamicComponent();
-    const { dynamicButton, dynamicPopconfirm } = dynamicComponent;
+    const loading = ref(false)
+    const dynamicComponent = new CustomDynamicComponent()
+    const { dynamicButton, dynamicPopconfirm } = dynamicComponent
     return () => {
       const buttonDom = (button: buttonFace) => {
         return (
           <dynamicButton
-            type={button.type ?? "primary"}
-            size={button.size ?? "small"}
+            type={button.type ?? 'primary'}
+            size={button.size ?? 'small'}
             disabled={button.disabled}
             loading={loading.value}
             {...button.nativeProps}
-            onClick={async () => {
-              loading.value = true;
-              !button.confirmConfig && button.click && (await button.click());
-              loading.value = false;
+            onClick={async() => {
+              loading.value = true
+              !button.confirmConfig && button.click && (await button.click())
+              loading.value = false
             }}
           >
-            {button.text ?? "文案"}
+            {button.text ?? '文案'}
           </dynamicButton>
-        );
-      };
+        )
+      }
       return (
         <div class={[styles.BsTable]} style="display: flex">
           {props.buttons.map((button: buttonFace) => {
             if (button.show === false) {
-              return null;
+              return null
             }
             if (button.confirmConfig && !button.disabled) {
               return (
                 <dynamicPopconfirm
-                  title={button?.confirmConfig?.title ?? "标题"}
+                  title={button?.confirmConfig?.title ?? '标题'}
                   /** ant-design-vue && ele 统一封装 - start */
                   confirm-button-text="确认" // ele 特有属性
                   okText="确认" // ant-design-vue特有属性
@@ -63,34 +63,34 @@ export default defineComponent({
                   {...button?.confirmConfig?.nativeProps}
                   onConfirm={() => {
                     if (button?.confirmConfig?.confirm) {
-                      button?.confirmConfig?.confirm();
+                      button?.confirmConfig?.confirm()
                     } else if (button.click) {
-                      button?.click();
+                      button?.click()
                     }
                   }}
                   onCancel={() => {
                     button?.confirmConfig?.cancel &&
-                      button?.confirmConfig?.cancel();
+                      button?.confirmConfig?.cancel()
                   }}
                   v-slots={{
                     reference: () => {
                       // ele 特有属性
-                      return buttonDom(button);
+                      return buttonDom(button)
                     },
                     default: () => {
                       // ant-design-vue特有属性
-                      return buttonDom(button);
+                      return buttonDom(button)
                     },
                   }}
                 ></dynamicPopconfirm>
-              );
+              )
             }
-            return buttonDom(button);
+            return buttonDom(button)
           })}
         </div>
-      );
-    };
+      )
+    }
   },
-});
+})
 
-export * from "./interface/index";
+export * from './interface/index'
