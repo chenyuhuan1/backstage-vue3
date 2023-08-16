@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-08-15 11:01:46
+ * @LastEditTime: 2023-08-15 17:25:24
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -9,6 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
 import { textareaProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsTextarea',
@@ -22,6 +23,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change'],
@@ -44,6 +49,9 @@ export default defineComponent({
     }
     return () => {
       return <div class={['bs-textarea', styles.width100]}>
+        {textModeFilter(props.textMode, props.modelValue, props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+        }),
         <dynamicTextarea
           type='textarea'
           /** ele 特有属性-start */
@@ -65,7 +73,8 @@ export default defineComponent({
 
           {...props.config.nativeProps}
           onInput={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

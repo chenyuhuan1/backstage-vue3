@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 11:33:03
- * @LastEditTime: 2023-08-08 15:24:46
- * @LastEditors: chenql
+ * @LastEditTime: 2023-08-15 18:47:08
+ * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
@@ -10,6 +10,7 @@ import { dateProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import dayjs, { Dayjs } from 'dayjs'
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsDate',
@@ -31,6 +32,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change', 'update:propSecond', 'update:propThird'],
@@ -86,6 +91,21 @@ export default defineComponent({
       })
     }
 
+    const getText = () => {
+      if (!cloneModelValue.value) {
+        return ''
+      }
+      if (Array.isArray(cloneModelValue.value)) {
+        return cloneModelValue.value.map((item: any) => {
+          if (!item) {
+            return '-'
+          }
+          return dayjs(item).format(getFormat(props.config.type, 'format'))
+        }).join('~')
+      }
+      return dayjs(cloneModelValue.value).format(getFormat(props.config.type, 'format'))
+    }
+
     return () => {
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicDatePicker, dynamicRangePicker } = dynamicComponent
@@ -101,6 +121,9 @@ export default defineComponent({
         return type
       }
       return <div class={['bs-date', styles.width100]}>
+        {textModeFilter(props.textMode, getText() ?? '', props.config.textModeRender && props.config.textModeRender({
+          value: cloneModelValue.value,
+        }),
         <dateComp
           class={[styles.width100]}
           v-models={[
@@ -126,7 +149,8 @@ export default defineComponent({
           end-placeholder={props.config.endPlaceholder || '结束时间'} // ele
           {...props.config.nativeProps}
           onChange={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

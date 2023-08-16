@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 15:19:17
- * @LastEditTime: 2023-06-06 11:37:35
+ * @LastEditTime: 2023-08-15 17:17:50
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -9,6 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
 import { numberProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsNumber',
@@ -22,6 +23,10 @@ export default defineComponent({
       default() {
         return {}
       },
+    },
+    textMode: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:value', 'change'],
@@ -37,7 +42,9 @@ export default defineComponent({
     }
     return () => {
       return <div class={['bs-number', styles.width100, styles.BsNumber]}>
-        <dynamicNumber
+        {textModeFilter(props.textMode, props.modelValue, props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+        }), <dynamicNumber
           style={{ width: '100%' }}
           class={{ number: true, textLeft: props.config.controls !== true }}
           /** ele 特有属性-start */
@@ -51,7 +58,8 @@ export default defineComponent({
           controls={props.config.controls === true}
           {...props.config.nativeProps}
           onInput={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

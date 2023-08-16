@@ -1,8 +1,8 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-09 11:09:21
- * @LastEditors: chenql
+ * @LastEditTime: 2023-08-15 18:58:09
+ * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
 <template>
@@ -75,6 +75,7 @@ const config = reactive<formConfig>({
   labelWidth: '120px',
   disabled: false,
   loading: false,
+  textMode: false,
   columns: [
     {
       prop: 'guide',
