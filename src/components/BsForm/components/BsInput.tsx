@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-07-03 15:42:18
+ * @LastEditTime: 2023-08-15 10:59:20
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -25,7 +25,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const { dynamicInput } = new CustomDynamicComponent()
     function updateValue(value: number | string | InputEvent) {
@@ -37,17 +37,22 @@ export default defineComponent({
       }
 
       emit('update:modelValue', cloneValue)
+      emit('update:value', cloneValue)
       emit('change', {
         prop: props.config?.prop ?? '',
         value: cloneValue,
       })
     }
     return () => {
-      return <div class={['BsInput', styles.width100]}>
+      return <div class={['bs-input', styles.width100]}>
         <dynamicInput
-          class="input"
           type='text'
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请输入${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
 

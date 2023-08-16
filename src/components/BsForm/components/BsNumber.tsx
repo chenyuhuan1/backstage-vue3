@@ -24,22 +24,28 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const { dynamicNumber } = new CustomDynamicComponent()
     function updateValue(value: number | string | InputEvent) {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
       })
     }
     return () => {
-      return <div class={['BsNumber', styles.width100, styles.BsNumber]}>
+      return <div class={['bs-number', styles.width100, styles.BsNumber]}>
         <dynamicNumber
           style={{ width: '100%' }}
           class={{ number: true, textLeft: props.config.controls !== true }}
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请输入${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           controls={props.config.controls === true}

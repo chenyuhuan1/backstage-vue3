@@ -33,7 +33,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change', 'update:propSecond', 'update:propThird'],
+  emits: ['update:modelValue', 'update:value', 'change', 'update:propSecond', 'update:propThird'],
   setup(props: any, { emit }) {
     function getFormat(type: string, formatType: 'format' | 'valueFormat'): string {
       if (['date', 'daterange'].includes(type)) {
@@ -68,8 +68,8 @@ export default defineComponent({
     })
 
     function updateValue(value: Dayjs) {
-      console.log(value, 'value')
       emit('update:modelValue', value)
+      emit('update:value', value)
       // 当是范围时间选择器时，开始和结束时间处理
       if (Array.isArray(value) && value?.length === 2) {
         props.config.propSecond && emit('update:propSecond', value[0])
@@ -90,16 +90,27 @@ export default defineComponent({
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicDatePicker, dynamicRangePicker } = dynamicComponent
       let dateComp =  dynamicDatePicker
-      let customProps = {}
       // antd 的时间范围组件特殊处理
       if (CustomDynamicComponent.language === CustomDynamicComponent.antLanguage && props.config.type?.indexOf('range') > -1) {
         dateComp = dynamicRangePicker
-        customProps = { picker: props.config.type.replace('range', '') }
       }
-      return <div class={['BsDate', styles.width100]}>
+      const getPicker = (type: string) => {
+        if (CustomDynamicComponent.language === CustomDynamicComponent.antLanguage && props.config.type?.indexOf('range') > -1) {
+          return props.config.type.replace('range', '')
+        }
+        return type
+      }
+      return <div class={['bs-date', styles.width100]}>
         <dateComp
-          class={['date', styles.width100]}
-          v-model={cloneModelValue.value}
+          class={[styles.width100]}
+          v-models={[
+            /** ant 特有属性 - start */
+            [cloneModelValue.value],
+            /** ele 特有属性 - end */
+            /** ant  特有属性- start */
+            [cloneModelValue.value, 'value'],
+            /** ant  特有属性- end */
+          ]}
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           format={props.config.format || getFormat(props.config.type, 'format')}
@@ -107,14 +118,13 @@ export default defineComponent({
 
           /** ant-design-vue && ele 统一封装 - start */
           type={props.config.type || 'date'}   /** ele 专有属性*/
-          picker={props.config.type || 'date'}   /** ant-design-vue专有属性*/
+          picker={ getPicker(props.config.type) || 'date'}   /** ant-design-vue专有属性*/
           clearable={props.config.clearable !== false} // ele 特有属性
           allowClear={props.config.allowClear ?? props.config.clearable !== false} // ant-design-vue特有属性
           /** ant-design-vue && ele 统一封装 - end */
           start-placeholder={props.config.startPlaceholder || '开始时间'} // ele
           end-placeholder={props.config.endPlaceholder || '结束时间'} // ele
           {...props.config.nativeProps}
-          {...customProps}
           onChange={updateValue}
         />
       </div>

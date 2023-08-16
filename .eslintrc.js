@@ -13,6 +13,12 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
   rules: {
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['index'], // 需要忽略的组件名
+      },
+    ],
     'no-unused-vars': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

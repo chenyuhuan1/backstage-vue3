@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-07-28 15:11:16
+ * @LastEditTime: 2023-08-15 11:03:39
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -196,7 +196,7 @@ export default defineComponent({
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicTable, dynamicTableColumn, dynamicRadio, dynamicPagination } = dynamicComponent
       return (
-        <div class={[styles.BsTable]}>
+        <div class={['bs-table', styles.BsTable]}>
           <dynamicTable
             v-loading={loading.value}
             height="100%"

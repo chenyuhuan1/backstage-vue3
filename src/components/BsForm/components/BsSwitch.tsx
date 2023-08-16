@@ -24,26 +24,27 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const { dynamicSwitch } = new CustomDynamicComponent()
     function updateValue(value: number | string | boolean): any {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
       })
     }
     return () => {
-      return <div class={['BsSwitch', styles.width100]}>
+      return <div class={['bs-switch', styles.width100]}>
         <dynamicSwitch
-          class="switch"
           /** ant-design-vue 特有属性-start */
-          model-value={props.modelValue}
+          value={props.modelValue}
           /** ant-design-vue 特有属性-end */
 
           /** ele 特有属性-start */
           checked={props.modelValue}
+          model-value={props.modelValue}
           /** ele 特有属性-end */
           disabled={!!props.config.disabled}
           clearable={props.config.clearable !== false}

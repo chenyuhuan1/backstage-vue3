@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 09:56:21
- * @LastEditTime: 2023-07-03 16:09:56
+ * @LastEditTime: 2023-08-15 10:58:38
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -28,7 +28,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const options = ref<any>([])
     const optionsLoading = ref<boolean>(false)
@@ -59,6 +59,7 @@ export default defineComponent({
 
     function updateValue(value: any): void {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
@@ -71,11 +72,15 @@ export default defineComponent({
       const { dynamicCheckBoxGroup, dynamicCheckBox, dynamicCheckBoxButton } = dynamicComponent
       // dynamicCheckBoxButton 只有element-plus有这个组件
       const componentInstance = props.config.showType === 'button' && CustomDynamicComponent.language === CustomDynamicComponent.eleLanguage ? dynamicCheckBoxButton : dynamicCheckBox
-      return <div class={['BsCheckbox', styles.width100]}>
+      return <div class={['bs-checkbox', styles.width100]}>
         <dynamicCheckBoxGroup
           loading={optionsLoading.value}
-          class="checkbox"
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           clearable={props.config.clearable !== false}

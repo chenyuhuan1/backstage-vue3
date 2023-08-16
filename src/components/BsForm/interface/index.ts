@@ -6,7 +6,7 @@
  * @Description: form表单相关接口定义
  */
 import { rulesIn } from '@/utils/validator'
-
+import { editTableColumnsConfigFace, editTableConfigFace } from '@/components/BsEditTable/interface/index'
 /** 表单组件config配置接口 */
 export interface formConfig {
   /** 表单项配置 */
@@ -77,6 +77,8 @@ export type columnsBase =
   | renderProps
   /** 折叠面板 */
   | collapseProps
+  /** 行内编辑table */
+  | editTableProps
 
 
 /** 基础属性接口 */
@@ -113,8 +115,10 @@ interface defaultProps {
   nativeProps?: {
     [key: string]: any
   },
-  propSecond?: string,  // 第2个表单 key值
-  propThird?: string, // 第3个表单 key值
+  /** 第2个表单 key值 */
+  propSecond?: string,
+  /** 第3个表单 key值 */
+  propThird?: string,
 }
 
 /** options选项 select、radio、checkbox、cascader（可能包含children）选项接口 */
@@ -327,15 +331,24 @@ export interface renderProps extends defaultProps {
   /** 自定义组件render函数 */
   render: () => any
 }
-// Collapse 折叠面板props
+/** Collapse 折叠面板props */
 export interface collapseProps extends defaultProps {
   type: 'collapse'
-  dataConfig?: collapseData[]
+  dataConfig?: {
+    title: string,
+    desc: string[] | string,
+  }[]
 }
-export interface collapseData {
-  title: string,
-  desc: string[] | string,
+
+/** 行内编辑table */
+export interface editTableProps extends defaultProps {
+  type: 'editTable'
+  /** 表格列配置 */
+  columns: editTableColumnsConfigFace,
+  /** 表格配置 */
+  tableConfig?: editTableConfigFace
 }
+
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }
 
 // 实例是否是columnsOtherBase类型

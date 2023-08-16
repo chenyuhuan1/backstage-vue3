@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 15:27:55
- * @LastEditTime: 2023-07-03 15:56:17
+ * @LastEditTime: 2023-08-15 10:55:26
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -28,7 +28,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'update:propEnd', 'change'],
+  emits: ['update:modelValue', 'update:value', 'update:propEnd', 'change'],
   setup(props: any, { emit }) {
     const { dynamicNumber } = new CustomDynamicComponent()
     const cloneModelValue = ref<any>('')
@@ -37,6 +37,7 @@ export default defineComponent({
     }, { immediate: true })
     function updateValue(value: number | string) {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         type: 'start',
         prop: props.config?.prop ?? '',
@@ -59,11 +60,18 @@ export default defineComponent({
     return () => {
       // ant-design-vue formitem只允许一个form控件
       const formItem = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? <a-form-item /> : <template />
-      return <div class={['BsNumberRange', styles.width100, styles.BsNumberRange]}>
+      return <div class={['bs-number-range', styles.width100, styles.BsNumberRange]}>
         <dynamicNumber
           style={{ flex: 1 }}
-          v-model={cloneModelValue.value}
-          class={['inputNumber', props.config.controls !== true ? styles.noControls : null]}
+          v-models={[
+            /** ant 特有属性 - start */
+            [cloneModelValue.value],
+            /** ant 特有属性 - end */
+            /** ele 特有属性 - start */
+            [cloneModelValue.value, 'value'],
+            /** ele 特有属性 - end */
+          ]}
+          class={[props.config.controls !== true ? styles.noControls : null]}
           placeholder={props.config.placeholderStart || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           controls={props.config.controls === true}
@@ -74,8 +82,15 @@ export default defineComponent({
         <formItem style="margin: 0;flex: 1;display: flex;">
           <dynamicNumber
             style={{ flex: 1 }}
-            v-model={clonePropEnd.value}
-            class={['inputNumber', props.config.controls !== true ? styles.noControls : null]}
+            v-models={[
+              /** ant 特有属性 - start */
+              [clonePropEnd.value],
+              /** ant 特有属性 - end */
+              /** ele 特有属性 - start */
+              [clonePropEnd.value, 'value'],
+              /** ele 特有属性 - end */
+            ]}
+            class={[props.config.controls !== true ? styles.noControls : null]}
             placeholder={props.config.placeholderEnd || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
             disabled={!!props.config.disabled}
             controls={props.config.controls === true}

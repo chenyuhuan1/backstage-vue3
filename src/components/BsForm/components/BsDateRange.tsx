@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-28 15:34:56
- * @LastEditTime: 2023-07-03 15:56:56
+ * @LastEditTime: 2023-08-15 10:59:12
  * @LastEditors: 陈宇环
  * @Description: 'yearRange' | 'monthRange' | 'dateRange' | 'datetimeRange'组件
  */
@@ -30,7 +30,7 @@ export default defineComponent({
       },
     },
   },
-  emits: ['update:modelValue', 'update:propEnd', 'change'],
+  emits: ['update:modelValue', 'update:value', 'update:propEnd', 'change'],
   setup(props: any, { emit }) {
     
     const cloneModelValue = ref<any>('')
@@ -45,6 +45,7 @@ export default defineComponent({
 
     function updateValue(value: number | string) {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         type: 'start',
         prop: props.config?.prop ?? '',
@@ -72,13 +73,13 @@ export default defineComponent({
     function disabledDate(date: any): boolean {
       if (clonePropEnd.value) {
         // 这里format为了解决element默认08:00:00
-        return +new Date(dayjs(date).format('yyyy-MM-DD HH:mm:ss')) > +new Date(dayjs(clonePropEnd.value).format('yyyy-MM-DD HH:mm:ss'))
+        return +new Date(dayjs(date).format('YYYY-MM-DD HH:mm:ss')) > +new Date(dayjs(clonePropEnd.value).format('YYYY-MM-DD HH:mm:ss'))
       }
       return false
     }
     function disabledDateEnd(date: any): boolean {
       if (cloneModelValue.value) {
-        return +new Date(dayjs(date).format('yyyy-MM-DD HH:mm:ss')) < +new Date(dayjs(cloneModelValue.value).format('yyyy-MM-DD HH:mm:ss'))
+        return +new Date(dayjs(date).format('YYYY-MM-DD HH:mm:ss')) < +new Date(dayjs(cloneModelValue.value).format('YYYY-MM-DD HH:mm:ss'))
       }
       return false
     }
@@ -116,11 +117,17 @@ export default defineComponent({
       const { dynamicDatePicker } = dynamicComponent
       // ant-design-vue formitem只允许一个form控件
       const formItem = CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? <a-form-item /> : <template />
-      return <div class={['BsDateRange', styles.width100]} style={{ display: 'flex' }}>
+      return <div class={['bs-date-range', styles.width100]} style={{ display: 'flex' }}>
         <dynamicDatePicker
           style={{ flex: 1 }}
-          v-model={cloneModelValue.value}
-          class="date"
+          v-models={[
+            /** ant 特有属性 - start */
+            [cloneModelValue.value],
+            /** ant 特有属性 - end */
+            /** ele 特有属性 - start */
+            [cloneModelValue.value, 'value'],
+            /** ele 特有属性 - end */
+          ]}
           placeholder={props.config.placeholderStart || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           format={props.config.format || getFormat(props.config.type, 'format')}
@@ -140,9 +147,15 @@ export default defineComponent({
         <span style="padding: 0 5px;">~</span>
         <formItem style="margin: 0;flex: 1;display: flex;">
           <dynamicDatePicker
-            style={{ flex: 1 }}
-            v-model={clonePropEnd.value}
-            class="date"
+            style={{ flex: 1, width: '100%' }}
+            v-models={[
+              /** ant 特有属性 - start */
+              [clonePropEnd.value],
+              /** ant 特有属性 - end */
+              /** ele 特有属性 - start */
+              [clonePropEnd.value, 'value'],
+              /** ele 特有属性 - end */
+            ]}
             placeholder={props.config.placeholderEnd || props.config.placeholder || `请选择${props.config?.label ?? ''}`}
             disabled={!!props.config.disabled}
             format={props.config.format || getFormat(props.config.type, 'format')}
