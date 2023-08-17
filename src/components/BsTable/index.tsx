@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-07-28 15:11:16
- * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-17 17:09:54
+ * @LastEditors: chenql
  * @Description:
  */
 import { defineComponent, toRefs, reactive, ref, onMounted, PropType, watch } from 'vue'
@@ -138,7 +138,6 @@ export default defineComponent({
           pageIndex,
           pageSize,
         })
-        loading.value = false
         if (result.success) {
           list.value = result.list
           pageInfo.total = result.total
@@ -147,6 +146,8 @@ export default defineComponent({
         pageInfo.pageSize = pageSize
       } catch (error) {
         console.log(error)
+      } finally {
+        loading.value = false
       }
     }
     onMounted(function() {
@@ -272,7 +273,7 @@ export default defineComponent({
                 {...clonePagingConfig.nativeProps}
                 onSizeChange={(val: any) => handleSizeChange(val)}
                 onCurrentChange={(val: any) => handleCurrentChange(val)}
-                
+
                 // ant-ui相关属性
                 current={pageInfo.pageIndex}
                 onShowSizeChange={(current: number, size: number) => handleSizeChange(size)}

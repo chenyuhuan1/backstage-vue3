@@ -10,6 +10,7 @@ import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
 import fs from 'fs'
+import ttypescript from 'ttypescript'
 
 const { join } = path
 
@@ -66,11 +67,11 @@ function getConfig(format) {
           ...format === 'iife' ? { name: 'backstageVue3' } : {},
           sourcemap: true,
           entryFileNames: '[name]/index.js', // 该选项用于指定 chunks 的入口文件模式 eg: bs-input/index.js
-          chunkFileNames: 'chunkFile/[name]-[hash].js', // 该选项用于对代码分割中产生的 chunk 自定义命名
+          chunkFileNames: 'chunkFile/[name].js', // 该选项用于对代码分割中产生的 chunk 自定义命名
         },
     plugins: [
       alias({
-        resolve: ['.jsx', '.js', '.tsx', '.ts', '.scss'],
+        // resolve: ['.jsx', '.js', '.tsx', '.ts', '.scss', '.d.ts'],
         entries: [{
           find: '@', // 组件库用到的@替换为绝对路径
           replacement: resolve('src'),
@@ -79,6 +80,7 @@ function getConfig(format) {
       nodeResolve(),
       commonjs(),
       typescript({
+        typescript: ttypescript, //  如果需要自动生成（导出）类型定义文件，TSC 不会处理路径别名，需要引入 typescript-transform-paths 插件，以及 TTypescript 来转换路径别名为相对路径。
         sourceMap: false,
         declaration: format !== 'iife', // iife不要 d.ts文件
         declarationDir: `${format === 'cjs' ? 'lib' : format}/types`,
