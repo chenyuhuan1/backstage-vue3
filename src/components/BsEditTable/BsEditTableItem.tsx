@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-07-03 15:44:38
+ * @LastEditTime: 2023-08-16 17:21:13
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -46,8 +46,8 @@ export default defineComponent({
         ))
         : null
     }
-    const emitChange = () => {
-      emit('change')
+    const emitChange = (scope: any) => {
+      emit('change', scope)
     }
     return () => {
       // 序号
@@ -76,7 +76,9 @@ export default defineComponent({
           v-slots={{
             default: (scope: any) => {
               return <>
-                {contentRender(cloneTableConfig.value, itemData.value, scope, emitChange)}
+                {contentRender(cloneTableConfig.value, itemData.value, scope, () => {
+                  emitChange(scope)
+                })}
                 {/* 多级头部 */}
                 {childrenDom()}
               </>

@@ -1,8 +1,8 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-09 11:09:21
- * @LastEditors:
+ * @LastEditTime: 2023-08-16 17:26:26
+ * @LastEditors: 陈宇环
  * @Description: 可编辑表格
 -->
 <template>
@@ -17,7 +17,8 @@
       ref="BsEditTableDom"
       v-model="overallTableList"
       :columns="overallThead"
-      :table-config="overallTableConfig"
+      :edit-table-config="overallTableConfig"
+      @change="(e)=>{aachange(e)}"
     />
     <el-button
       type="primary"
@@ -163,6 +164,10 @@ const overallTableList = ref<any[]>([
 const overallTableConfig = ref<editTableConfigFace>({
   editing: true, // 开启整表编辑 - 在thead中配置了formConfig的就会进入编辑状态
 })
+
+const aachange = (e:any) => {
+  console.log(e, 333)
+}
 
 const overallThead = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
@@ -488,6 +493,40 @@ const colVerify = async() => {
 /** 表单中使用 start */
 const BsFormDom = ref()
 const form = ref<any>({})
+setTimeout(() => { // 模拟异步返回
+  form.value.tableList = [
+    {
+      id: 1,
+      createTime: '2021-01',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'success',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+    {
+      id: 2,
+      createTime: '2021-02',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'success',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+    {
+      id: 3,
+      createTime: '2021-03',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'fail',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+  ]
+}, 1000)
 const formThead = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
   { prop: 'id', label: 'id', width: 100, align: 'left', fixed: 'left' },
@@ -560,40 +599,6 @@ const config = reactive<formConfig>({
       type: 'input',
       placeholder: '请输入姓名1',
       required: true,
-      change: () => {
-        form.value.tableList = [
-          {
-            id: 1,
-            createTime: '2021-01',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'success',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-          {
-            id: 2,
-            createTime: '2021-02',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'success',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-          {
-            id: 3,
-            createTime: '2021-03',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'fail',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-        ]
-      },
     },
     {
       label: '列表',
@@ -601,30 +606,8 @@ const config = reactive<formConfig>({
       type: 'editTable',
       colNum: 24,
       columns: formThead.value,
-      tableConfig: formTableConfig.value,
-      // render: () => {
-      //   return <BsEditTable
-      //     ref={BsEditTableDom4}
-      //     v-model={form.value.tableList}
-      //     columns={formThead.value}
-      //     table-config={formTableConfig.value}
-      //   />
-      // },
+      editTableConfig: formTableConfig.value,
     },
-    // {
-    //   label: '列表',
-    //   prop: 'tableList',
-    //   type: 'render',
-    //   colNum: 24,
-    //   render: () => {
-    //     return <BsEditTable
-    //       ref={BsEditTableDom4}
-    //       v-model={form.value.tableList}
-    //       columns={formThead.value}
-    //       table-config={formTableConfig.value}
-    //     />
-    //   },
-    // },
   ],
 })
 const sub = async() => {
@@ -643,6 +626,40 @@ const sub = async() => {
 const BsFormDom2 = ref()
 const BsEditTableDom4 = ref()
 const form2 = ref<any>({})
+setTimeout(() => { // 模拟异步返回
+  form2.value.tableList = [
+    {
+      id: 1,
+      createTime: '2021-01',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'success',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+    {
+      id: 2,
+      createTime: '2021-02',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'success',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+    {
+      id: 3,
+      createTime: '2021-03',
+      loanCount: 5,
+      effectiveDays: 5,
+      statusDesc: 'fail',
+      ohter: 1,
+      amount: 12,
+      category: 'aaa',
+    },
+  ]
+}, 1000)
 const formThead2 = ref<editTableColumnsConfigFace>([
   { type: 'index', fixed: 'left' },
   { prop: 'id', label: 'id', width: 100, align: 'left', fixed: 'left' },
@@ -715,40 +732,6 @@ const config2 = reactive<formConfig>({
       type: 'input',
       placeholder: '请输入姓名1',
       required: true,
-      change: () => {
-        form2.value.tableList = [
-          {
-            id: 1,
-            createTime: '2021-01',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'success',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-          {
-            id: 2,
-            createTime: '2021-02',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'success',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-          {
-            id: 3,
-            createTime: '2021-03',
-            loanCount: 5,
-            effectiveDays: 5,
-            statusDesc: 'fail',
-            ohter: 1,
-            amount: 12,
-            category: 'aaa',
-          },
-        ]
-      },
     },
     {
       label: '列表',
