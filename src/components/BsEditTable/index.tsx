@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-15 10:52:38
+ * @LastEditTime: 2023-08-17 09:51:42
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -30,12 +30,12 @@ export default defineComponent({
   components: {},
   props: {
     modelValue: {
-      type: Array,
+      type: Array as PropType<{[lebel: string]: any}[]>,
       default() {
         return []
       },
     },
-    tableConfig: {
+    editTableConfig: {
       type: Object as PropType<editTableConfigFace>,
       default() {
         return {} // 默认值请看defaultTableConfig
@@ -63,9 +63,9 @@ export default defineComponent({
       { immediate: true, deep: true },
     )
 
-    const editItemChange = () => {
+    const editItemChange = (scope: any) => {
       emit('update:modelValue', list.value)
-      emit('change')
+      emit('change', scope)
     }
 
     const defaultTableConfig: editTableConfigFace = {
@@ -102,13 +102,13 @@ export default defineComponent({
      */
 
     const cloneTableConfig: editTableConfigFace = reactive<editTableConfigFace>(
-      merge(defaultTableConfig, props.tableConfig),
+      merge(defaultTableConfig, props.editTableConfig),
     )
 
     watch(
-      () => props.tableConfig,
+      () => props.editTableConfig,
       () => {
-        merge(cloneTableConfig, defaultTableConfig, props.tableConfig)
+        merge(cloneTableConfig, defaultTableConfig, props.editTableConfig)
       },
       { immediate: true, deep: true },
     )
@@ -190,20 +190,10 @@ export default defineComponent({
         cloneTableConfig.rowSelection.onChange(selection)
       }
     }
-    // 动态改变表格数据
-    const setList = (data: []) => {
-      list.value = data
-    }
-    // 获取当前表格数据
-    const getList = () => {
-      return list.value
-    }
     expose({
-      selectedRow,
-      setList,
-      getList,
       tableDom,
       list,
+      selectedRow,
       validate,
       validateRow,
       validateField,
@@ -243,7 +233,9 @@ export default defineComponent({
               v-slots={CustomDynamicComponent.language ===
                 CustomDynamicComponent.antLanguage ? {
                   bodyCell: (scope: any) => {
-                    return contentRender(cloneTableConfig, scope.column, { $index: scope.index, row: scope.record  }, editItemChange)
+                    return contentRender(cloneTableConfig, scope.column, { $index: scope.index, row: scope.record  }, () => {
+                      editItemChange(scope)
+                    })
                   },
                 } : undefined}
               {...cloneTableConfig.nativeProps}
@@ -314,8 +306,8 @@ export default defineComponent({
                           key={item.prop ? item.prop : '' + index}
                           item-data={item}
                           clone-table-config={cloneTableConfig}
-                          onChange={() => {
-                            editItemChange()
+                          onChange={(scope: any) => {
+                            editItemChange(scope)
                           }}
                         ></BsEditTableItem>
                       )

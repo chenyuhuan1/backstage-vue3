@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-15 18:25:22
+ * @LastEditTime: 2023-08-16 15:29:48
  * @LastEditors: 陈宇环
  * @Description: form表单相关接口定义
  */
@@ -352,7 +352,7 @@ export interface editTableProps extends defaultProps {
   /** 表格列配置 */
   columns: editTableColumnsConfigFace,
   /** 表格配置 */
-  tableConfig?: editTableConfigFace
+  editTableConfig?: editTableConfigFace
 }
 
 export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, trigger?: string }

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-15 16:43:50
+ * @LastEditTime: 2023-08-16 17:10:39
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -130,8 +130,8 @@ export default defineComponent({
       pageSize: clonePagingConfig.pageSize,
       total: clonePagingConfig.total,
     })
-    const list = ref([])
-    const reloadList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
+    const list = ref<{[key: string]: any}[]>([])
+    const getList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
       try {
         loading.value = true
         const result = await loadData.value({
@@ -151,7 +151,7 @@ export default defineComponent({
     }
     onMounted(function() {
       if (cloneTableConfig.ifInitLoadData) {
-        reloadList()
+        getList()
       }
     })
 
@@ -161,14 +161,14 @@ export default defineComponent({
       pageInfo.pageIndex = 1
       pageInfo.pageSize = val
       clonePagingConfig.pageSizeChange && clonePagingConfig.pageSizeChange(val)
-      reloadList()
+      getList()
     }
     // 当前页变化
     const handleCurrentChange = (val: number) => {
       console.log(`current page: ${val}`)
       pageInfo.pageIndex = val
       clonePagingConfig.pageIndexChange && clonePagingConfig.pageIndexChange(val)
-      reloadList()
+      getList()
     }
 
     // 勾选事件
@@ -181,15 +181,11 @@ export default defineComponent({
       }
     }
     // 动态改变表格数据
-    const setList = (data: []) => {
+    const setList = (data: {[key: string]: any}[]) => {
       list.value = data
     }
-    // 获取当前表格数据
-    const getList = () => {
-      return list.value
-    }
     expose({
-      selectedRow, reloadList, setList, getList, tableDom, list,
+      tableDom, list, selectedRow, getList, setList,
     })
 
     return () => {
