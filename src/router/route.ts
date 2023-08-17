@@ -17,6 +17,15 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        path: 'form',
+        name: 'form',
+        component: () => import('@/examples/form/index.vue'),
+        meta: {
+          moduleName: '表单',
+          moduleIcon: 'Postcard',
+        },
+      },
+      {
         path: 'editTable',
         name: 'editTable',
         component: () => import('@/examples/editTable/index.vue'),
