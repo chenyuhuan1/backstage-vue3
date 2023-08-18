@@ -11,14 +11,14 @@
   border-radius: 3px;
   .table {
     flex: 1;
-    :global(.el-radio__label) {
+    :global(.el-radio__label), :global(.ep-radio__label) {
       display: none;
     }
   }
-  :global(.el-form-item), :global(.ant-form-item) {
+  :global(.el-form-item), :global(.ep-form-item), :global(.ant-form-item) {
     margin-bottom: 0;
   }
-  :global(.el-form-item__content) {
+  :global(.el-form-item__content), :global(.ep-form-item__content) {
     flex-wrap: inherit;
   }
   :global(.ant-form-item-control) {

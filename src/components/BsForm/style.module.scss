@@ -8,18 +8,21 @@
   :global(.bs-edit-table .el-form-item.is-success .el-input__wrapper) {
     box-shadow: 0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset;
   }
+  :global(.bs-edit-table .ep-form-item.is-success .ep-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--ep-input-border-color,var(--ep-border-color)) inset;
+  }
 }
 
 .BsNumber, .BsDateRange {
   width: 100%;
-  :global(.el-input-number) {
+  :global(.el-input-number), :global(.ep-input-number) {
     width: 100%;
   }
-  :global(.el-input-number .el-input__wrapper) {
+  :global(.el-input-number .el-input__wrapper), :global(.ep-input-number .ep-input__wrapper) {
     padding-left: 11px !important;
     padding-right: 11px !important;
   }
-  :global(.textLeft .el-input__inner) {
+  :global(.textLeft .el-input__inner), :global(.textLeft .ep-input__inner) {
     text-align: left;
   }
   :global(.ant-form-item-control-input-content) {
@@ -29,7 +32,7 @@
 
 .BsNumberRange {
   .noControls {
-    :global(.el-input__inner) {
+    :global(.el-input__inner), :global(.ep-input__inner) {
       text-align: left;
     }
   }
@@ -40,10 +43,10 @@
 
 .BaseCollapse {
   :global{
-    .el-collapse-item__header, .el-collapse-item__wrap {
+    .el-collapse-item__header, .el-collapse-item__wrap, .ep-collapse-item__header, .ep-collapse-item__wrap {
       background-color: #f1f1f1;
     }
-    .el-collapse-item__content, .el-collapse-item__header {
+    .el-collapse-item__content, .el-collapse-item__header, .ep-collapse-item__content, .ep-collapse-item__header {
       padding: 0;
       padding-left: 10px;
     }

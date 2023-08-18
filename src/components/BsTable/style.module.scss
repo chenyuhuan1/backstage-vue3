@@ -10,7 +10,7 @@
   .table {
     flex: 1;
     .rowRadio {
-      :global(.el-radio__label) {
+      :global(.el-radio__label), :global(.ep-radio__label) {
         display: none;
       }
     } 

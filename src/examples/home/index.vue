@@ -1,51 +1,59 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-15 18:58:09
+ * @LastEditTime: 2023-08-18 09:52:34
  * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
 <template>
-  <FullPageLayout>
-    <template #autoStrut>
-      {{ form }}
-      <BsForm
-        v-model="form"
-        class="BsForm"
-        :config="config"
-      >
-        <template #slo>
-          <el-input
-            v-model="form.slo"
-            placeholder=""
-          />
-        </template>
-      </BsForm>
-      <BsButtons
-        :buttons="[
-          {
-            text: '新增',
-            confirmConfig: {
-              title: '点击[审核]当前选择记录状态将变成:已审核，确定继续吗?',
-              nativeProps: {
-                placement: 'top-start'
-              }
-            },
-            click: () => {
-              opFn()
-            },
-          }
-        ]"
-      />
-    </template>
-    <template #flex1>
-      <BsTable
-        :columns="thead"
-        :load-data="loadData2"
-        :table-config="tableConfig"
-      />
-    </template>
-  </FullPageLayout>
+  <div class="home">
+    <el-alert
+      title=""
+      type="success"
+      style="margin-bottom: 15px;"
+    >
+      示例代码地址:<a href="https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/home/index.vue">https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/home/index.vue</a>
+    </el-alert>
+    <FullPageLayout class="FullPageLayout">
+      <template #autoStrut>
+        <BsForm
+          v-model="form"
+          class="BsForm"
+          :config="config"
+        >
+          <template #slo>
+            <el-input
+              v-model="form.slo"
+              placeholder=""
+            />
+          </template>
+        </BsForm>
+        <BsButtons
+          :buttons="[
+            {
+              text: '新增',
+              confirmConfig: {
+                title: '点击[审核]当前选择记录状态将变成:已审核，确定继续吗?',
+                nativeProps: {
+                  placement: 'top-start'
+                }
+              },
+              click: () => {
+                opFn()
+              },
+            }
+          ]"
+        />
+      </template>
+      <template #flex1>
+        <BsTable
+          :columns="thead"
+          :load-data="loadData2"
+          :table-config="tableConfig"
+        />
+      </template>
+    </FullPageLayout>
+  </div>
 </template>
 
 <script lang="tsx" setup>
@@ -546,4 +554,14 @@ const loadData2: loadDataFace = async({
 }
 
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  .FullPageLayout{
+    flex: 1;
+  }
+}
+</style>

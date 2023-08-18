@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-08-17 09:30:13
+ * @LastEditTime: 2023-08-17 18:52:54
  * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
@@ -266,7 +266,7 @@ export default defineComponent({
             [initForm.value[item.prop]],
           ]}
           columns={(item as {columns?: editTableColumnsConfigFace})?.columns ?? undefined} // 行编辑表格
-          editTableConfig={(item as {tableConfig?: editTableConfigFace})?.tableConfig ?? undefined} // 行编辑表格
+          editTableConfig={(item as {editTableConfig?: editTableConfigFace})?.editTableConfig ?? undefined} // 行编辑表格
           onChange={(params: any) => {
             updateModelValue()
             validateField(item.prop)

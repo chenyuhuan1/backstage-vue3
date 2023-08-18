@@ -1,11 +1,18 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-16 17:26:26
+ * @LastEditTime: 2023-08-18 09:55:07
  * @LastEditors: 陈宇环
  * @Description: 可编辑表格
 -->
 <template>
+  <el-alert
+    title=""
+    type="success"
+    style="margin-bottom: 15px;"
+  >
+    示例代码地址:<a href="https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/editTable/index.vue">https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/editTable/index.vue</a>
+  </el-alert>
   <el-card
     shadow="always"
     :body-style="{ padding: '15px' }"
