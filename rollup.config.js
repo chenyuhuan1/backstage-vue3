@@ -105,7 +105,8 @@ function getConfig(format) {
       'vue',
       'element-plus',
       'ant-design-vue',
-      'ant-router',
+      'vue-router',
+      'backstage-vue3',
     ],
   }
 }
