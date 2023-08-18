@@ -26,6 +26,12 @@
         "src/*"
       ]
     },
+    "plugins": [
+      // 转换输出 js 文件中别名的路径
+      // { "transform": "typescript-transform-paths" },
+      // 转换输出 .d.ts 文件中别名的路径
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
     "lib": [
       "esnext",
       "dom",

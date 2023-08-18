@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-16 17:10:39
+ * @LastEditTime: 2023-08-18 10:30:36
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -138,7 +138,6 @@ export default defineComponent({
           pageIndex,
           pageSize,
         })
-        loading.value = false
         if (result.success) {
           list.value = result.list
           pageInfo.total = result.total
@@ -147,6 +146,8 @@ export default defineComponent({
         pageInfo.pageSize = pageSize
       } catch (error) {
         console.log(error)
+      } finally {
+        loading.value = false
       }
     }
     onMounted(function() {
@@ -268,7 +269,7 @@ export default defineComponent({
                 {...clonePagingConfig.nativeProps}
                 onSizeChange={(val: any) => handleSizeChange(val)}
                 onCurrentChange={(val: any) => handleCurrentChange(val)}
-                
+
                 // ant-ui相关属性
                 current={pageInfo.pageIndex}
                 onShowSizeChange={(current: number, size: number) => handleSizeChange(size)}
