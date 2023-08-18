@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-18 09:55:07
+ * @LastEditTime: 2023-08-18 15:52:32
  * @LastEditors: 陈宇环
  * @Description: 可编辑表格
 -->
@@ -127,10 +127,8 @@
 
 <script lang="tsx" setup>
 import { ref, reactive } from 'vue'
-import BsEditTable, { editTableConfigFace, editTableColumnsConfigFace } from '@/components/BsEditTable/index'
-import BsButtons from '@/components/BsButtons/index'
-import BsForm, { formConfig } from '@/components/BsForm'
 import { ElMessage } from 'element-plus'
+import { BsForm, BsEditTable, BsButtons, formConfig, editTableConfigFace, editTableColumnsConfigFace } from 'backstage-vue3'
 
 /** 整表编辑配置 start */
 const BsEditTableDom = ref()

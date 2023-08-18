@@ -34,6 +34,15 @@ const routes: RouteRecordRaw[] = [
           moduleIcon: 'List',
         },
       },
+      {
+        path: 'dialog',
+        name: 'dialog',
+        component: () => import('@/examples/dialog/index.vue'),
+        meta: {
+          moduleName: '弹窗',
+          moduleIcon: 'Money',
+        },
+      },
     ],
   },
 ]

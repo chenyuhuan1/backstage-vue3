@@ -59,5 +59,8 @@ export * from './components/bsTable'
 export * from './components/bsButtons'
 export * from './components/bsCollapse'
 export * from './components/bsEditTable'
+export * from './components/bsDialog'
+export * from './components/bsFormDialog'
+export * from './components/bsListDialog'
 
 export default install

@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-18 09:52:34
+ * @LastEditTime: 2023-08-18 15:51:08
  * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
@@ -58,11 +58,9 @@
 
 <script lang="tsx" setup>
 import { reactive, ref } from 'vue'
-import BsForm, { formConfig } from '@/components/BsForm/index'
-import BsTable, { loadDataFace, tableConfigFace, columnsConfigFace } from '@/components/BsTable/index' // @ is an alias to /src
 import FullPageLayout from '@/layout/FullPageLayout.vue'
 import { ElInput } from 'element-plus'
-import BsButtons from '@/components/BsButtons'
+import { BsForm, BsTable, BsButtons, formConfig, loadDataFace, tableConfigFace, columnsConfigFace } from 'backstage-vue3'
 
 const opFn = () => {
   console.log(123123)

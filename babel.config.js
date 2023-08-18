@@ -13,12 +13,15 @@ module.exports = {
   ],
   plugins: [
     '@babel/transform-runtime',
-    // [
-    //   'component',
-    //   {
-    //     libraryName: 'element-plus',
-    //     styleLibraryName: 'theme-chalk',
-    //   },
-    // ],
+    [  // 本次增加
+      'import',
+      {  // 按需引入backstage-vue3组件
+        libraryName: 'backstage-vue3',
+        libraryDirectory: 'lib',
+        customStyleName: () => {
+          return 'backstage-vue3/lib/css/index.css'
+        },
+      },
+    ],
   ],
 }
