@@ -60,10 +60,10 @@
 
 <script lang="tsx" setup>
 import { ref } from 'vue'
-// import { BsDialog, BsFormDialog, BsListDialog, dialogFace, dialogListFace, dialogFormFace } from 'backstage-vue3'
-import BsDialog, { dialogFace } from '@/components/BsDialog'
-import BsFormDialog, { dialogFormFace } from '@/components/BsDialog/BsFormDialog'
-import BsListDialog, { dialogListFace } from '@/components/BsDialog/BsListDialog'
+import { BsDialog, BsFormDialog, BsListDialog, dialogFace, dialogListFace, dialogFormFace } from 'backstage-vue3'
+// import BsDialog, { dialogFace } from '@/components/BsDialog'
+// import BsFormDialog, { dialogFormFace } from '@/components/BsDialog/BsFormDialog'
+// import BsListDialog, { dialogListFace } from '@/components/BsDialog/BsListDialog'
 
 
 // 基础弹窗 - start

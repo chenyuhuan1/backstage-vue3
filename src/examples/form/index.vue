@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-22 14:55:37
+ * @LastEditTime: 2023-08-22 17:00:21
  * @LastEditors: 陈宇环
  * @Description: 表单
 -->
@@ -49,7 +49,8 @@
 
 <script lang="tsx" setup>
 import { ref } from 'vue'
-import BsForm, { formConfig } from '@/components/BsForm/index'
+// import BsForm, { formConfig } from '@/components/BsForm/index'
+import { BsForm, formConfig } from 'backstage-vue3'
 
 const checkAge = (rule: any, value: any, callback: any) => {
   if (!value) {

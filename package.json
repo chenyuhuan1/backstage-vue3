@@ -1,6 +1,6 @@
 {
   "name": "backstage-vue3",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "private": false,
   "main": "lib/index/index.js",
   "types": "lib/types/packages/index.d.ts",
