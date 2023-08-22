@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-18 10:30:36
+ * @LastEditTime: 2023-08-22 16:21:54
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -120,7 +120,7 @@ export default defineComponent({
       { immediate: true, deep: true },
     )
 
-    const tableDom = ref(null)
+    const tableDom = ref()
 
     const radio = ref(undefined)
 
@@ -181,12 +181,19 @@ export default defineComponent({
         cloneTableConfig.rowSelection.onChange(selection)
       }
     }
+    const clearSelection = () => {
+      selectedRow.value = []
+      tableDom.value.clearSelection()
+      if (cloneTableConfig.rowSelection && cloneTableConfig.rowSelection.onChange) {
+        cloneTableConfig.rowSelection.onChange([])
+      }
+    }
     // 动态改变表格数据
     const setList = (data: {[key: string]: any}[]) => {
       list.value = data
     }
     expose({
-      tableDom, list, selectedRow, getList, setList,
+      tableDom, list, selectedRow, getList, setList, clearSelection,
     })
 
     return () => {

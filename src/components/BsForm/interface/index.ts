@@ -115,16 +115,18 @@ interface defaultProps {
   rules?: any[]
   /** 内置校验规则 - @/utils/validator.ts */
   inlayRules?: inlayRuleType[],
+  /** 控件下方描述文案render */
+  bottomNoteRender?: () => any,
   /** change事件触发函数 */
   change?: (e: any) => void
-  /** ui框架原生属性 */
-  nativeProps?: {
-    [key: string]: any
-  },
   /** 第2个表单 key值 */
   propSecond?: string,
   /** 第3个表单 key值 */
   propThird?: string,
+  /** ui框架原生属性 */
+  nativeProps?: {
+    [key: string]: any
+  },
 }
 
 /** options选项 select、radio、checkbox、cascader（可能包含children）选项接口 */

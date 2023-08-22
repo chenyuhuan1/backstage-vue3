@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-06 14:35:55
- * @LastEditTime: 2023-08-18 15:47:26
+ * @LastEditTime: 2023-08-22 16:00:47
  * @LastEditors: 陈宇环
  * @Description: 表单类-弹窗
  */
@@ -9,7 +9,7 @@
 import { defineComponent, ref, reactive } from 'vue'
 import { dialogFormFace } from '../interface/index'
 import BsDialog from '../index'
-import BsForm from '@/components/BsForm'
+import BsForm, { columnsBase, formConfig } from '@/components/BsForm'
 import merge from 'lodash/merge'
 export default defineComponent({
   setup(props: any, { expose }) {
@@ -27,10 +27,15 @@ export default defineComponent({
         notOpBtn: true, // 不需要（搜索，重置，导出）操作按钮
       },
     })
+    const formConfig = ref<formConfig>({
+      columns: [],
+    })
     const form = ref()
     const show = ({ config, formInitValue }:{config: dialogFormFace, formInitValue: any}) => {
       form.value = formInitValue ? formInitValue : {}
       
+      formConfig.value = merge(formDiologDefultConfig.formConfig, config.formConfig)
+
       const formDiologConfig:dialogFormFace = merge({}, formDiologDefultConfig, {
         ...config,
         confirm: config.confirm ? async() => {
@@ -47,10 +52,7 @@ export default defineComponent({
                 ref={BsFormRef}
                 v-model={form.value}
                 class="bs-form"
-                config={{
-                  ...formDiologDefultConfig.formConfig,
-                  ...config.formConfig,
-                }}
+                config={formConfig.value}
               ></BsForm>
             </>
           )
@@ -63,17 +65,28 @@ export default defineComponent({
       })
     }
 
-    const setFieldsValue = (name:string, val:any)  => {
+    const setFormFieldsValue = (name:string, val:any)  => {
       setTimeout(() => {
         form.value[name] = val
       })
     }
 
-    const getFieldsValue = (name:string)  => {
+    const getFormFieldsValue = (name?:string)  => {
+      if (!name) {
+        return form.value
+      }
       return form.value[name]
     }
 
-    expose({ show, setFieldsValue, getFieldsValue })
+    // 修改columns-将columns中prop为propKey的对象的feildKey字段值设置成value  eg(name, required, false) 将名称项设置成非必填
+    const setFormColumnsByProp = (propKey: string, feildKey: keyof columnsBase, value: any):void => {
+      const index = formConfig.value.columns.findIndex((item:columnsBase) => item.prop === propKey)
+      if (index >= 0) {
+        (formConfig.value.columns[index] as any)[feildKey] = value
+      }
+    }
+
+    expose({ BsFormRef, show, setFormFieldsValue, getFormFieldsValue, setFormColumnsByProp })
 
     return () => {
       return (

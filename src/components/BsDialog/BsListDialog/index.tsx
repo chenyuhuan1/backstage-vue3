@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-07 15:53:39
- * @LastEditTime: 2023-08-18 15:48:20
+ * @LastEditTime: 2023-08-22 16:09:33
  * @LastEditors: 陈宇环
  * @Description: 列表类弹窗（可配置搜索条件）
  */
@@ -123,17 +123,24 @@ export default defineComponent({
       BsDialogRef.value.show(listDiologConfig)
     }
 
-    const setSearchForm = (key: string, value: any) => {
+    const setForm = (key: string, value: any) => {
       setTimeout(() => {
         searchForm.value[key] = value
       })
+    }
+
+    const getForm = (key: string) => {
+      if (!key) {
+        return searchForm.value
+      }
+      return searchForm.value[key]
     }
 
     const getList = ({ pageIndex, pageSize }: { pageIndex?: number, pageSize?: number } = {}) => {
       BsTableRef.value.getList(pageIndex, pageSize)
     }
 
-    expose({ show, setSearchForm, searchForm, getList })
+    expose({ BsFormRef, BsTableRef, show, setForm, getForm, getList })
 
     return () => {
       return (

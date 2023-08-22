@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-08-17 18:52:54
+ * @LastEditTime: 2023-08-22 14:55:02
  * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
@@ -347,6 +347,7 @@ export default defineComponent({
                               ? item?.render() // ep-form-item__content 部分的render函数
                               : componentRender(item) // 根据item：columnsFormBs中的type属性获取对应的自定义组件
                           }
+                          <div style={{ width: '100%', lineHeight: 1 }}>{item.bottomNoteRender && item.bottomNoteRender()}</div>
                         </dynamicFormItem>
                       </dynamicCol>
                     )}

@@ -60,7 +60,11 @@
 
 <script lang="tsx" setup>
 import { ref } from 'vue'
-import { BsDialog, BsFormDialog, BsListDialog, dialogFace, dialogListFace, dialogFormFace } from 'backstage-vue3'
+// import { BsDialog, BsFormDialog, BsListDialog, dialogFace, dialogListFace, dialogFormFace } from 'backstage-vue3'
+import BsDialog, { dialogFace } from '@/components/BsDialog'
+import BsFormDialog, { dialogFormFace } from '@/components/BsDialog/BsFormDialog'
+import BsListDialog, { dialogListFace } from '@/components/BsDialog/BsListDialog'
+
 
 // 基础弹窗 - start
 const BsDialogDom = ref()
@@ -123,13 +127,13 @@ const showFormDialog = () => {
 }
 // 表单弹窗 - end
 
-// 表单弹窗 - start
+// 列表弹窗 - start
 const BsListDialogDom = ref()
 const showListDialog = () => {
   const config: dialogListFace = {
     title: '标题',  // dialog标题
     width: '900px',  // dialog宽度
-    confirmText: '提交', // 确认按钮文案
+    // confirmText: '提交', // 确认按钮文案
     cancelText: '关闭', // 取消按钮文案
     searchConfig: {   // 搜索条件字段，不传则不展示搜索字段
       columns: [
@@ -175,14 +179,10 @@ const showListDialog = () => {
       },
       tableConfig: {},
     },
-    confirm: (form: any) => {
-      console.log('confirm', form)
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(true)  // reject 或则 返回false 不会关闭弹窗
-        }, 1000)
-      })
-    },
+    // confirm: async() => {
+    //   console.log('confirm', await BsListDialogDom.value.BsFormRef.validate())
+    //   return await BsListDialogDom.value.BsFormRef.value.validate()
+    // },
     cancel: () => {
       console.log('cancel')
     },
@@ -192,7 +192,7 @@ const showListDialog = () => {
     formInitValue: {},
   })
 }
-// 表单弹窗 - end
+// 列表弹窗 - end
 
 </script>
 
