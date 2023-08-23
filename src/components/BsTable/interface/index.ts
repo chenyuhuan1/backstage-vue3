@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 10:56:12
- * @LastEditTime: 2023-06-30 16:35:28
+ * @LastEditTime: 2023-08-23 13:56:02
  * @LastEditors: 陈宇环
  * @Description: table+paging 接口定义
  */
@@ -31,7 +31,7 @@ export type rowSelectionFace = {
   /** 多选或者单选 */
   type: 'checkout' | 'radio',
   /** 选择变化勾选变化事件 */
-  onChange:(selection?: any[]) => any,
+  onChange?:(selection?: any[]) => any,
   /** 当前行勾选是否禁用 */
   selectable?: (row:any, index:number) => boolean
   /** ant-design-vue 属性兼容 */
