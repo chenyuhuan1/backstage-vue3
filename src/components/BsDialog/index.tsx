@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-16 10:34:55
- * @LastEditTime: 2023-08-18 15:44:16
+ * @LastEditTime: 2023-08-23 15:13:39
  * @LastEditors: 陈宇环
  * @Description: 基础dialog组件
  */
@@ -9,6 +9,7 @@
 import { defineComponent, ref, reactive, nextTick } from 'vue'
 import { dialogFace } from './interface/index'
 import { CustomDynamicComponent } from '../CustomDynamicComponent'
+import merge from 'lodash/merge'
 
 export default defineComponent({
   setup(props: any, { expose }) {
@@ -23,12 +24,12 @@ export default defineComponent({
       showFooter: true,
     })
 
-    const dialogConfig = reactive<dialogFace>({
+    const dialogConfig = ref<dialogFace>({
       title: '',
     })
 
     const show:(config: dialogFace) => void = async(config) => {
-      Object.assign(dialogConfig, dialogDefultConfig, config)
+      dialogConfig.value = merge({}, dialogDefultConfig, config)
       loading.value = false
       dialogFormVisible.value = true
       await nextTick()
@@ -42,36 +43,36 @@ export default defineComponent({
         dynamicDialog,
       } = dynamicComponent
       let footer = null
-      if (dialogConfig.showFooter) {
+      if (dialogConfig.value.showFooter) {
         footer = () => {
           return (
             <>
               <el-button disabled={loading.value} loading={loading.value} onClick={async() => {
                 loading.value = true
-                if (dialogConfig.cancel) {
-                  dialogConfig.cancel && await dialogConfig.cancel() !== false && (dialogFormVisible.value = false)
+                if (dialogConfig.value.cancel) {
+                  dialogConfig.value.cancel && await dialogConfig.value.cancel() !== false && (dialogFormVisible.value = false)
                 } else {
                   dialogFormVisible.value = false
                 }
                 loading.value = false
-              }}>{dialogConfig.cancelText}</el-button>
+              }}>{dialogConfig.value.cancelText}</el-button>
               {
-                dialogConfig.confirm && <el-button type="primary" disabled={loading.value} loading={loading.value} onClick={async() => {
+                dialogConfig.value.confirm && <el-button type="primary" disabled={loading.value} loading={loading.value} onClick={async() => {
                   loading.value = true
                   try {
-                    dialogConfig.confirm && await dialogConfig.confirm() !== false && (dialogFormVisible.value = false)
+                    dialogConfig.value.confirm && await dialogConfig.value.confirm() !== false && (dialogFormVisible.value = false)
                   } catch (error) {
                     loading.value = false
                   }
                   loading.value = false
-                }}>{dialogConfig.confirmText}</el-button >
+                }}>{dialogConfig.value.confirmText}</el-button >
               }
             </>
           )
         }
-        if (dialogConfig.footerRender) {
+        if (dialogConfig.value.footerRender) {
           footer = () => {
-            return dialogConfig.footerRender && dialogConfig.footerRender(() => {
+            return dialogConfig.value.footerRender && dialogConfig.value.footerRender(() => {
               dialogFormVisible.value = false
             })
           }
@@ -81,11 +82,11 @@ export default defineComponent({
       return <div class="bs-dialog">
         <dynamicDialog
           v-model={dialogFormVisible.value}
-          width={dialogConfig.width}
-          title={dialogConfig.title}
-          {...dialogConfig.nativeProps}
+          width={dialogConfig.value.width}
+          title={dialogConfig.value.title}
+          {...dialogConfig.value.nativeProps}
           onClose={async() => {
-            dialogConfig.nativeProps?.onClose ?? dialogConfig.nativeProps?.onClose()
+            dialogConfig.value.nativeProps?.onClose ?? dialogConfig.value.nativeProps?.onClose()
             // loading.value = true
             // if (dialogConfig.cancel) {
             //   dialogConfig.cancel && await dialogConfig.cancel() !== false && (dialogFormVisible.value = false)
@@ -98,15 +99,15 @@ export default defineComponent({
             default: () => {
               return <>
                 {
-                  dialogConfig.render && dialogConfig.render()
+                  dialogConfig.value.render && dialogConfig.value.render()
                 }
               </>
             },
             header: () => {
-              if (dialogConfig.headerRender) {
-                return dialogConfig.headerRender()
+              if (dialogConfig.value.headerRender) {
+                return dialogConfig.value.headerRender()
               } else {
-                return dialogConfig.title
+                return dialogConfig.value.title
               }
             },
             footer,
