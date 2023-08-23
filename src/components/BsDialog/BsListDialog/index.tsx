@@ -1,13 +1,13 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-07 15:53:39
- * @LastEditTime: 2023-08-22 16:09:33
+ * @LastEditTime: 2023-08-23 14:15:57
  * @LastEditors: 陈宇环
  * @Description: 列表类弹窗（可配置搜索条件）
  */
 
 import { defineComponent, ref, reactive } from 'vue'
-import { dialogListFace } from '../interface/index'
+import { dialogListFace, dialogListShowFace } from '../interface/index'
 import { loadDataFace } from '@/components/BsTable/interface/index'
 import BsDialog from '../index'
 import BsForm from '@/components/BsForm'
@@ -56,7 +56,7 @@ export default defineComponent({
     }
 
     const searchForm:{[key: string]: any} = ref({})
-    const show = async({ config, formInitValue }:{config: dialogListFace, formInitValue: any}) => {
+    const show: dialogListShowFace = async({ config, formInitValue }) => {
       searchForm.value = formInitValue ? formInitValue : {}
       // 深度merge  eg：{a:{b:1}},{a:{c:2}}=>{a:{b:1,c:2}}
       const mergeConfig:dialogListFace = merge({}, listDiologDefultConfig, config, {

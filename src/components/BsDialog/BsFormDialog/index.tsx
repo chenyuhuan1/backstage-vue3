@@ -1,13 +1,13 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-06 14:35:55
- * @LastEditTime: 2023-08-22 16:00:47
+ * @LastEditTime: 2023-08-23 14:13:21
  * @LastEditors: 陈宇环
  * @Description: 表单类-弹窗
  */
 
 import { defineComponent, ref, reactive } from 'vue'
-import { dialogFormFace } from '../interface/index'
+import { dialogFormFace, dialogFormShowFace } from '../interface/index'
 import BsDialog from '../index'
 import BsForm, { columnsBase, formConfig } from '@/components/BsForm'
 import merge from 'lodash/merge'
@@ -31,14 +31,14 @@ export default defineComponent({
       columns: [],
     })
     const form = ref()
-    const show = ({ config, formInitValue }:{config: dialogFormFace, formInitValue: any}) => {
+    const show: dialogFormShowFace = ({ config, formInitValue }) => {
       form.value = formInitValue ? formInitValue : {}
       
       formConfig.value = merge(formDiologDefultConfig.formConfig, config.formConfig)
 
       const formDiologConfig:dialogFormFace = merge({}, formDiologDefultConfig, {
         ...config,
-        confirm: config.confirm ? async() => {
+        confirm: config?.confirm ? async() => {
           const verify = await BsFormRef.value.validate()
           if (!verify) {
             return false
