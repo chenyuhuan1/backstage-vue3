@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-06 14:35:55
- * @LastEditTime: 2023-08-23 14:13:21
+ * @LastEditTime: 2023-08-23 15:08:11
  * @LastEditors: 陈宇环
  * @Description: 表单类-弹窗
  */
@@ -34,7 +34,7 @@ export default defineComponent({
     const show: dialogFormShowFace = ({ config, formInitValue }) => {
       form.value = formInitValue ? formInitValue : {}
       
-      formConfig.value = merge(formDiologDefultConfig.formConfig, config.formConfig)
+      formConfig.value = merge({}, formDiologDefultConfig.formConfig, config.formConfig)
 
       const formDiologConfig:dialogFormFace = merge({}, formDiologDefultConfig, {
         ...config,
