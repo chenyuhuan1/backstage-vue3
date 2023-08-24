@@ -52,8 +52,14 @@ export function $download(params: {filetype?: string, title: string, data: any, 
 
 // 获取字典
 export function getDicByKey(key: string):any {
-  const dic = session('sysCodeList')?.[key]
-  return dic ?? null
+  const dicList = session('sysCodeList')
+  if (dicList && Array.isArray(dicList)) {
+    const dic = dicList?.find((item: any) => {
+      return item?.bizTypeCode === key
+    })
+    return dic?.codeValues ?? null
+  }
+  return dicList?.[key] ?? null
 }
 
 // 树遍历
