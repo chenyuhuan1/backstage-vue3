@@ -1,13 +1,13 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 09:56:21
- * @LastEditTime: 2023-08-15 17:19:11
+ * @LastEditTime: 2023-08-28 15:56:15
  * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
 import * as utils from '@/utils/common'
-import { checkboxProps } from '../interface/index'
+import type { checkboxProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter, getOptionsLabel } from '../toolFn'
@@ -22,7 +22,7 @@ export default defineComponent({
       },
     },
     config: {
-      type: Object as PropType<Partial<checkboxProps>>,
+      type: Object as PropType<checkboxProps>,
       default() {
         return {}
       },

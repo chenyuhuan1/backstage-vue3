@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-16 15:29:48
+ * @LastEditTime: 2023-08-28 15:11:27
  * @LastEditors: 陈宇环
  * @Description: form表单相关接口定义
  */
@@ -50,43 +50,43 @@ export interface formConfig {
 /** 所有表单控件的联合类型 */
 export type columnsBase =
   /** 输入框控件 */
-  | inputProps
+  | Overwrite<inputProps, RequiredPick<inputProps, 'type' | 'prop'>>
   /** 密码输入控件 */
-  | passwordProps
+  | Overwrite<passwordProps, RequiredPick<passwordProps, 'type' | 'prop'>>
   /** 多行文本输入控件 */
-  | textareaProps
+  | Overwrite<textareaProps, RequiredPick<textareaProps, 'type' | 'prop'>>
   /** 下拉选择控件 */
-  | selectProps
+  | Overwrite<selectProps, RequiredPick<selectProps, 'type' | 'prop'>>
   /** 单选控件 */
-  | radioProps
+  | Overwrite<radioProps, RequiredPick<radioProps, 'type' | 'prop'>>
   /** 多选控件 */
-  | checkboxProps
+  | Overwrite<checkboxProps, RequiredPick<checkboxProps, 'type' | 'prop'>>
   /** 数字输入控件 */
-  | numberProps
+  | Overwrite<numberProps, RequiredPick<numberProps, 'type' | 'prop'>>
   /** 数字范围输入控件 */
-  | numberRangeProps
+  | Overwrite<numberRangeProps, RequiredPick<numberRangeProps, 'type' | 'prop'>>
   /** 年月日-日期输入控件 */
-  | dateProps
+  | Overwrite<dateProps, RequiredPick<dateProps, 'type' | 'prop'>>
   /** 年月日-日期范围输入控件 */
-  | dateRangeProps
+  | Overwrite<dateRangeProps, RequiredPick<dateRangeProps, 'type' | 'prop'>>
   /** 级联选项控件 */
-  | cascaderProps
+  | Overwrite<cascaderProps, RequiredPick<cascaderProps, 'type' | 'prop'>>
   /** 开关控件 */
-  | switchProps
+  | Overwrite<switchProps, RequiredPick<switchProps, 'type' | 'prop'>>
   /** 出文本控件 */
-  | textProps
+  | Overwrite<textProps, RequiredPick<textProps, 'type' | 'prop'>>
   /** 自定义render函数 */
-  | renderProps
+  | Overwrite<renderProps, RequiredPick<renderProps, 'type' | 'prop'>>
   /** 折叠面板 */
-  | collapseProps
+  | Overwrite<collapseProps, RequiredPick<collapseProps, 'type' | 'prop'>>
   /** 行内编辑table */
-  | editTableProps
+  | Overwrite<editTableProps, RequiredPick<editTableProps, 'type' | 'prop'>>
 
 
 /** 基础属性接口 */
 interface defaultProps {
   /** key值 */
-  prop: string
+  prop?: string
   /** label值 */
   label?: string
   /** 列宽 24等分 */
@@ -149,7 +149,7 @@ export type format = (item: any) => any
 
 /** 输入框控件props */
 export interface inputProps extends defaultProps {
-  type: 'input'
+  type?: 'input'
   /** 最大输出长度 */
   minlength?: number
   /** 最小输出长度 */
@@ -157,7 +157,7 @@ export interface inputProps extends defaultProps {
 }
 
 export interface passwordProps extends defaultProps {
-  type: 'password'
+  type?: 'password'
   /** 是否需要密码*号 显示隐藏开关 */
   showPassword?: boolean
   /** 最大输出长度 */
@@ -167,7 +167,7 @@ export interface passwordProps extends defaultProps {
 }
 
 export interface textareaProps extends defaultProps {
-  type: 'textarea'
+  type?: 'textarea'
   /** 最大输出长度 */
   minlength?: number
   /** 最小输出长度 */
@@ -180,7 +180,7 @@ export interface textareaProps extends defaultProps {
 
 /** 数字输入控件props **/
 export interface numberProps extends defaultProps {
-  type: 'number'
+  type?: 'number'
   /** 最小值 */
   min?: number
   /** 最大值 */
@@ -195,7 +195,7 @@ export interface numberProps extends defaultProps {
 
 /** 下拉菜单控件props */
 export interface selectProps extends defaultProps {
-  type: 'select'
+  type?: 'select'
   prop2?: string
   /** 是否根据输入字符过滤 */
   filterable?: boolean
@@ -225,7 +225,7 @@ export interface selectProps extends defaultProps {
 
 /** 单选控件props */
 export interface radioProps extends defaultProps {
-  type: 'radio'
+  type?: 'radio'
   /** 选项中label字段对应的key */
   labelKey?: string
   /** 选项中value字段对应的key */
@@ -242,7 +242,7 @@ export interface radioProps extends defaultProps {
 
 /** 多选控件props */
 export interface checkboxProps extends defaultProps {
-  type: 'checkbox'
+  type?: 'checkbox'
   /** 选项中label字段对应的key */
   labelKey?: string
   /** 选项中value字段对应的key */
@@ -260,7 +260,7 @@ export interface checkboxProps extends defaultProps {
 /** 日期控件props */
 export interface dateProps extends defaultProps {
   /** 控件类型选择 */
-  type: 'year' | 'month' | 'week' | 'date' | 'datetime' | 'dates' | 'datetimerange' | 'daterange' | 'monthrange',
+  type?: 'year' | 'month' | 'week' | 'date' | 'datetime' | 'dates' | 'datetimerange' | 'daterange' | 'monthrange',
   disabledDate?: (date: any)=>boolean,
   valueFormat?: string,
   startPlaceholder?: string, // 范围选择时开始日期的占位内容
@@ -270,7 +270,7 @@ export interface dateProps extends defaultProps {
 /** 日期控件范围props */
 export interface dateRangeProps extends defaultProps {
   /** 控件类型 */
-  type: 'yearRange' | 'monthRange' | 'dateRange' | 'weekRange' | 'datetimeRange'
+  type?: 'yearRange' | 'monthRange' | 'dateRange' | 'weekRange' | 'datetimeRange'
   /** 范围选择控件(dateRange、numberRange)结束key */
   propEnd?: string
   /** 开始日期-禁止选择的日期 */
@@ -281,7 +281,7 @@ export interface dateRangeProps extends defaultProps {
 
 /** 数字范围控件props */
 export interface numberRangeProps extends defaultProps {
-  type: 'numberRange'
+  type?: 'numberRange'
   /** 范围选择控件(dateRange、numberRange)结束key */
   propEnd?: string
   /** 最小 */
@@ -298,7 +298,7 @@ export interface numberRangeProps extends defaultProps {
 
 /** 级联控件props */
 export interface cascaderProps extends defaultProps {
-  type: 'cascader'
+  type?: 'cascader'
   /** 是否多选 */
   multiple?: boolean
   /** 选项中label字段对应的key */
@@ -319,7 +319,7 @@ export interface cascaderProps extends defaultProps {
 
 /** 开关控件props */
 export interface switchProps extends defaultProps {
-  type: 'switch'
+  type?: 'switch'
   /** switch 状态为 on 时的值 */
   activeValue?: boolean | string | number,
   /** switch 状态为 off 时的值 */
@@ -328,20 +328,20 @@ export interface switchProps extends defaultProps {
 
 /** 文本控件props */
 export interface textProps extends defaultProps {
-  type: 'text',
+  type?: 'text',
   /** 默认展示文本 */
   defaultText?: string | number,
 }
 
 /** 自定义render函数（只替换form-item-conent部分，label不会被render）*/
 export interface renderProps extends defaultProps {
-  type: 'render'
+  type?: 'render'
   /** 自定义组件render函数 */
   render: () => any
 }
 /** Collapse 折叠面板props */
 export interface collapseProps extends defaultProps {
-  type: 'collapse'
+  type?: 'collapse'
   dataConfig?: {
     title: string,
     desc: string[] | string,
@@ -350,7 +350,7 @@ export interface collapseProps extends defaultProps {
 
 /** 行内编辑table */
 export interface editTableProps extends defaultProps {
-  type: 'editTable'
+  type?: 'editTable'
   /** 表格列配置 */
   columns: editTableColumnsConfigFace,
   /** 表格配置 */
@@ -361,7 +361,28 @@ export type inlayRuleType = { validatorName: keyof rulesIn, message?: string, tr
 
 export type textModeRenderParamsFace = {value?: any, endValue?: any, curItem?: any, options?: optionsType}
 
-// 实例是否是columnsOtherBase类型
-// export const isColumnsOtherBase = (item: columnsBase): item is columnsOtherBase => {
-//   return (item as columnsOtherBase).fullRender !== undefined
-// }
+// 从T中排除存在于U中的key和类型。
+type Diff<T extends object, U extends object> = Pick<
+T,
+Exclude<keyof T, keyof U>
+>;
+
+// 从T中提取存在于U中的key和对应的类型。（注意，最终是从T中提取key和类型）
+type Intersection<T extends object, U extends object> = Pick<T,
+Extract<keyof T, keyof U> & Extract<keyof U, keyof T>
+>
+
+/**
+ * Overwrite实现
+ * 获取前者独有的key和类型，再取两者共有的key和该key在后者中的类型，最后合并。
+ */
+type Overwrite<
+  T extends object,
+  U extends object,
+  I = Diff<T, U> & Intersection<U, T>
+> = Pick<I, keyof I>;
+
+// 提取T中的K组成新类型，并改为必填必填
+type RequiredPick<T, K extends keyof T> = {
+  [P in K]-?: T[P];
+};

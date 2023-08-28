@@ -28,7 +28,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<dateProps>>,
+      type: Object as PropType<dateProps>,
       default() {
         return {}
       },

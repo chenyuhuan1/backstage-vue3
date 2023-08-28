@@ -19,7 +19,7 @@ export default defineComponent({
       default: undefined,
     },
     config: {
-      type: Object as PropType<Partial<numberProps>>,
+      type: Object as PropType<numberProps>,
       default() {
         return {}
       },

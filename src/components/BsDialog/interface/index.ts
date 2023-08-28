@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-16 11:01:19
- * @LastEditTime: 2023-08-23 14:15:19
+ * @LastEditTime: 2023-08-28 16:00:49
  * @LastEditors: 陈宇环
  * @Description: 弹窗相关接口定义
  */
@@ -30,7 +30,12 @@ export interface dialogFormFace extends dialogFace {
   formConfig: formConfig // 弹窗里表单配置
 }
 
-export type dialogFormShowFace = ({ config, formInitValue }:{config: dialogFormFace, formInitValue?: {[key: string]: any}}) => void
+export interface dialogFormShowConfigFace {
+  config: dialogFormFace,
+  formInitValue?: {[key: string]: any}
+}
+
+export type dialogFormShowFace = ({ config, formInitValue }:dialogFormShowConfigFace) => void
 
 // 列表类弹窗
 export interface dialogListFace extends dialogFace {
@@ -44,7 +49,13 @@ export interface dialogListFace extends dialogFace {
   }
 }
 
-export type dialogListShowFace = ({ config, formInitValue }:{config: dialogListFace, formInitValue?: {[key: string]: any}}) => void
+
+export interface dialogListShowConfigFace {
+  config: dialogListFace,
+  formInitValue?: {[key: string]: any}
+}
+
+export type dialogListShowFace = ({ config, formInitValue }:dialogListShowConfigFace) => void
 
 export type listConfigLoadDataFace = ({ pageIndex, pageSize, searchForm }: { pageIndex: number, pageSize: number, searchForm: any }) => Promise<resultInt>
 

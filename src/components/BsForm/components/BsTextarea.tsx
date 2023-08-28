@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-08-15 17:25:24
+ * @LastEditTime: 2023-08-28 15:34:23
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -19,7 +19,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<textareaProps>>,
+      type: Object as PropType<textareaProps>,
       default() {
         return {}
       },

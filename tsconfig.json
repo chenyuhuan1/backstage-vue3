@@ -55,8 +55,4 @@
   "exclude": [
     "node_modules", "public"
   ],
-  "typedocOptions": {
-    "entryPoints": ["src/main.ts"],
-    "out": "docs"
-  }
 }

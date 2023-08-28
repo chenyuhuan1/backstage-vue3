@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-18 15:52:32
+ * @LastEditTime: 2023-08-28 16:22:20
  * @LastEditors: 陈宇环
  * @Description: 可编辑表格
 -->
@@ -129,6 +129,9 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { BsForm, BsEditTable, BsButtons, formConfig, editTableConfigFace, editTableColumnsConfigFace } from 'backstage-vue3'
+// import BsForm, { formConfig } from '@/components/BsForm/index'
+// import BsEditTable, { editTableConfigFace, editTableColumnsConfigFace } from '@/components/BsEditTable/index'
+// import BsButtons from '@/components/BsButtons/index'
 
 /** 整表编辑配置 start */
 const BsEditTableDom = ref()
@@ -171,7 +174,7 @@ const overallTableConfig = ref<editTableConfigFace>({
 })
 
 const aachange = (e:any) => {
-  console.log(e, 333)
+  console.log(e, 'BsEditTable change事件触发')
 }
 
 const overallThead = ref<editTableColumnsConfigFace>([
@@ -191,6 +194,11 @@ const overallThead = ref<editTableColumnsConfigFace>([
       type: 'input',
       required: true,
       rules: [{ min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'change' }],
+      widgetConfigDynamicFn: (scope: any) => {
+        return scope.row.statusDesc === 'success' ? {
+          disabled: true,
+        } : {}
+      },
     },
   },
   { prop: 'effectiveDays', label: '下载有效期(天)' },
@@ -202,6 +210,9 @@ const overallThead = ref<editTableColumnsConfigFace>([
       type: 'select',
       required: true,
       options: [{ label: '成功', value: 'success' }, { label: '失败', value: 'fail' }],
+      change: (e:any) => {
+        console.log(e, '状态列控件事件触发')
+      },
     },
     render: (scope: any) => {
       return scope.row.statusDesc === 'success' ? '成功' : '失败'

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-08-03 10:56:12
- * @LastEditTime: 2023-08-10 16:35:28
+ * @LastEditTime: 2023-08-28 16:05:48
  * @LastEditors: 陈宇环
  * @Description: table+paging 接口定义
  */
@@ -20,7 +20,10 @@ export interface editTableConfigFace extends tableConfigFace {
 // 将columnsBase联合类型中的prop属性去掉
 type formConfigType<T, U> = T extends U ? string : Omit<T, 'prop'>
 
-export type widgetConfigFace = formConfigType<columnsBase, string>
+export type widgetConfigFace = formConfigType<columnsBase, string> & {
+  widgetConfigDynamicFn?: (scope?: any) => Partial<widgetConfigFace>
+}
+
 /** 编辑table列配置 */
 export interface editTableColumnsItemConfig extends columnsItemConfig {
   /** 范围选择器结束值的key */
@@ -30,7 +33,6 @@ export interface editTableColumnsItemConfig extends columnsItemConfig {
   /** 编辑状态下表单项配置 */
   widgetConfig?: widgetConfigFace,
 }
-
 
 /** 编辑table列配置项item */
 export type editTableColumnsConfigFace = editTableColumnsItemConfig[]

@@ -80,8 +80,9 @@ export const contentRender = (cloneTableConfig: editTableConfigFace, columnConfi
           [scope.row[(columnConfig as {prop: string}).prop]],
           [scope.row[(columnConfig as {propEnd?: any}).propEnd], 'propEnd'],
         ]}
-        config={columnConfig.widgetConfig}
+        config={{ ...columnConfig.widgetConfig, ...(columnConfig?.widgetConfig?.widgetConfigDynamicFn ? columnConfig?.widgetConfig?.widgetConfigDynamicFn(scope) : {}) }}
         onChange={() => {
+          columnConfig.widgetConfig?.change && columnConfig.widgetConfig.change(scope)
           emitChange()
         }}
       />

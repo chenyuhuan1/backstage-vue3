@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-09-07 16:37:21
- * @LastEditTime: 2023-08-15 18:57:57
+ * @LastEditTime: 2023-08-28 15:32:56
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -20,7 +20,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<cascaderProps>>,
+      type: Object as PropType<cascaderProps>,
       default() {
         return {}
       },

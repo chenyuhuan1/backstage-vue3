@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-22 16:21:54
+ * @LastEditTime: 2023-08-24 15:35:57
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -128,7 +128,7 @@ export default defineComponent({
     const pageInfo = reactive({
       pageIndex: clonePagingConfig.pageIndex,
       pageSize: clonePagingConfig.pageSize,
-      total: clonePagingConfig.total,
+      total: clonePagingConfig?.total,
     })
     const list = ref<{[key: string]: any}[]>([])
     const getList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
@@ -139,8 +139,8 @@ export default defineComponent({
           pageSize,
         })
         if (result.success) {
-          list.value = result.list
-          pageInfo.total = result.total
+          list.value = result?.list ?? []
+          pageInfo.total = result?.total ?? 0
         }
         pageInfo.pageIndex = pageIndex
         pageInfo.pageSize = pageSize
@@ -271,7 +271,7 @@ export default defineComponent({
                 current-page={pageInfo.pageIndex}
                 page-size={pageInfo.pageSize}
                 layout={defaultPagingConfig.layout}
-                total={pageInfo.total}
+                total={pageInfo?.total ?? 0}
                 background
                 {...clonePagingConfig.nativeProps}
                 onSizeChange={(val: any) => handleSizeChange(val)}

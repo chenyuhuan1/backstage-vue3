@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-22 17:00:21
+ * @LastEditTime: 2023-08-25 11:01:47
  * @LastEditors: 陈宇环
  * @Description: 表单
 -->
@@ -52,6 +52,7 @@ import { ref } from 'vue'
 // import BsForm, { formConfig } from '@/components/BsForm/index'
 import { BsForm, formConfig } from 'backstage-vue3'
 
+//* * 表单-start */
 const checkAge = (rule: any, value: any, callback: any) => {
   if (!value) {
     return callback(new Error('Please input the age'))
@@ -95,6 +96,7 @@ const sub1 = async() => {
   const vali = await BsFormDom.value.validate()
   console.log(vali)
 }
+//* * 表单-end */
 
 </script>
 <style lang="scss" scoped></style>

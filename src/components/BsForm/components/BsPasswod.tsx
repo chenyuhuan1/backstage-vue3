@@ -18,7 +18,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<passwordProps>>,
+      type: Object as PropType<passwordProps>,
       default() {
         return {}
       },

@@ -20,7 +20,7 @@ export default defineComponent({
       default: undefined,
     },
     config: {
-      type: Object as PropType<Partial<radioProps>>,
+      type: Object as PropType<radioProps>,
       default() {
         return {}
       },

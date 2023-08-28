@@ -19,7 +19,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<switchProps>>,
+      type: Object as PropType<switchProps>,
       default() {
         return {}
       },

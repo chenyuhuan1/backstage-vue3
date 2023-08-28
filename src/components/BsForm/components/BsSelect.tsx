@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-15 17:30:23
- * @LastEditTime: 2023-08-15 18:50:37
+ * @LastEditTime: 2023-08-28 15:07:47
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -20,7 +20,7 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<selectProps>>,
+      type: Object as PropType<selectProps>,
       default() {
         return {}
       },

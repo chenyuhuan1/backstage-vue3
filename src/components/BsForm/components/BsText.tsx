@@ -18,7 +18,7 @@ export default defineComponent({
       default: undefined,
     },
     config: {
-      type: Object as PropType<Partial<textProps>>,
+      type: Object as PropType<textProps>,
       default() {
         return {}
       },
