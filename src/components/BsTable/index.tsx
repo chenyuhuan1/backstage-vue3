@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-24 15:35:57
+ * @LastEditTime: 2023-09-01 09:25:55
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -261,10 +261,11 @@ export default defineComponent({
           </dynamicTable>
           {
             clonePagingConfig.open && <div
+              class="bs-pagination"
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                padding: '15px 0',
+                paddingTop: '15px',
               }}
             >
               <dynamicPagination
