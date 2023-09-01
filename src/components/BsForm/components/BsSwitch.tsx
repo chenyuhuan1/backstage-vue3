@@ -68,4 +68,4 @@ export default defineComponent({
     }
   },
 })
-export * from '../interface/index'
+export { switchProps }

@@ -1,13 +1,13 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-02-06 14:35:55
- * @LastEditTime: 2023-08-23 15:08:11
+ * @LastEditTime: 2023-09-01 11:37:27
  * @LastEditors: 陈宇环
  * @Description: 表单类-弹窗
  */
 
 import { defineComponent, ref, reactive } from 'vue'
-import { dialogFormFace, dialogFormShowFace } from '../interface/index'
+import { dialogFormFace, dialogFormShowConfigFace } from '../interface/index'
 import BsDialog from '../index'
 import BsForm, { columnsBase, formConfig } from '@/components/BsForm'
 import merge from 'lodash/merge'
@@ -31,7 +31,7 @@ export default defineComponent({
       columns: [],
     })
     const form = ref()
-    const show: dialogFormShowFace = ({ config, formInitValue }) => {
+    const show = ({ config, formInitValue }: dialogFormShowConfigFace) => {
       form.value = formInitValue ? formInitValue : {}
       
       formConfig.value = merge({}, formDiologDefultConfig.formConfig, config.formConfig)
@@ -100,4 +100,6 @@ export default defineComponent({
   },
 })
 
-export * from '../interface/index'
+export { dialogFormFace, dialogFormShowConfigFace }
+
+export type show = ({ config, formInitValue }: dialogFormShowConfigFace) => void

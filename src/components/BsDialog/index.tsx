@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-16 10:34:55
- * @LastEditTime: 2023-08-23 15:13:39
+ * @LastEditTime: 2023-09-01 11:48:34
  * @LastEditors: 陈宇环
  * @Description: 基础dialog组件
  */
@@ -119,4 +119,7 @@ export default defineComponent({
   },
 })
 
-export * from './interface/index'
+export { dialogFace }
+
+/** dialog组件展示方法方法 */
+export type show = (config: dialogFace) => void

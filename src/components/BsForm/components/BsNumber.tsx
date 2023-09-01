@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 15:19:17
- * @LastEditTime: 2023-08-15 17:17:50
+ * @LastEditTime: 2023-09-01 11:20:44
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -64,4 +64,4 @@ export default defineComponent({
     }
   },
 })
-export * from '../interface/index'
+export { numberProps }

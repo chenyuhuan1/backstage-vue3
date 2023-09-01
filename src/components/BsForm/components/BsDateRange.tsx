@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-28 15:34:56
- * @LastEditTime: 2023-08-28 15:33:30
+ * @LastEditTime: 2023-09-01 11:20:21
  * @LastEditors: 陈宇环
  * @Description: 'yearRange' | 'monthRange' | 'dateRange' | 'datetimeRange'组件
  */
@@ -198,4 +198,4 @@ export default defineComponent({
   },
 })
 
-export * from '../interface/index'
+export { dateRangeProps }

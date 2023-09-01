@@ -15,18 +15,20 @@ function getComponentEntries() {
     return fileName !== 'CustomDynamicComponent.tsx'
   }).map((fileName) => 'src/components/' + fileName + '/index.tsx')
 
+  // src/components/BsForm/components组件处理
   let formComponentsPath = []
   const formFiles = fs.readdirSync(resolve('src/components/BsForm/components'))
   formComponentsPath = formFiles.filter((fileName) => {
     return fileName !== 'index.ts'
   }).map((fileName) => 'src/components/BsForm/components/' + fileName)
 
-  console.log(mainComponentsPath, formComponentsPath)
-  return [...mainComponentsPath, ...formComponentsPath]
+  const extraComponents = ['src/components/BsDialog/BsFormDialog/index.tsx', 'src/components/BsDialog/BsListDialog/index.tsx']
+
+  return [...mainComponentsPath, ...formComponentsPath, ...extraComponents]
 }
 
 module.exports = {
   entryPoints: getComponentEntries(),
-  out: 'apiDocs2',
+  out: 'docs/apiDocs2',
   disableSources: true,
 }

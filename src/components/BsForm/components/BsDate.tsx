@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 11:33:03
- * @LastEditTime: 2023-08-15 18:47:08
+ * @LastEditTime: 2023-09-01 11:20:03
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -156,4 +156,4 @@ export default defineComponent({
   },
 })
 
-export * from '../interface/index'
+export { dateProps }

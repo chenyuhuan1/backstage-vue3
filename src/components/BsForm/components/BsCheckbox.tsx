@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 09:56:21
- * @LastEditTime: 2023-08-28 15:56:15
+ * @LastEditTime: 2023-09-01 11:19:14
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -136,4 +136,4 @@ export default defineComponent({
   },
 })
 
-export * from '../interface/index'
+export { checkboxProps }

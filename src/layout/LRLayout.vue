@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2022-05-12 14:25:59
- * @LastEditTime: 2023-06-05 16:14:17
+ * @LastEditTime: 2023-09-01 15:54:25
  * @LastEditors: 陈宇环
  * @Description: 左右布局-左侧固定右侧撑满
 -->
@@ -40,9 +40,11 @@ const route = useRoute()
   display: flex;
   justify-content: space-between;
   overflow: hidden;
+  box-sizing: border-box;
   .aside {
     height: 100vh;
     overflow: auto;
+    position: relative;
   }
   .main {
     padding: 15px;

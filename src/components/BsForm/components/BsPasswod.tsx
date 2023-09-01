@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-03-24 14:01:06
- * @LastEditTime: 2023-08-15 11:01:10
+ * @LastEditTime: 2023-09-01 11:21:04
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -70,4 +70,4 @@ export default defineComponent({
     }
   },
 })
-export * from '../interface/index'
+export { passwordProps }

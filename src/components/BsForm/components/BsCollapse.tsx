@@ -2,7 +2,7 @@
  * @Author: chenql
  * @Date: 2023-04-26 10:19:48
  * @LastEditors: 陈宇环
- * @LastEditTime: 2023-08-15 10:54:01
+ * @LastEditTime: 2023-09-01 11:19:55
  * @Descripttion: 表单手风琴
  */
 import { defineComponent, PropType, ref } from 'vue'
@@ -62,4 +62,4 @@ export default defineComponent({
     }
   },
 })
-export * from '../interface/index'
+export { collapseProps }
