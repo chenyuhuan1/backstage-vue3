@@ -45,6 +45,16 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/api',
+    name: 'api',
+    component: () => import('@/examples/api/index.vue'),
+    meta: {
+      hide: true,
+      moduleName: 'API文档',
+      moduleIcon: 'Reading',
+    },
+  },
 ]
 
 export default routes

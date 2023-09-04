@@ -14,6 +14,11 @@
     >
       <template #header>
         <span>基础弹窗</span>
+        <a
+          style="margin-left: 50px;"
+          href="javascript:"
+          @click="goApi('/static/apiDocs2/modules/BsDialog.html')"
+        >API地址</a>
       </template>
       <BsDialog ref="BsDialogDom" />
       <el-button
@@ -30,6 +35,11 @@
     >
       <template #header>
         <span>表单弹窗</span>
+        <a
+          style="margin-left: 50px;"
+          href="javascript:"
+          @click="goApi('/static/apiDocs2/modules/BsDialog_BsFormDialog.html')"
+        >API地址</a>
       </template>
       <BsFormDialog ref="BsFormDialogDom" />
       <el-button
@@ -46,6 +56,11 @@
     >
       <template #header>
         <span>列表弹窗</span>
+        <a
+          style="margin-left: 50px;"
+          href="javascript:"
+          @click="goApi('/static/apiDocs2/modules/BsDialog_BsListDialog.html')"
+        >API地址</a>
       </template>
       <BsListDialog ref="BsListDialogDom" />
       <el-button
@@ -64,7 +79,7 @@ import { BsDialog, BsFormDialog, BsListDialog, dialogFace, dialogListFace, dialo
 // import BsDialog, { dialogFace } from '@/components/BsDialog'
 // import BsFormDialog, { dialogFormFace } from '@/components/BsDialog/BsFormDialog'
 // import BsListDialog, { dialogListFace } from '@/components/BsDialog/BsListDialog'
-
+import { goApi } from '@/local/utils/index'
 
 // 基础弹窗 - start
 const BsDialogDom = ref()

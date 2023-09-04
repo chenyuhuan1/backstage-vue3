@@ -29,6 +29,6 @@ function getComponentEntries() {
 
 module.exports = {
   entryPoints: getComponentEntries(),
-  out: 'docs/apiDocs2',
+  out: 'public/static/apiDocs2',
   disableSources: true,
 }

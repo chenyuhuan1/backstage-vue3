@@ -10,7 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "typedoc": "typedoc --options typedoc.config.js",
-    "docs": "npm run build & npm run typedoc",
+    "docs": "npm run typedoc & npm run build",
     "lib": "tsc && vue-cli-service build --mode npm",
     "lib:rollup": "rollup -c --bundleConfigAsCjs",
     "lib:iife": "FORMAT=iife rollup -c --bundleConfigAsCjs"

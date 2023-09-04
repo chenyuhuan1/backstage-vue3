@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-08-28 16:22:20
+ * @LastEditTime: 2023-09-04 13:55:55
  * @LastEditors: 陈宇环
  * @Description: 可编辑表格
 -->
@@ -19,6 +19,11 @@
   >
     <template #header>
       <span>整表编辑</span>
+      <a
+        style="margin-left: 50px;"
+        href="javascript:"
+        @click="goApi('/static/apiDocs2/modules/BsEditTable.html')"
+      >API地址</a>
     </template>
     <BsEditTable
       ref="BsEditTableDom"
@@ -132,6 +137,7 @@ import { BsForm, BsEditTable, BsButtons, formConfig, editTableConfigFace, editTa
 // import BsForm, { formConfig } from '@/components/BsForm/index'
 // import BsEditTable, { editTableConfigFace, editTableColumnsConfigFace } from '@/components/BsEditTable/index'
 // import BsButtons from '@/components/BsButtons/index'
+import { goApi } from '@/local/utils/index'
 
 /** 整表编辑配置 start */
 const BsEditTableDom = ref()
@@ -759,7 +765,7 @@ const config2 = reactive<formConfig>({
           ref={BsEditTableDom4}
           v-model={form2.value.tableList}
           columns={formThead2.value}
-          table-config={formTableConfig2.value}
+          edit-table-config={formTableConfig2.value}
         />
       },
     },
