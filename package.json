@@ -3,6 +3,7 @@
   "version": "0.2.5",
   "private": false,
   "main": "lib/index/index.js",
+  "module": "es/index/index.mjs",
   "types": "lib/types/packages/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",

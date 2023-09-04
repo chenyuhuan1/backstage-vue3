@@ -66,8 +66,8 @@ function getConfig(format) {
           // name该选项用于，在想要使用全局变量名来表示你的 bundle 时，输出格式必须指定为 iife 或 umd。同一个页面上的其他脚本可以通过这个变量名来访问你的 bundle 导出
           ...format === 'iife' ? { name: 'backstageVue3' } : {},
           sourcemap: true,
-          entryFileNames: '[name]/index.js', // 该选项用于指定 chunks 的入口文件模式 eg: bs-input/index.js
-          chunkFileNames: 'chunkFile/[name].js', // 该选项用于对代码分割中产生的 chunk 自定义命名
+          entryFileNames: `[name]/index.${format === 'es' ? 'm' : ''}js`, // 该选项用于指定 chunks 的入口文件模式 eg: bs-input/index.js
+          chunkFileNames: `chunkFile/[name].${format === 'es' ? 'm' : ''}js`, // 该选项用于对代码分割中产生的 chunk 自定义命名
         },
     plugins: [
       alias({
