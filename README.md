@@ -53,7 +53,7 @@ window.uiLanguage = 'ant'
 
 **按需引入会对组件传入的所有props进行类型校验，如下：**
 
-![1693816576985](/backstage-vue3/static/image/README/1693816576985.png)
+![1693816439592](/backstage-vue3/static/image/README/1693816439592.png)
 
 可以直接导入内置提供的接口，来保证传入的数据符合类型校验：
 
