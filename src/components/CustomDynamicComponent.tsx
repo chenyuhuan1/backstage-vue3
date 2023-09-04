@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-06-05 15:12:47
- * @LastEditTime: 2023-08-08 20:44:53
- * @LastEditors: chenql
+ * @LastEditTime: 2023-08-18 11:32:00
+ * @LastEditors: 陈宇环
  * @Description:
  */
 // window.uiLanguage = 'ant'
@@ -51,6 +51,7 @@ export class CustomDynamicComponent {
         popconfirm: <a-popconfirm/>,
         collapse: <a-collapse/>,
         collapseItem: <a-collapse-panel/>,
+        dialog: <a-modal/>,
       }
     },
     ele: () => {
@@ -82,6 +83,7 @@ export class CustomDynamicComponent {
         popconfirm: <el-popconfirm/>,
         collapse: <el-collapse/>,
         collapseItem: <el-collapse-item/>,
+        dialog: <el-dialog/>,
       }
     },
   }

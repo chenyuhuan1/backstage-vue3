@@ -24,13 +24,20 @@
 
 <style lang="scss" scoped>
 .FullPageLayout {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  .auto-strut {
+    background-color: #fff;
+    padding: 15px 15px 0;
+  }
   .flex1 {
+    padding: 0 15px;
     flex: 1;
     overflow: hidden;
+    background-color: #fff;
   }
 }
 </style>

@@ -8,6 +8,9 @@ src/
 tests/
 dist/
 types/
+examples/
+localComponents/
+router/
 package-lock.json
 .browserslistrc
 .editorconfig

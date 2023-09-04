@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-07-03 15:40:49
+ * @LastEditTime: 2023-08-28 15:34:23
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -9,6 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
 import { textareaProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter } from '../toolFn'
 
 export default defineComponent({
   name: 'BsTextarea',
@@ -18,13 +19,17 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<textareaProps>>,
+      type: Object as PropType<textareaProps>,
       default() {
         return {}
       },
     },
+    textMode: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const { dynamicTextarea } = new CustomDynamicComponent()
     function updateValue(value: number | string | InputEvent) {
@@ -36,17 +41,25 @@ export default defineComponent({
       }
 
       emit('update:modelValue', cloneValue)
+      emit('update:value', cloneValue)
       emit('change', {
         prop: props.config?.prop ?? '',
         value: cloneValue,
       })
     }
     return () => {
-      return <div class={['BsTextarea', styles.width100]}>
+      return <div class={['bs-textarea', styles.width100]}>
+        {textModeFilter(props.textMode, props.modelValue, props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+        }),
         <dynamicTextarea
-          class="textarea"
           type='textarea'
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请输入${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           
@@ -60,7 +73,8 @@ export default defineComponent({
 
           {...props.config.nativeProps}
           onInput={updateValue}
-        />
+        />,
+        )}
       </div>
     }
   },

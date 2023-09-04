@@ -1,16 +1,16 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 09:56:21
- * @LastEditTime: 2023-07-03 16:09:56
+ * @LastEditTime: 2023-08-28 15:56:15
  * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
 import * as utils from '@/utils/common'
-import { checkboxProps } from '../interface/index'
+import type { checkboxProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
-
+import { textModeFilter, getOptionsLabel } from '../toolFn'
 
 export default defineComponent({
   name: 'BsCheckbox',
@@ -22,13 +22,17 @@ export default defineComponent({
       },
     },
     config: {
-      type: Object as PropType<Partial<checkboxProps>>,
+      type: Object as PropType<checkboxProps>,
       default() {
         return {}
       },
     },
+    textMode: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:value', 'change'],
   setup(props: any, { emit }) {
     const options = ref<any>([])
     const optionsLoading = ref<boolean>(false)
@@ -56,13 +60,29 @@ export default defineComponent({
 
     }, { immediate: true, deep: true })
 
+    /**
+     * @description: 获取选中得item
+     * @param {*} value 当前选择中得value
+     * @return any 选中得item
+     */
+    const getOption = (value: any) => {
+      try {
+        const optionArr = options.value.filter((option: any) => value?.includes(option.value)) ?? []
+        return optionArr
+      } catch (error) {
+        console.log(error)
+        return []
+      }
+    }
 
     function updateValue(value: any): void {
       emit('update:modelValue', value)
+      emit('update:value', value)
       emit('change', {
         prop: props.config?.prop ?? '',
         value,
         options,
+        curItem: getOption(value),
       })
     }
 
@@ -71,11 +91,20 @@ export default defineComponent({
       const { dynamicCheckBoxGroup, dynamicCheckBox, dynamicCheckBoxButton } = dynamicComponent
       // dynamicCheckBoxButton 只有element-plus有这个组件
       const componentInstance = props.config.showType === 'button' && CustomDynamicComponent.language === CustomDynamicComponent.eleLanguage ? dynamicCheckBoxButton : dynamicCheckBox
-      return <div class={['BsCheckbox', styles.width100]}>
+      return <div class={['bs-checkbox', styles.width100]}>
+        {textModeFilter(props.textMode, getOptionsLabel(getOption(props.modelValue)) ?? '', props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+          options: options.value,
+          curItem: getOption(props.modelValue),
+        }),
         <dynamicCheckBoxGroup
           loading={optionsLoading.value}
-          class="checkbox"
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
           clearable={props.config.clearable !== false}
@@ -100,7 +129,8 @@ export default defineComponent({
               </componentInstance>
             })
           }
-        </dynamicCheckBoxGroup>
+        </dynamicCheckBoxGroup>,
+        )}
       </div>
     }
   },

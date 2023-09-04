@@ -13,6 +13,7 @@ import BsText from './components/bsText'
 import BsTable from './components/bsTable'
 import BsButtons from './components/bsButtons'
 import BsCollapse from './components/bsCollapse'
+import BsEditTable from './components/bsEditTable'
 const components = [
   BsForm,
   BsCascader,
@@ -29,6 +30,7 @@ const components = [
   BsTable,
   BsButtons,
   BsCollapse,
+  BsEditTable,
 ] // 组件集合
 const install = function(Vue: any) {
   // 注册所有的组件
@@ -56,5 +58,9 @@ export * from './components/bsText'
 export * from './components/bsTable'
 export * from './components/bsButtons'
 export * from './components/bsCollapse'
+export * from './components/bsEditTable'
+export * from './components/bsDialog'
+export * from './components/bsFormDialog'
+export * from './components/bsListDialog'
 
 export default install

@@ -1,8 +1,8 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-04-08 13:49:50
- * @LastEditTime: 2023-08-17 17:09:54
- * @LastEditors: chenql
+ * @LastEditTime: 2023-09-01 09:25:55
+ * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, toRefs, reactive, ref, onMounted, PropType, watch } from 'vue'
@@ -120,7 +120,7 @@ export default defineComponent({
       { immediate: true, deep: true },
     )
 
-    const tableDom = ref(null)
+    const tableDom = ref()
 
     const radio = ref(undefined)
 
@@ -128,10 +128,10 @@ export default defineComponent({
     const pageInfo = reactive({
       pageIndex: clonePagingConfig.pageIndex,
       pageSize: clonePagingConfig.pageSize,
-      total: clonePagingConfig.total,
+      total: clonePagingConfig?.total,
     })
-    const list = ref([])
-    const reloadList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
+    const list = ref<{[key: string]: any}[]>([])
+    const getList = async({ pageIndex = pageInfo.pageIndex, pageSize = pageInfo.pageSize } : { pageIndex?: number, pageSize?: number } = {}) => {
       try {
         loading.value = true
         const result = await loadData.value({
@@ -139,8 +139,8 @@ export default defineComponent({
           pageSize,
         })
         if (result.success) {
-          list.value = result.list
-          pageInfo.total = result.total
+          list.value = result?.list ?? []
+          pageInfo.total = result?.total ?? 0
         }
         pageInfo.pageIndex = pageIndex
         pageInfo.pageSize = pageSize
@@ -152,7 +152,7 @@ export default defineComponent({
     }
     onMounted(function() {
       if (cloneTableConfig.ifInitLoadData) {
-        reloadList()
+        getList()
       }
     })
 
@@ -162,14 +162,14 @@ export default defineComponent({
       pageInfo.pageIndex = 1
       pageInfo.pageSize = val
       clonePagingConfig.pageSizeChange && clonePagingConfig.pageSizeChange(val)
-      reloadList()
+      getList()
     }
     // 当前页变化
     const handleCurrentChange = (val: number) => {
       console.log(`current page: ${val}`)
       pageInfo.pageIndex = val
       clonePagingConfig.pageIndexChange && clonePagingConfig.pageIndexChange(val)
-      reloadList()
+      getList()
     }
 
     // 勾选事件
@@ -181,23 +181,26 @@ export default defineComponent({
         cloneTableConfig.rowSelection.onChange(selection)
       }
     }
+    const clearSelection = () => {
+      selectedRow.value = []
+      tableDom.value.clearSelection()
+      if (cloneTableConfig.rowSelection && cloneTableConfig.rowSelection.onChange) {
+        cloneTableConfig.rowSelection.onChange([])
+      }
+    }
     // 动态改变表格数据
-    const setList = (data: []) => {
+    const setList = (data: {[key: string]: any}[]) => {
       list.value = data
     }
-    // 获取当前表格数据
-    const getList = () => {
-      return list.value
-    }
     expose({
-      selectedRow, reloadList, setList, getList, tableDom, list,
+      tableDom, list, selectedRow, getList, setList, clearSelection,
     })
 
     return () => {
       const dynamicComponent = new CustomDynamicComponent()
       const { dynamicTable, dynamicTableColumn, dynamicRadio, dynamicPagination } = dynamicComponent
       return (
-        <div class={[styles.BsTable]}>
+        <div class={['bs-table', styles.BsTable]}>
           <dynamicTable
             v-loading={loading.value}
             height="100%"
@@ -258,17 +261,18 @@ export default defineComponent({
           </dynamicTable>
           {
             clonePagingConfig.open && <div
+              class="bs-pagination"
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                padding: '15px 0',
+                paddingTop: '15px',
               }}
             >
               <dynamicPagination
                 current-page={pageInfo.pageIndex}
                 page-size={pageInfo.pageSize}
                 layout={defaultPagingConfig.layout}
-                total={pageInfo.total}
+                total={pageInfo?.total ?? 0}
                 background
                 {...clonePagingConfig.nativeProps}
                 onSizeChange={(val: any) => handleSizeChange(val)}
@@ -277,7 +281,11 @@ export default defineComponent({
                 // ant-ui相关属性
                 current={pageInfo.pageIndex}
                 onShowSizeChange={(current: number, size: number) => handleSizeChange(size)}
-                onChange={(page:number) => handleCurrentChange(page)}
+                {
+                  ...(CustomDynamicComponent.language === CustomDynamicComponent.antLanguage ? {  // onChange 在ele中会与onCurrentChange重复触发
+                    onChange: (page:number) => handleCurrentChange(page),
+                  } : {})
+                }
               />
             </div>
           }

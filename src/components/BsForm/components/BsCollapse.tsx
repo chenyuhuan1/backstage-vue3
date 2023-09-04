@@ -1,11 +1,11 @@
 /*
  * @Author: chenql
  * @Date: 2023-04-26 10:19:48
- * @LastEditors: chenql
- * @LastEditTime: 2023-08-08 20:18:44
+ * @LastEditors: 陈宇环
+ * @LastEditTime: 2023-08-15 10:54:01
  * @Descripttion: 表单手风琴
  */
-import { defineComponent, PropType, ref, toRef, toRefs } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { collapseProps } from '../interface'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
@@ -29,7 +29,7 @@ export default defineComponent({
     const activeKey = ref(props.modelValue ?? 0)
     return () => {
       return (
-        <div class={[styles.BaseCollapse]} style={{ width: '100%' }}>
+        <div class={['bs-collapse', styles.BaseCollapse]} style={{ width: '100%' }}>
           <dynamicCollapse
             accordion
             v-models={[

@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-15 17:30:23
- * @LastEditTime: 2023-07-03 16:08:12
+ * @LastEditTime: 2023-08-28 15:07:47
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -10,6 +10,7 @@ import * as utils from '@/utils/common'
 import { selectProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
+import { textModeFilter, getOptionsLabel } from '../toolFn'
 
 export default defineComponent({
   name: 'BsSelect',
@@ -19,13 +20,17 @@ export default defineComponent({
       default: '',
     },
     config: {
-      type: Object as PropType<Partial<selectProps>>,
+      type: Object as PropType<selectProps>,
       default() {
         return {}
       },
     },
+    textMode: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['update:modelValue', 'change', 'setProp2'],
+  emits: ['update:modelValue', 'update:value', 'change', 'setProp2'],
   setup(props: any, { emit }) {
     const { dynamicSelect, dynamicSelectOption } = new CustomDynamicComponent()
     const options = ref<any>([])
@@ -60,8 +65,10 @@ export default defineComponent({
     function updateValue(value: number | string | number|string[]) {
       if (value === '') {
         emit('update:modelValue', null)
+        emit('update:value', null)
       } else {
         emit('update:modelValue', value)
+        emit('update:value', value)
       }
       emit('change', {
         prop: props.config?.prop ?? '',
@@ -93,8 +100,13 @@ export default defineComponent({
      * @return any 选中得item
      */
     const getOption = (value: any) => {
-      const option = options.value.find((option: any) => option.value === value)
-      return option
+      if (props.config.multiple) {
+        const optionArr = options.value.filter((option: any) => value?.includes(option.value)) ?? []
+        return optionArr
+      } else {
+        const option = options.value.find((option: any) => option.value === value)
+        return option
+      }
     }
 
     // 远程搜索方法，必须将filterable、remote设置成true
@@ -112,11 +124,21 @@ export default defineComponent({
     }
 
     return () => {
-      return <div class={['BsSelect', styles.width100]}>
+      return <div class={['bs-select', styles.width100]}>
+        {textModeFilter(props.textMode, getOptionsLabel(getOption(props.modelValue)) ?? '', props.config.textModeRender && props.config.textModeRender({
+          value: props.modelValue,
+          options,
+          curItem: getOption(props.modelValue),
+        }),
         <dynamicSelect
           loading={optionsLoading.value}
-          class={['select', styles.width100]}
+          class={[styles.width100]}
+          /** ele 特有属性-start */
           model-value={props.modelValue}
+          /** ele 特有属性-end */
+          /** ant 特有属性 - start */
+          value={props.modelValue}
+          /** ant 特有属性 - end */
           placeholder={props.config.placeholder || `请选择${props.config?.label ?? ''}`}
           disabled={!!props.config.disabled}
 
@@ -163,7 +185,8 @@ export default defineComponent({
               </dynamicSelectOption>
             })
           }
-        </dynamicSelect>
+        </dynamicSelect>,
+        )}
       </div>
     }
   },

@@ -1,12 +1,23 @@
 /*
  * @Author: 陈宇环
  * @Date: 2023-01-03 10:56:12
- * @LastEditTime: 2023-06-30 16:35:28
+ * @LastEditTime: 2023-08-25 11:45:01
  * @LastEditors: 陈宇环
  * @Description: table+paging 接口定义
  */
 
 /** table配置参数 */
+
+/** table列配置 */
+export interface columnsConfigFace {
+  [index: number]: columnsItemConfig;
+}
+
+/** table数据获取函数接口 */
+export interface loadDataFace {
+  ({ pageIndex, pageSize }: { pageIndex: number, pageSize: number }): Promise<resultInt>
+}
+
 export interface tableConfigFace {
   /** 是否需要边框
    * @defaultValue false
@@ -24,18 +35,6 @@ export interface tableConfigFace {
   nativeProps?: {
     [key: string]: any
   }
-}
-
-/** table多选配置项 */
-export type rowSelectionFace = {
-  /** 多选或者单选 */
-  type: 'checkout' | 'radio',
-  /** 选择变化勾选变化事件 */
-  onChange:(selection?: any[]) => any,
-  /** 当前行勾选是否禁用 */
-  selectable?: (row:any, index:number) => boolean
-  /** ant-design-vue 属性兼容 */
-  [key: string]: any,
 }
 
 
@@ -65,11 +64,20 @@ export interface pagingConfigFace {
   }
 }
 
-/** table列配置 */
-export type columnsConfigFace = columnsItemConfig[]
+/** table多选配置项 */
+export type rowSelectionFace = {
+  /** 多选或者单选 */
+  type: 'checkout' | 'radio',
+  /** 选择变化勾选变化事件 */
+  onChange?:(selection?: any[]) => any,
+  /** 当前行勾选是否禁用 */
+  selectable?: (row:any, index:number) => boolean
+  /** ant-design-vue 属性兼容 */
+  [key: string]: any,
+}
 
 /** table列配置项item */
-export interface columnsItemConfig {
+export type columnsItemConfig = {
   /** key */
   prop?: string,
   /** 中文名称 */
@@ -96,16 +104,12 @@ export interface columnsItemConfig {
   }
 }
 
-
-/** table数据获取函数接口 */
-export type loadDataFace = ({ pageIndex, pageSize }: { pageIndex: number, pageSize: number }) => Promise<resultInt>
-
 /** table数据获取函数返回值校验 */
 export type resultInt = {
   /** 接口返回状态 */
   success: boolean,
   /** table数据列表 */
-  list: any[],
+  list?: any[],
   /** table数据总数 */
-  total: number
+  total?: number
 }

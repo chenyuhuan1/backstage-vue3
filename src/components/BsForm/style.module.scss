@@ -1,17 +1,28 @@
 .width100 {
+  flex: 1;
   width: 100% !important;
+}
+
+.BsForm {
+  // 可编辑表格校验失败时，table内所有控件都会标红，这里排除校验成功的
+  :global(.bs-edit-table .el-form-item.is-success .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset;
+  }
+  :global(.bs-edit-table .ep-form-item.is-success .ep-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--ep-input-border-color,var(--ep-border-color)) inset;
+  }
 }
 
 .BsNumber, .BsDateRange {
   width: 100%;
-  :global(.ep-input-number) {
+  :global(.el-input-number), :global(.ep-input-number) {
     width: 100%;
   }
-  :global(.ep-input-number .ep-input__wrapper) {
+  :global(.el-input-number .el-input__wrapper), :global(.ep-input-number .ep-input__wrapper) {
     padding-left: 11px !important;
     padding-right: 11px !important;
   }
-  :global(.textLeft .ep-input__inner) {
+  :global(.textLeft .el-input__inner), :global(.textLeft .ep-input__inner) {
     text-align: left;
   }
   :global(.ant-form-item-control-input-content) {
@@ -20,13 +31,8 @@
 }
 
 .BsNumberRange {
-  width: 100%;
-  display: flex;
-  .inputNumber {
-    flex: 1;
-  }
   .noControls {
-    :global(.ep-input__inner) {
+    :global(.el-input__inner), :global(.ep-input__inner) {
       text-align: left;
     }
   }
@@ -35,43 +41,12 @@
   }
 }
 
-.BsUpload {
-  .imgwrap {
-    .btn {
-      transform: scale(0.5);
-      display: none;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
-    &:hover {
-      .btn {
-        display: block;
-      }
-    }
-  }
-  .fileItem {
-    &:hover {
-      background: rgba(0,0,0, 0.1);
-    }
-  }
-  .elIconUploadDis {
-    width: 100%;
-    cursor: not-allowed;
-    :global(.ep-upload),
-    :global(.ep-upload--picture-card),
-    :global(.ep-upload-dragger) {
-      width: 100%;
-      cursor: not-allowed;
-    }
-  }
-}
 .BaseCollapse {
   :global{
-    .el-collapse-item__header, .el-collapse-item__wrap {
+    .el-collapse-item__header, .el-collapse-item__wrap, .ep-collapse-item__header, .ep-collapse-item__wrap {
       background-color: #f1f1f1;
     }
-    .el-collapse-item__content, .el-collapse-item__header {
+    .el-collapse-item__content, .el-collapse-item__header, .ep-collapse-item__content, .ep-collapse-item__header {
       padding: 0;
       padding-left: 10px;
     }
