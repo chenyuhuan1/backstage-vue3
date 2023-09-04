@@ -12,7 +12,7 @@ module.exports = {
     ],
   ],
   plugins: [
-    '@babel/transform-runtime',
+    '@babel/plugin-transform-runtime',
     [  // 本次增加
       'import',
       {  // 按需引入backstage-vue3组件
