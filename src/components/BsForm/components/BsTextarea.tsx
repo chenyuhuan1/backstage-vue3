@@ -1,13 +1,13 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 14:37:53
- * @LastEditTime: 2023-08-28 15:34:23
+ * @LastEditTime: 2023-09-07 10:27:03
  * @LastEditors: 陈宇环
  * @Description:
  */
 import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
-import { textareaProps } from '../interface/index'
+import type { textareaProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'
 

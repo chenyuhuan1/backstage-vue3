@@ -7,7 +7,7 @@
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
 import * as utils from '@/utils/common'
-import { cascaderProps } from '../interface/index'
+import type { cascaderProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'

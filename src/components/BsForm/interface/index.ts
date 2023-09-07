@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-05-30 14:29:12
- * @LastEditTime: 2023-08-28 15:11:27
+ * @LastEditTime: 2023-09-07 10:09:58
  * @LastEditors: 陈宇环
  * @Description: form表单相关接口定义
  */
@@ -29,16 +29,24 @@ export interface formConfig {
   isSearch?: boolean
   /** 搜索按钮点击触发函数 */
   searchFn?: (form: any) => any
+  /** 搜索按钮扩展属性 */
+  searchBtnProps?: Record<string, any>
   /** 是否需要导出按钮 */
   isExport?: boolean
   /** 搜索按钮点击触发函数 */
   exportFn?: (form: any) => any
+  /** 导出按钮扩展属性 */
+  exportBtnProps?: Record<string, any>
   /** 是否需要重置按钮 */
   isReset?: boolean
   /** 搜索按钮点击触发函数 */
   resetFn?: () => any
+  /** 重置按钮扩展属性 */
+  resetBtnProps?: Record<string, any>
   /** 是否需要展示/收起按钮 */
   isExpand?: boolean
+  /** 展开/收起按钮扩展属性 */
+  expandBtnProps?: Record<string, any>
   /** 附加操作按钮render */
   appendOpBtn?: () => any | void
   /** ui框架原生属性 */

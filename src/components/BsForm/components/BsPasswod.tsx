@@ -7,7 +7,7 @@
  */
 import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
-import { passwordProps } from '../interface/index'
+import type { passwordProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 
 export default defineComponent({

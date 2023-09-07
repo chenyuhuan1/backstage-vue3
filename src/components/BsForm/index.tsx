@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 17:13:23
- * @LastEditTime: 2023-08-22 14:55:02
+ * @LastEditTime: 2023-09-07 10:06:40
  * @LastEditors: 陈宇环
  * @Description: 表单组件
  */
@@ -361,6 +361,7 @@ export default defineComponent({
                       <dynamicButton
                         type="primary"
                         size="small"
+                        {...cloneConfig.searchBtnProps}
                         onClick={() => {
                           searchFn()
                         }}
@@ -372,6 +373,7 @@ export default defineComponent({
                       <dynamicButton
                         type="warning"
                         size="small"
+                        {...cloneConfig.resetBtnProps}
                         onClick={() => {
                           resetFn()
                         }}
@@ -383,6 +385,7 @@ export default defineComponent({
                       <dynamicButton
                         type="warning"
                         size="small"
+                        {...cloneConfig.exportBtnProps}
                         onClick={() => {
                           exportFn()
                         }}
@@ -394,6 +397,7 @@ export default defineComponent({
                       <dynamicButton
                         type="primary"
                         size="small"
+                        {...cloneConfig.expandBtnProps}
                         onClick={() => {
                           expandFn()
                         }}

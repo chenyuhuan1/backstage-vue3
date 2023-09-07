@@ -7,7 +7,7 @@
  */
 import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
-import { inputProps } from '../interface/index'
+import type { inputProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'
 

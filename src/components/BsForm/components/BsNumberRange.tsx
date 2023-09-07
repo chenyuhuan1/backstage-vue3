@@ -7,7 +7,7 @@
  */
 import { defineComponent, PropType, ref, watch } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
-import { numberRangeProps } from '../interface/index'
+import type { numberRangeProps } from '../interface/index'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'
 

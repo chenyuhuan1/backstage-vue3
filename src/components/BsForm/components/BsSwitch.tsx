@@ -6,7 +6,7 @@
  * @Description:
  */
 import { defineComponent, PropType } from 'vue'
-import { switchProps } from '../interface/index'
+import type { switchProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'

@@ -6,7 +6,7 @@
  * @Description: 'yearRange' | 'monthRange' | 'dateRange' | 'datetimeRange'组件
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
-import { dateRangeProps } from '../interface/index'
+import type { dateRangeProps } from '../interface/index'
 import dayjs from 'dayjs'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'

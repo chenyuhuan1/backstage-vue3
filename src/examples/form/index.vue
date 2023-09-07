@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-09-04 13:46:16
+ * @LastEditTime: 2023-09-07 10:28:30
  * @LastEditors: 陈宇环
  * @Description: 表单
 -->
@@ -154,6 +154,13 @@ const formCofing2 = ref<formConfig>({
   ],
   searchFn: () => {
     console.log(form2.value)
+  },
+  searchBtnProps: {
+    size: 'default',
+  },
+  resetBtnProps: {
+    size: 'default',
+    type: '',
   },
   resetFn: () => {
     console.log('resetFn')

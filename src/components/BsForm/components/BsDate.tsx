@@ -6,7 +6,7 @@
  * @Description:
  */
 import { defineComponent, watch, ref, PropType } from 'vue'
-import { dateProps } from '../interface/index'
+import type { dateProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import dayjs, { Dayjs } from 'dayjs'

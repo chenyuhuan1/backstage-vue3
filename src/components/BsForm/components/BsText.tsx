@@ -8,7 +8,7 @@
  */
 import { defineComponent, PropType } from 'vue'
 import styles from '@/components/BsForm/style.module.scss'
-import { textProps } from '../interface/index'
+import type { textProps } from '../interface/index'
 export default defineComponent({
   name: 'BsText',
   inheritAttrs: false,

@@ -2,11 +2,11 @@
  * @Author: chenql
  * @Date: 2023-04-26 10:19:48
  * @LastEditors: 陈宇环
- * @LastEditTime: 2023-09-01 11:19:55
+ * @LastEditTime: 2023-09-07 10:20:46
  * @Descripttion: 表单手风琴
  */
 import { defineComponent, PropType, ref } from 'vue'
-import { collapseProps } from '../interface'
+import type { collapseProps } from '../interface'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 
