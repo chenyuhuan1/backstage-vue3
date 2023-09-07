@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-09-01 16:36:08
+ * @LastEditTime: 2023-09-07 11:06:11
  * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
@@ -20,29 +20,9 @@
           v-model="form"
           class="BsForm"
           :config="config"
-        >
-          <template #slo>
-            <el-input
-              v-model="form.slo"
-              placeholder=""
-            />
-          </template>
-        </BsForm>
+        />
         <BsButtons
-          :buttons="[
-            {
-              text: '新增',
-              confirmConfig: {
-                title: '点击[审核]当前选择记录状态将变成:已审核，确定继续吗?',
-                nativeProps: {
-                  placement: 'top-start'
-                }
-              },
-              click: () => {
-                opFn()
-              },
-            }
-          ]"
+          :buttons="actions"
         />
       </template>
       <template #flex1>
@@ -60,7 +40,7 @@
 import { reactive, ref } from 'vue'
 import FullPageLayout from '@/layout/FullPageLayout.vue'
 import { ElInput } from 'element-plus'
-import { BsForm, BsTable, BsButtons, formConfig, loadDataFace, tableConfigFace, columnsConfigFace } from 'backstage-vue3'
+import { BsForm, BsTable, BsButtons, buttonFace, formConfig, loadDataFace, tableConfigFace, columnsConfigFace } from 'backstage-vue3'
 
 const opFn = () => {
   console.log(123123)
@@ -74,6 +54,21 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+
+const actions:buttonFace[] = [
+  {
+    text: '新增',
+    confirmConfig: {
+      title: '点击[审核]当前选择记录状态将变成:已审核，确定继续吗?',
+      nativeProps: {
+        placement: 'top-start',
+      },
+    },
+    click: () => {
+      opFn()
+    },
+  },
+]
 
 const form = ref<any>({ name1: '12312', date1: '2023-08-10', pass: '11', age: 3123, sex: 1, sex2: [2], sex4: 2, date11: ['2025-07', '2025-12'], date2: '2023-08-10', number2: 4123, cascader1: 'zhonghuamen1', test: '123123123123333', swi: true, date22: '2025-07', date33: '2025-12', date3: '2023-08-25', number3: 32513 })
 const config = reactive<formConfig>({
