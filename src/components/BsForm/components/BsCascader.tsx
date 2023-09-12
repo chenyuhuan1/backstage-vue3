@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-09-07 16:37:21
- * @LastEditTime: 2023-09-01 11:16:43
+ * @LastEditTime: 2023-09-12 20:04:05
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -11,6 +11,7 @@ import type { cascaderProps } from '../interface/index'
 import styles from '@/components/BsForm/style.module.scss'
 import { CustomDynamicComponent } from '@/components/CustomDynamicComponent'
 import { textModeFilter } from '../toolFn'
+import merge from 'lodash/merge'
 
 export default defineComponent({
   name: 'BsCascader',
@@ -144,13 +145,7 @@ export default defineComponent({
 
           /** ele 特有属性-start */
           model-value={props.modelValue}
-          props={Object.assign({
-            emitPath: (props.config.emitPath === true), // ===true时才会返回true
-            label: props.config.labelKey ?? 'label',
-            value: props.config.valueKey ?? 'value',
-            children: props.config.childrenKey ?? 'children',
-            multiple: props.config.multiple === true,
-          }, props.config?.nativeProps?.props)}
+
           show-all-levels={props.config?.showAllLevels !== false}  // ===false时才会返回false
           collapse-tags={props.config?.collapseTags !== false} // ===false时才会返回false
           collapse-tags-tooltip={typeof props.config?.collapseTagsTooltip !== 'undefined' ? props.config?.collapseTagsTooltip : props.config?.collapseTags} // ===false时才会返回false
@@ -162,6 +157,14 @@ export default defineComponent({
           /** ele 特有属性-end */
           
           {...props.config.nativeProps}
+          props={merge({}, {
+            emitPath: (props.config.emitPath === true), // ===true时才会返回true
+            label: props.config.labelKey ?? 'label',
+            value: props.config.valueKey ?? 'value',
+            children: props.config.childrenKey ?? 'children',
+            multiple: props.config.multiple === true,
+          }, props.config?.nativeProps?.props)}
+
           onChange={handleChange}
         >
         </dynamicCascader>,
