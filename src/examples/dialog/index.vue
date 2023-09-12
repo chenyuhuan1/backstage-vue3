@@ -5,7 +5,7 @@
       type="success"
       style="margin-bottom: 15px;"
     >
-      示例代码地址:<a href="https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/dialog/index.vue">https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/dialog/index.vue</a>
+      示例代码地址:<a href="https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/dialog/index.vue">https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/dialog/index.vue</a>
     </el-alert>
     <el-card
       shadow="always"

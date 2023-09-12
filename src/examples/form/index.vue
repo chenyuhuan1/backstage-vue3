@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-09-07 10:28:30
+ * @LastEditTime: 2023-09-08 09:49:35
  * @LastEditors: 陈宇环
  * @Description: 表单
 -->
@@ -11,7 +11,7 @@
     type="success"
     style="margin-bottom: 15px;"
   >
-    示例代码地址:<a href="https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/form/index.vue">https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/form/index.vue</a>
+    示例代码地址:<a href="https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/form/index.vue">https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/form/index.vue</a>
   </el-alert>
   <el-card
     shadow="always"

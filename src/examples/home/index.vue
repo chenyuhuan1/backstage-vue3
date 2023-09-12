@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈宇环
  * @Date: 2023-03-03 17:00:45
- * @LastEditTime: 2023-09-07 11:06:11
+ * @LastEditTime: 2023-09-08 09:50:55
  * @LastEditors: 陈宇环
  * @Description: 组件示例页面
 -->
@@ -12,7 +12,7 @@
       type="success"
       style="margin-bottom: 15px;"
     >
-      示例代码地址:<a href="https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/home/index.vue">https://github.com/chenyuhuan1/backstage-vue3/blob/master/src/examples/home/index.vue</a>
+      示例代码地址:<a href="https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/home/index.vue">https://gitee.com/chenyuhuan/backstage-vue3/blob/master/src/examples/home/index.vue</a>
     </el-alert>
     <FullPageLayout class="FullPageLayout">
       <template #autoStrut>
