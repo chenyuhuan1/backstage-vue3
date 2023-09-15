@@ -1,7 +1,7 @@
 /*
  * @Author: 陈宇环
  * @Date: 2022-12-20 09:56:21
- * @LastEditTime: 2023-09-01 11:19:14
+ * @LastEditTime: 2023-09-15 11:08:08
  * @LastEditors: 陈宇环
  * @Description:
  */
@@ -118,6 +118,7 @@ export default defineComponent({
               return  <componentInstance
                 key={item.value + '_' + index}
                 label={item.value}
+                disabled={item.disabled}
                 {...props.config.nativeProps}
                 v-slots={props.config.format ? {
                   default: () => {
